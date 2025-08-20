@@ -54,13 +54,17 @@ TABLE OF CONTENT
   --ui-color-n-900: #1a1a1a;
   --ui-color-n-100: #2a3e98;
   --ui-color-n-p: #faa2c1ef;
-  --ui-color-n-g: #2a3e98ea;
+  --ui-color-n-g: #2a3e98;
+  --ui-color-n-y: #EBDB71;
 
   /* BACKGROUND COLOR */
   
   --ui-color-background-primary  : var(--ui-color-n-000);
   --ui-color-background-secondary: var(--ui-color-n-050);
   --ui-color-background-tertiary : var(--ui-color-n-025);
+  --ui-color-background-blue : var(--ui-color-n-100);
+  --ui-color-background-pink : var(--ui-color-n-p);
+
 
   /* TYPOGRAPHY COLOR */
 
@@ -88,6 +92,7 @@ TABLE OF CONTENT
   --ui-typography-h1: 1.5375rem;
   --ui-typography-h2: 1.2rem;
   --ui-typography-h3: 1.5rem;
+  --ui-typography-h4: 20rem;
   --ui-typography-p : .9125rem;
   --ui-typography-s : .8125rem;
   --ui-typography-b : 1.2rem;
@@ -218,15 +223,15 @@ h2{
 
 h3 {
   font-family: "Viaoda Libre", serif;
-  font-size: 16rem;
+  font-size: var(--ui-typography-h4);
   color: var(--ui-color-typography-h3);
   margin-bottom: var(--ui-typography-margin-heading);
 }
 
-h4 {
+.title_index h4 {
   font-family: "Viaoda Libre", serif;
   font-weight: 9rem;
-  font-size: 17rem;
+  font-size: var(--ui-typography-h4);
   position: center;
   color: var(--ui-color-typography-h4);
   margin-bottom: var(--ui-typography-margin-heading);
@@ -266,6 +271,7 @@ svg {
   height: auto;
   margin: 0 auto;
   max-width: 100%;
+  pointer-events: none;
 }
 
 /*--------------------------------------------------------------
@@ -511,6 +517,7 @@ img.align-right {
   }
 
 
+
   /* styles
   --------------------------------------------- */
 
@@ -537,7 +544,7 @@ img.align-right {
     text-align: center;
     position: absolute;
     left: 50%;
-    top: 92%;
+    top: 91%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
   }
@@ -563,6 +570,7 @@ img.align-right {
 
   #group3 {
     z-index: 4; /* slide over group 2 and 4 */
+    height: 105vh;
   }
   #group3 .parallax__layer--base {
     background: var(--ui-color-n-000);
