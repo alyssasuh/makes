@@ -636,9 +636,9 @@ img.align-right {
 
     height: 120vh;
   }
-  #group2 .parallax__layer--back {
+    #group2 .parallax__layer--back {
     background: var(--ui-color-n-400);
-    background-image: url("/Users/alyssasuh/Documents/Github/makes/Fabrication.png");
+    background-image: url("Fabrication.png");
     background-size: cover; 
   }
 
