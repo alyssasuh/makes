@@ -53,12 +53,13 @@ TABLE OF CONTENT
   --ui-color-n-300: #aeaeae;
   --ui-color-n-500: #353535;
   --ui-color-n-900: #1a1a1a;
-  --ui-color-n-400: #f6df85;
+  --ui-color-n-400: #334392;
   --ui-color-n-100: #ffa0c1;
   --ui-color-n-p: #f9db65;
   --ui-color-n-g: #28367b;
   --ui-color-n-y: #f584ac;
   --ui-color-n-new: #161616;
+  --ui-color-n-about_background: #fbe27e;
 
   /* BACKGROUND COLOR */
   
@@ -81,8 +82,8 @@ TABLE OF CONTENT
   --ui-color-typography-blue: var(--ui-color-brand);
   --ui-color-typography-secondary: var(--ui-color-n-100);
 
-  --ui-color-typography-h3: var(--ui-color-n-100);
-  --ui-color-typography-h4: var(--ui-color-n-g);
+  --ui-color-typography-h3: var(--ui-color-n-400);
+  --ui-color-typography-h4: var(--ui-color-n-500);
 
   /*------------------------------------------------------------
   |
@@ -229,7 +230,7 @@ h2,{
 }
 
 h3 {
-  font-family: "Roboto", sans-serif;
+  font-family: "Viaoda Libre", serif;
   font-weight: 498;
   font-style: normal;
   font-variation-settings:
@@ -537,7 +538,7 @@ img.align-right {
 
   .parallax {
     /* Fill the viewport and allow full content to scroll */
-    height: 80vh;
+    height: 89vh;
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-perspective: 300px;
@@ -611,6 +612,17 @@ img.align-right {
     transform: translate(-50%, -50%);
   }
 
+  /* Enhance readability of titles over images: subtle text shadow + backdrop */
+  .title h3 {
+    color: var(--ui-color-typography-h3);
+    /* text-shadow: 0 10px 2px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0,0,0,0.1); */
+    -webkit-text-stroke: 0.5px rgba(255,255,255,0.06);
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    background: rgba(255,255,255,0.02); /* tiny backdrop to separate from busy imagery */
+    border-radius: 0.25rem;
+  }
+
   .title_index {
     text-align: center;
     position: absolute;
@@ -625,7 +637,7 @@ img.align-right {
 
   #group1 {
     z-index: 5; /* slide over group 2 */
-    height: 65vh;
+    height: 57vh;
   }
   #group1 .parallax__layer--base {
     background: var(--ui-color-background-primary);
@@ -634,12 +646,29 @@ img.align-right {
   #group2 {
     z-index: 3; /* slide under groups 1 and 3 */
 
-    height: 120vh;
+    height: 73vh;
   }
     #group2 .parallax__layer--back {
-    background: var(--ui-color-n-400);
+    background: var(--ui-color-n-about_background);
     background-image: url("Fabrication.png");
     background-size: cover; 
+    background-position: center calc(49% - .3rem
+    );
+  }
+
+  /* Decorative image placed on group2 base layer */
+  #group2 .parallax__layer--base .group2-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 5;
+    pointer-events: none;
+    /* Optional: uncomment for subtle darkening
+    filter: brightness(0.95); */
   }
 
   #group3 {
