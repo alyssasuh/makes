@@ -19,75 +19,215 @@
     <!-- LINK -->
     <link rel="me" href="#">
     <link rel="canonical" href="#">
-    <link rel="icon" type="image/png" href="#" sizes="48x48">
+    <link rel="icon" type="image/png" href="favicon.png">
     <!-- PERFORMANCE -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: { extend: { screens: { xl2: '1200px' } } }
+      }
+    </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const header = document.getElementById('siteHeader');
+        const scrollRoot = document.querySelector('main');
+
+        if (!header || !scrollRoot) return;
+
+        // pick the band we care about: top 10rem of the viewport
+        const rem = () => parseFloat(getComputedStyle(document.documentElement).fontSize);
+        const probeY = () => Math.max(1, Math.round(10 * rem())); // ≈ 10rem from top
+
+        function updateHeader() {
+          // Center X so we ignore side gutters
+          const x = Math.round(window.innerWidth / 2);
+          const y = probeY();
+
+          // Which element is directly behind the header band?
+          const el = document.elementFromPoint(x, y);
+          const slide = el ? el.closest('.second-slide, .third-slide') : null;
+
+          header.classList.remove('header--alt', 'header--alt2');
+
+          if (slide?.classList.contains('second-slide')) {
+            header.classList.add('header--alt');
+          } else if (slide?.classList.contains('third-slide')) {
+            header.classList.add('header--alt2');
+          }
+          // else: header returns to default styling
+        }
+
+        // Update on scroll + resize + load
+        const onScroll = () => requestAnimationFrame(updateHeader);
+        scrollRoot.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', updateHeader);
+        updateHeader();
+      });
+    </script>
+
+
     <link rel="preload" as="style" href="style.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- TITLE -->
     <title>Project Portfolio</title>
   </head>
 
-  <body>
-    <div class="relative">
-      <div class="sticky top-0 h-screen flex flex-col">
-        <header role="banner" class="ui-section-header">
-          <div class="ui-layout-container">
-            <div class="ui-section-header__layout ui-layout-flex">
-              <!-- LOGO -->
-                <a href="#" role="link" aria-label="#">
-                  <span class="viaoda-libre-regular">EUNGYO</span><span class="roboto">STUDIOS</span>
-                </a>
-              <!-- MENU -->
-              <div class="button-container">
-                <div class="dropdown">
-                  <a href="projects/projects.html" role="link" aria-label="View Projects Page">
-                    <span class="reenie-button">Projects</span>
-                  </a>
-                  <div class="dropdown-content">
-                      <a href="#">Link 1</a>
-                      <a href="#">Link 2</a>
-                      <a href="#">Link 3</a>
-                  </div>
-                </div>
-                <a href="about/about.html" role="link" aria-label="Learn More About Me">
-                  <span class="reenie-button">About Me</span>
-                </a>
+  <header role="banner" id="siteHeader" class="fixed top-0 inset-x-0 z-[50]">
+    <div class="ui-section-header">
+      <div class="ui-layout-container">
+        <div class="ui-section-header__layout ui-layout-flex">
+          <!-- LOGO -->
+          <a href="/Users/alyssasuh/Documents/Github/makes/index.html" aria-label="Home" class="logo">
+            <span class="viaoda-libre-regular logo-part">EUNGYO</span>
+            <span class="roboto logo-part">STUDIOS</span>
+          </a>
+          <!-- MENU -->
+          <div class="button-container">
+            <div class="dropdown">
+              <a href="projects/projects.html" role="link" aria-label="View Projects Page" >
+                <span class="reenie-button logo-button">Projects</span>
+              </a>
+              <div class="dropdown-content">
+                  <a href="#">Link 1</a>
+                  <a href="#">Link 2</a>
+                  <a href="#">Link 3</a>
+              </div>
             </div>
-          </div>
-        </header>
-        <section class="ui-section-hero">
-          <div class="ui-layout-container">
-            <div class="ui-component-cta ui-layout-flex">
-            <!-- IMAGE -->
-            <img src="/Users/alyssasuh/Documents/Github/makes/logo.png" loading="lazy" alt="#" class="ui-section" width="700px" height="auto">
-            <div class="ui-layout-column-6 ui-layout-column-center">
-              <div class ="title_index">
-                <h4>Portfolio.</h4>
-              </div>
-              <!-- <p class="ui-text-intro">Hello! Welcome to my webpage, where I have compiled some of my work throughout the past couple years.</p> -->
-              <!-- CTA -->
-                </div>
-              </div>
-          </div>
-        </section>
-      </div>
-      <div class="sticky top-0 h-screen flex flex-col items-center justify-center bg-[var(--ui-color-background-blue)] text-white">
-        <h2>The Second slide</h2>
-        <p>Scroll Down for next slide</p>
-      </div>
-      <div class="sticky top-0 h-screen flex flex-col items-center justify-center bg-[var(--ui-color-background-primary)] text-white">
-        <h2>The Third slide</h2>
-        <p>Scroll Down</p>
-      </div>
-      <div class="sticky top-0 h-screen flex flex-col items-center justify-center bg-[var(--ui-color-background-pink)] text-black">
-        <h2>The Fourth slide</h2>
+            <a href="about/about.html" role="link" aria-label="Learn More About Me">
+              <span class="reenie-button logo-button">About Me</span>
+            </a>
+        </div>
       </div>
     </div>
+  </header>
+
+  <body>
+    <main class="h-[calc(100svh)] overflow-y-auto overflow-x-hidden snap-y scroll-smooth" style="scroll-snap-type: y proximity; scroll-padding-top: 100pxpx;">
+      <div class="relative">
+        <div class="sticky snap-start top-0 h-screen z-0 flex flex-col main">
+          <section class="ui-section-hero">
+            <div class="ui-layout-container">
+              <div class="ui-component-cta ui-layout-flex">
+              <!-- IMAGE -->
+              <img src="/Users/alyssasuh/Documents/Github/makes/logo.png" loading="lazy" alt="#" class="ui-section " width="680px" height="auto" style="margin-top:10%;">
+              <div class="ui-layout-column-6 ui-layout-column-center">
+                <div class ="title_index">
+                  <h4>Portfolio.</h4>
+                </div>
+                <!-- <p class="ui-text-intro">Hello! Welcome to my webpage, where I have compiled some of my work throughout the past couple years.</p> -->
+                <!-- CTA -->
+                  </div>
+                </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="sticky snap-start top-0 h-screen z-0 flex flex-col items-center justify-center bg-[var(--ui-color-background-blue)] text-white first-slide">
+          <div class= "mx-auto px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem]">
+            <div class="ui-layout-container">
+              <div class="ui-section-feature__layout ui-layout-grid ui-layout-grid-2-3 items-center">
+                <div class="w-full h-full flex items-center justify-center">
+                  <img
+                    src="/Users/alyssasuh/Documents/Github/makes/scroll_main1.png"
+                    alt="Scroll main"
+                    class="w-full h-auto max-h-[80vh] object-contain"
+                  />
+                </div>
+                
+                <!-- FEATURE -->
+                <div>
+                  <h2 class="text-7xl font-[var(--ui-typography-roboto)] text-[var(--ui-color-typography-heading)] mb-4">
+                    MODELING THE HUMAN EAR
+                  </h2>
+                  <a href="/Users/alyssasuh/Documents/Github/makes/CellMorphology/cellmorphology.html" role="link">
+                    <p class="ui-text-intro text-[var(--ui-color-typography-heading)] transform hover:translate-x-4 active:translate-x-6">
+                      Air conducted sound transmission is a
+                    </p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sticky snap-start top-0 h-screen z-0 flex flex-col items-center justify-center bg-[var(--ui-color-background-primary)] text-white second-slide">
+          <div class= "mt-32 mx-auto px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem]">
+            <div class="ui-layout-container">
+              <div class="ui-section-feature__layout ui-layout-grid ui-layout-grid-2-3">
+                <div id="carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                  <div class="carousel-inner" style="max-width:75rem; margin:auto;">
+                    <div class="carousel-item active" data-bs-interval="1000">
+                      <img class="d-block" src="/Users/alyssasuh/Documents/Github/makes/cell_images/EvosImage_40x_DAPI.jpg" alt="First slide">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="1000">
+                      <img class="d-block" src="/Users/alyssasuh/Documents/Github/makes/cell_images/EvosImage_40x_GFP.jpg" alt="Second slide">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="1000">
+                      <img class="d-block" src="/Users/alyssasuh/Documents/Github/makes/cell_images/EvosImage_40x_TX.jpg" alt="Third slide">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="1000">
+                      <img class="d-block" src="/Users/alyssasuh/Documents/Github/makes/cell_images/EvosImage_40x.jpg" alt="Third slide">
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h2 class="text-7xl font-[var(--ui-typography-roboto)] text-[var(--ui-color-typography-heading)] mb-4">CELL ENGINEERING</h2>
+                  <a href="/Users/alyssasuh/Documents/Github/makes/CellMorphology/cellmorphology.html" role="link">
+                    <p class="ui-text-intro text-[var(--ui-color-typography-heading)] transition transform hover:translate-x-4 active:translate-x-6">
+                    The scope of bioengineering can span many scales— but what happens when we focus on fabrication at the level of individual cells? 
+                    Pictured on the right is an immunofluorescent image stack of cells patterned into triangles using microcontact printing. 
+                    For my final project in my Cellular Engineering class, I investigated collective cell migration during gap closure...
+                    <br><br>
+                    read more >>
+                    </p>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- <h2>The Second slide</h2>
+            <img src="/Users/alyssasuh/Documents/Github/makes/scroll_main1.png"/>
+            <p>Scroll Down for next slide</p> -->
+          </div>
+        </div>
+        <div class="sticky snap-start top-0 h-screen z-0 flex flex-col items-center justify-center bg-[var(--ui-color-background-pink)] text-black">
+          <div class= "mx-auto px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem]">
+            <div class="ui-layout-container">
+              <div class="ui-section-feature__layout ui-layout-grid ui-layout-grid-2-3 items-center">
+                <div class="w-full h-full flex items-center justify-center">
+                  <img
+                    src="/Users/alyssasuh/Documents/Github/makes/extendoarm.png"
+                    alt="Scroll main"
+                    class="w-full h-auto max-h-[80vh] object-contain"
+                  />
+                </div>
+                
+                <!-- FEATURE -->
+                <div>
+                  <h2 class="text-7xl font-[var(--ui-typography-roboto)] text-[var(--ui-color-typography-heading)] mb-4">
+                    CO-CONTRACTION EXTENDO ARM
+                  </h2>
+                  <a href="/Users/alyssasuh/Documents/Github/makes/CellMorphology/cellmorphology.html" role="link">
+                    <p class="ui-text-intro text-[var(--ui-color-typography-heading)] transform hover:translate-x-4 active:translate-x-6">
+                      There is increasing interest in human augmentation, but does the human brain have the capacity to control an additional limb? 
+                      As a final project for my Biomechanics class, our team designed a lightweight, forearm-mounted extendable arm. 
+                      The device is intuitively controlled via muscle co-contraction, allowing for seamless use without compromising existing degrees of freedom...
+                      <br><br>
+                      read more >>
+                    </p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   </body>
 </html>
 

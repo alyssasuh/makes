@@ -15,7 +15,8 @@ TABLE OF CONTENT
 |  6.3 LIST
 |  6.4 DROPDOWN MENU
 |  6.5 SCROLL ABOUT
-|  6.6 SCROLL MAIN
+|  6.6 SCROLL GALLERY
+|  6.7 LOGO COLOR CHANGE
 7.0 SECTION
 |  7.1 HEADER
 |  7.2 HERO
@@ -52,10 +53,12 @@ TABLE OF CONTENT
   --ui-color-n-300: #aeaeae;
   --ui-color-n-500: #353535;
   --ui-color-n-900: #1a1a1a;
-  --ui-color-n-100: #2a3e98;
-  --ui-color-n-p: #faa2c1ef;
-  --ui-color-n-g: #2a3e98;
-  --ui-color-n-y: #EBDB71;
+  --ui-color-n-400: #f6df85;
+  --ui-color-n-100: #ffa0c1;
+  --ui-color-n-p: #f9db65;
+  --ui-color-n-g: #28367b;
+  --ui-color-n-y: #f584ac;
+  --ui-color-n-new: #161616;
 
   /* BACKGROUND COLOR */
   
@@ -63,7 +66,9 @@ TABLE OF CONTENT
   --ui-color-background-secondary: var(--ui-color-n-050);
   --ui-color-background-tertiary : var(--ui-color-n-025);
   --ui-color-background-blue : var(--ui-color-n-100);
-  --ui-color-background-pink : var(--ui-color-n-p);
+  --ui-color-background-pink : var(--ui-color-n-g);
+  --ui-color-background-yellow : var(--ui-color-n-y);
+  --ui-color-typography-new: var(--ui-color-n-new);
 
 
   /* TYPOGRAPHY COLOR */
@@ -72,11 +77,11 @@ TABLE OF CONTENT
   --ui-color-typography-body   : var(--ui-color-n-900);
   --ui-color-typography-note   : var(--ui-color-n-300);
   --ui-color-typography-button : var(--ui-color-n-000);
-  --ui-color-typography-logo: var(--ui-color-n-100);
+  --ui-color-typography-logo: var(--ui-color-n-900);
   --ui-color-typography-blue: var(--ui-color-brand);
   --ui-color-typography-secondary: var(--ui-color-n-100);
 
-  --ui-color-typography-h3: var(--ui-color-n-p);
+  --ui-color-typography-h3: var(--ui-color-n-100);
   --ui-color-typography-h4: var(--ui-color-n-g);
 
   /*------------------------------------------------------------
@@ -86,6 +91,7 @@ TABLE OF CONTENT
   ------------------------------------------------------------*/
 
   --ui-typography-typeface: "Inter", sans-serif;
+  --ui-typography-roboto: "Roboto", sans-serif;
 
   /* FONT SIZE */
 
@@ -94,7 +100,7 @@ TABLE OF CONTENT
   --ui-typography-h3: 1.5rem;
   --ui-typography-h4: 20rem;
   --ui-typography-p : .9125rem;
-  --ui-typography-s : .8125rem;
+  --ui-typography-s : .6125rem;
   --ui-typography-b : 1.2rem;
   --ui-typography-logo: 2rem;
 
@@ -190,7 +196,8 @@ body {
 
 .text-intro { 
   font-family: var(--ui-typography-typeface);
-  font-size: var(--ui-typography-p); 
+  font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+  line-height: 1.6;
 }
 
 .noto-serif-kr-h3 {
@@ -216,13 +223,17 @@ p,
 ul { margin-top: 0; }
 
 h1,
-h2{
+h2,{
   color: var(--ui-color-typography-secondary);
   margin-bottom: var(--ui-typography-margin-heading);
 }
 
 h3 {
-  font-family: "Viaoda Libre", serif;
+  font-family: "Roboto", sans-serif;
+  font-weight: 498;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
   font-size: var(--ui-typography-h4);
   color: var(--ui-color-typography-h3);
   margin-bottom: var(--ui-typography-margin-heading);
@@ -238,6 +249,7 @@ h3 {
   /* padding-left: var(--ui-layout-container);
   padding-right: var(--ui-layout-container); */
 }
+
 
 h1{
   font-size: var(--ui-typography-h1);
@@ -256,6 +268,11 @@ strong { font-weight: 700; }
 
 small { font-size: var(--ui-typography-s); }
 
+.small{
+  font-size: var(--ui-typography-s); 
+  color: var(--ui-color-background-blue)
+}
+
 .ui-text-note {
   color: var(--ui-color-typography-note);
   line-height: 1;
@@ -273,6 +290,27 @@ svg {
   max-width: 100%;
   pointer-events: none;
 }
+
+.circle {
+ height: 30rem;
+ width: 30rem;
+ overflow: hidden;
+}
+
+.carousel-caption-overlay {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 90%;
+  color: white;
+  text-align: center;
+  font-style: italic;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
 
 /*--------------------------------------------------------------
 5.0 LAYOUT
@@ -367,8 +405,8 @@ img.align-right {
 .reenie-button:hover {
   display: block;
   color: var(--ui-color-typography-note);
-  transform: translateY(-2px)
-  /* font-size: var(--ui-typography-b_Hover); */
+  transform: translateY(-2px) scale(1.10);
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
 /*--------------------------------------------------------------
@@ -416,15 +454,15 @@ img.align-right {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: var(--ui-color-background-primary);
+  background-color: #fdfcf738;;
   min-width: 120px;
-  box-shadow: 0 2px 5px  rgba(43, 43, 43, 0.2);
+  box-shadow: 0 2px 5px  rgba(43, 43, 43, 0.071);
   z-index: 1;
 }
 
 /* Links inside the dropdown */
 .dropdown-content a {
-  color: rgb(154, 151, 151);
+  color: rgba(154, 151, 151, 0.53);
   padding: 12px 16px;
   font-family: "Reenie Beanie", cursive;
   font-size: 2rem; 
@@ -434,7 +472,7 @@ img.align-right {
 }
 
 .dropdown-content a:hover {
-  background-color: #ddd;
+  background-color: #dddddd65;
   color: var(--ui-color-typography-logo);
 }
 
@@ -461,6 +499,36 @@ img.align-right {
   right: var(--ui-layout-container);
 }
 
+/* Extra breathing room after intro paragraph on About page */
+.about-me-fixed .text-intro {
+  margin-bottom: 2.5rem !important;
+}
+
+/* ---------- About hero with overlay title ---------- */
+.about-hero {
+  position: relative;
+  width: 100%;
+  line-height: 0; /* remove inline-gap */
+}
+
+.about-hero > .ui-layout-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(1rem, 4vw, 2rem);
+  pointer-events: none;
+}
+
+.about-hero__title {
+  position: relative;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 7;
+  font-size: clamp(2rem, 8vw, 6rem);
+  letter-spacing: 0.02em;
+}
+
 @import "compass/css3";
 
 
@@ -468,12 +536,15 @@ img.align-right {
   --------------------------------------------- */
 
   .parallax {
+    /* Fill the viewport and allow full content to scroll */
     height: 80vh;
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-perspective: 300px;
     -webkit-overflow-scrolling: touch;
     perspective: 300px;
+    /* Extra breathing room so the last section can fully clear */
+    padding-bottom: 6rem;
   }
 
   .parallax__group {
@@ -554,6 +625,7 @@ img.align-right {
 
   #group1 {
     z-index: 5; /* slide over group 2 */
+    height: 65vh;
   }
   #group1 .parallax__layer--base {
     background: var(--ui-color-background-primary);
@@ -561,26 +633,79 @@ img.align-right {
 
   #group2 {
     z-index: 3; /* slide under groups 1 and 3 */
+
+    height: 120vh;
   }
   #group2 .parallax__layer--back {
-    background: var(--ui-color-n-100);
+    background: var(--ui-color-n-400);
     background-image: url("/Users/alyssasuh/Documents/Github/makes/Fabrication.png");
     background-size: cover; 
   }
 
   #group3 {
     z-index: 4; /* slide over group 2 and 4 */
-    height: 105vh;
+    height: 120vh;
   }
   #group3 .parallax__layer--base {
     background: var(--ui-color-n-000);
   }
 
+
 /*--------------------------------------------------------------
 |
-| 6.6 SCROLL MAIN
+| 6.6 SCROLL GALLERY
 |
 --------------------------------------------------------------*/
+div.scroll-container {
+  overflow: auto;
+  white-space: nowrap;
+  padding: 10px;
+}
+
+div.scroll-container img {
+  padding: 10px;
+}
+
+::-webkit-scrollbar {
+  display: none;
+  width: 0; /* Ensures no width is reserved for the scrollbar */
+  height: 0; /* Ensures no height is reserved for the scrollbar in horizontal scrolling */
+}
+
+/*--------------------------------------------------------------
+|
+| 6.7 LOGO COLOR CHANGE
+|
+--------------------------------------------------------------*/
+
+/* default logo color */
+#siteHeader .logo-part {
+  color: var(--ui-color-typography-logo);
+}
+
+/* default logo color */
+#siteHeader .logo-button {
+  color: var( --ui-color-typography-logo);
+}
+
+/* when the header is over the second slide, flip color */
+#siteHeader.header--alt .logo-part {
+  color: var(--ui-color-background-logo) !important;
+}
+
+/* when the header is over the second slide, flip color */
+#siteHeader.header--alt .logo-button {
+  color: var(--ui-color-n-logo) !important;
+}
+
+#siteHeader.header--alt2 .logo-part {
+  color: var(--ui-color-typography-heading) !important; /* <--- another color for 3rd slide */
+}
+
+#siteHeader.header--alt2 .logo-button {
+  color: var(--ui-color-typography-heading) !important;
+}
+
 
 
 /*--------------------------------------------------------------
@@ -615,18 +740,29 @@ img.align-right {
   font-weight: 400; 
   font-style: normal; 
   font-size: var(--ui-typography-logo); 
-  color: var(--ui-color-typography-logo); 
+  color: var(--ui-color-typography-heading); 
 }
 
-  .roboto { 
-    font-family: "Roboto", sans-serif; 
-    font-optical-sizing: auto; 
-    font-weight: 498; 
-    font-style: normal; 
-    font-variation-settings: "wdth" 100; 
-    font-size: var(--ui-typography-logo); 
-    color: var(--ui-color-typography-logo); 
-  }
+.roboto { 
+  font-family: "Roboto", sans-serif; 
+  font-optical-sizing: auto; 
+  font-weight: 498; 
+  font-style: normal; 
+  font-variation-settings: "wdth" 100; 
+  font-size: var(--ui-typography-logo); 
+  color: var(--ui-color-typography-heading); 
+}
+
+.roboto-header-dark { 
+  top: 20%;
+  font-family: "Roboto", sans-serif; 
+  font-optical-sizing: auto; 
+  font-weight: 498; 
+  font-style: normal; 
+  font-variation-settings: "wdth" 100; 
+  font-size: var(--ui-typography-h1); 
+  color: var(--ui-color-typography-heading); 
+}
 
 /*--------------------------------------------------------------
 |
@@ -683,7 +819,15 @@ img.align-right {
   padding-top: 1rem;
 }
 
-.ui-section-feature__layout { row-gap: var(--ui-gap-feature); }
+.ui-section-feature__layout { 
+  row-gap: var(--ui-gap-feature);
+  column-gap: clamp(2rem, 5vw, 3rem) !important;
+}
+
+/* Ensure gap between carousel and text on all screen sizes */
+.ui-section-feature__layout > div:first-child {
+  margin-bottom: 2rem;
+}
 
 .ui-section-feature__layout:nth-of-type(odd) div {
   grid-row-start: 1;
@@ -755,7 +899,7 @@ img.align-right {
 
 .ui-section-footer--copyright { 
   margin-bottom: 0;
-  align: center; 
+  text-align: center; 
 }
 
 .ui-section-footer--nav {
@@ -792,7 +936,7 @@ img.align-right {
     --ui-typography-h1: 2.1875rem;
     --ui-typography-h2: 1.75rem;
     --ui-typography-p : 1.3rem;
-    --ui-typography-s : .875rem;
+    --ui-typography-s : .675rem;
     --ui-typography-b : 2rem;
     --ui-typography-logo: 2.5rem;
 
@@ -833,6 +977,8 @@ img.align-right {
 
   .ui-image-half-right-about {
     padding-left: var(--ui-layout-gutter);
+    align-self: flex-start;
+    margin-top: 0;
   }
 
 
@@ -854,11 +1000,21 @@ img.align-right {
     justify-items: center;
   }
 
-  .ui-layout-grid-2-1 {
+  .ui-layout-grid-2-3{
+    column-gap: clamp(2rem, 10vw, 3rem);
+    grid-template-columns: 2fr 1fr;
+    justify-items: center;
+  }
+
+  .ui-layout-grid-2-3--image{
+    width: 4rem;
+  }
+
+  /* .ui-layout-grid-2-1 {
     column-gap: var(--ui-layout-gutter);
     grid-template-columns: repeat(2, 1fr);
     justify-items: left;
-  }
+  } */
 
   .ui-layout-column-4 {
     width: calc((var(--ui-layout-grid) * 4) +
@@ -897,7 +1053,7 @@ img.align-right {
 
   .ui-section-header,
   .ui-about-header {
-    background-color: var(--ui-color-background-primary);
+    /* background-color: var(--ui-color-background-primary); */
     padding-top: 4vh;
   /* padding-bottom: 2vh; */
 }
@@ -1028,9 +1184,9 @@ img.align-right {
 
     --ui-typography-h1: 2.75rem;
     --ui-typography-h2: 2.1875rem;
-    --ui-typography-p: 1.2rem;
+    --ui-typography-p: 1.4rem;
 
-    --ui-typography-s : 1rem;
+    --ui-typography-s : .8rem;
     --ui-typography-b : 2.3rem;
     --ui-typography-logo: 4rem;
 
@@ -1101,7 +1257,7 @@ img.align-right {
   ------------------------------------------------------------*/
 
    .ui-section-header {
-    align:right;
+    text-align:right;
     padding-top: 4vh;
     /* padding-bottom: 2vh; */
   }
@@ -1207,3 +1363,27 @@ img.align-right {
   }
 
 }
+
+/* Responsive scaling for main page headings and paragraphs */
+/* Override Tailwind's text-7xl with responsive sizing */
+main .text-7xl {
+  font-size: clamp(2rem, 6vw, 4.5rem) !important;
+  line-height: 1.1 !important;
+}
+
+main .ui-text-intro {
+  font-size: clamp(0.875rem, 1.5vw, 1.125rem) !important;
+  line-height: 1.6 !important;
+}
+
+/* Fallback for any h2 without classes */
+main h2 {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  line-height: 1.1;
+}
+
+main p {
+  font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+  line-height: 1.6;
+}
+

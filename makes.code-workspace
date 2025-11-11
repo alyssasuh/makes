@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "makes",
+			"path": "."
+		},
+		{
+			"name": "cell_images",
+			"path": "../../../Downloads/cell_images"
+		}
+	],
+	"settings": {}
+}
