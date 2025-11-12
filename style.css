@@ -55,8 +55,8 @@ TABLE OF CONTENT
   --ui-color-n-900: #1a1a1a;
   --ui-color-n-400: #334392;
   --ui-color-n-100: #ffa0c1;
-  --ui-color-n-p: #f9db65;
-  --ui-color-n-g: #28367b;
+  --ui-color-n-p: #f8e599;
+  --ui-color-n-g: #f18da3;
   --ui-color-n-y: #f584ac;
   --ui-color-n-new: #161616;
   --ui-color-n-about_background: #fbe27e;
@@ -70,7 +70,6 @@ TABLE OF CONTENT
   --ui-color-background-pink : var(--ui-color-n-g);
   --ui-color-background-yellow : var(--ui-color-n-y);
   --ui-color-typography-new: var(--ui-color-n-new);
-
 
   /* TYPOGRAPHY COLOR */
 
@@ -271,7 +270,7 @@ small { font-size: var(--ui-typography-s); }
 
 .small{
   font-size: var(--ui-typography-s); 
-  color: var(--ui-color-background-blue)
+  color: var(--ui-color-n-500);
 }
 
 .ui-text-note {
@@ -305,7 +304,7 @@ svg {
   transform: translateX(-50%);
   width: 100%;
   max-width: 90%;
-  color: white;
+  color: var(--ui-color-n-500);
   text-align: center;
   font-style: italic;
   padding: 0.5rem 1rem;
@@ -963,7 +962,7 @@ div.scroll-container img {
     /* FONT SIZE */
 
     --ui-typography-h1: 2.1875rem;
-    --ui-typography-h2: 1.75rem;
+    --ui-typography-h2: 1.5rem;
     --ui-typography-p : 1.3rem;
     --ui-typography-s : .675rem;
     --ui-typography-b : 2rem;
@@ -1407,7 +1406,7 @@ main .ui-text-intro {
 
 /* Fallback for any h2 without classes */
 main h2 {
-  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-size: clamp(1.5rem, 4vw, 4rem);
   line-height: 1.1;
 }
 
