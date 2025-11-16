@@ -48,7 +48,7 @@ TABLE OF CONTENT
   /* COLOR PALETTE */
 
   --ui-color-n-000: #fdfcf7;
-  --ui-color-n-025: #fafafa;
+  --ui-color-n-025: #4d5051;
   --ui-color-n-050: #f5f5f5;
   --ui-color-n-300: #aeaeae;
   --ui-color-n-500: #353535;
@@ -80,6 +80,7 @@ TABLE OF CONTENT
   --ui-color-typography-logo: var(--ui-color-n-900);
   --ui-color-typography-blue: var(--ui-color-brand);
   --ui-color-typography-secondary: var(--ui-color-n-100);
+  --ui-color-typography-panel2: var(--ui-color-n-025);
 
   --ui-color-typography-h3: var(--ui-color-n-400);
   --ui-color-typography-h4: var(--ui-color-n-500);
