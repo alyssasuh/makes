@@ -372,7 +372,7 @@ img.align-right {
 
 .ui-component-button-primary {
   background-color: var(--ui-color-brand);
-  color: var(--ui-color-typography-button);
+
 }
 
 .ui-component-button-normal {
@@ -399,13 +399,11 @@ img.align-right {
   font-style: normal;
   /* display: inline-block; */
   font-size: var(--ui-typography-b);
-  color: var( --ui-color-typography-heading);
-  /* transition: color .2s ease, transform .2s ease; */
 }
 
 .reenie-button:hover {
   display: block;
-  color: var(--ui-color-typography-note);
+  color: var(--ui-color-typography-note) !important;
   transform: translateY(-2px) scale(1.10);
   transition: transform 0.2s ease, color 0.2s ease;
 }
@@ -451,35 +449,79 @@ img.align-right {
   display: inline-block;
 }
 
+/* Preserve hover while moving into the dropdown */
+.dropdown::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 0.85rem;
+  display: block;
+}
+
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #fdfcf738;;
+  top: calc(100% + .5rem);
+  left: 0;
+  right: 0;
+  right: auto;
+  width: min(80vw, 24rem);
   min-width: 120px;
-  box-shadow: 0 2px 5px  rgba(43, 43, 43, 0.071);
-  z-index: 1;
+  box-shadow: 0 2px 5px rgba(255, 54, 242, 0.071);
+  padding: 1rem;
 }
 
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: rgba(154, 151, 151, 0.53);
-  padding: 12px 16px;
-  font-family: "Reenie Beanie", cursive;
-  font-size: 2rem; 
-  font-weight: 600;
-  text-decoration: none;
-  display: block;
+.dropdown.is-open .dropdown-content {
+  display: flex;
 }
 
-.dropdown-content a:hover {
-  background-color: #dddddd65;
-  color: var(--ui-color-typography-logo);
+.dropdown.is-open .dropdown-content.mega-menu {
+  display: grid;
 }
 
-.dropdown:hover .dropdown-content {display: block;}
+/* Mega menu layout */
+.dropdown-content.mega-menu {
+  /* remove display so default none sticks */
+  width: min(41vw, 41rem);
+  transform: translateX(-85%) translateY(4%);
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1.5rem;
+  background-color: rgba(20, 20, 20, 0.925);
+  color: #f5f5f5;
+}
 
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.mega-menu__column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mega-menu__heading {
+  margin: 0 0 0.35rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fff;
+}
+
+.dropdown-content.mega-menu a {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0;
+}
+
+.dropdown-content.mega-menu a:hover {
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+.dropdown:hover .dropdown-content.mega-menu {
+  display: grid;
+}
 
 /*--------------------------------------------------------------
 |
@@ -714,28 +756,21 @@ div.scroll-container img {
 
 /* default logo color */
 #siteHeader .logo-button {
-  color: var( --ui-color-typography-logo);
+  color: var(--ui-color-typography-logo);
 }
 
-/* when the header is over the second slide, flip color */
 #siteHeader.header--alt .logo-part {
-  color: var(--ui-color-background-logo) !important;
+  color: var(--ui-color-background-primary) !important;
 }
 
-/* when the header is over the second slide, flip color */
+/* Button color updates only on the first slide */
 #siteHeader.header--alt .logo-button {
-  color: var(--ui-color-n-logo) !important;
+  color: rgba(255, 255, 255, 0.25) !important;
 }
 
-#siteHeader.header--alt2 .logo-part {
-  color: var(--ui-color-typography-heading) !important; /* <--- another color for 3rd slide */
+#siteHeader.header--alt .logo-button:hover {
+  color: #b8b0a2 !important;
 }
-
-#siteHeader.header--alt2 .logo-button {
-  color: var(--ui-color-typography-heading) !important;
-}
-
-
 
 /*--------------------------------------------------------------
 7.0 SECTION
@@ -772,6 +807,11 @@ div.scroll-container img {
   color: var(--ui-color-typography-heading); 
 }
 
+/* White logo override for first slide */
+#siteHeader.header--alt .viaoda-libre-regular {
+  color: var(--ui-color-background-primary) !important;
+}
+
 .roboto { 
   font-family: "Roboto", sans-serif; 
   font-optical-sizing: auto; 
@@ -780,6 +820,11 @@ div.scroll-container img {
   font-variation-settings: "wdth" 100; 
   font-size: var(--ui-typography-logo); 
   color: var(--ui-color-typography-heading); 
+}
+
+/* White logo override for first slide */
+#siteHeader.header--alt .roboto {
+  color: var(--ui-color-background-primary) !important;
 }
 
 .roboto-header-dark { 
@@ -801,7 +846,7 @@ div.scroll-container img {
 
 .ui-section-hero {
   padding-bottom: 2rem;
-  padding-top: 5rem;
+  padding-top: clamp(7rem, 14vw, 12rem);
   text-align: center;
 }
 
@@ -816,6 +861,21 @@ div.scroll-container img {
     place-items: center;       /* centers both axes */
     overflow: hidden;  
   }
+
+.ui-section-hero .ui-component-cta {
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+}
+
+.ui-section-hero .ui-layout-column-6 {
+  width: min(48rem, 95%);
+  margin: clamp(1.5rem, 4vw, 3rem) auto 0;
+  text-align: left;
+}
+
+.ui-section-hero .ui-layout-column-6 {
+  margin-top: clamp(2rem, 6vw, 4rem);
+  max-width: min(42rem, 90%);
+}
 
 /*--------------------------------------------------------------
 |
@@ -1414,5 +1474,15 @@ main h2 {
 main p {
   font-size: clamp(0.875rem, 1.5vw, 1.125rem);
   line-height: 1.6;
+}
+
+.snap-container {
+  scroll-snap-type: y mandatory;
+}
+
+.snap-panel {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100svh;
 }
 
