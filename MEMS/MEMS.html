@@ -21,8 +21,494 @@
     <link rel="preload" as="style" href="../style.css">
     <link rel="stylesheet" href="../style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- TITLE -->
-    <title>CELL ENGINEERING</title>
+    <style>
+      .table-wrapper {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 0.95rem;
+        color: #000;
+        margin: 0 auto;
+        max-width: 1100px;
+      }
+      .table-wrapper.table-full-bleed {
+        width: min(96vw, 100%);
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        
+      }
+      .table-title {
+        text-align: center;
+        font-style: italic;
+        font-size: 0.8rem;
+        margin-bottom: 0.65rem;
+      }
+      .table-wrapper table {
+        width: 100%;
+        border-collapse: collapse;
+        border-top: 2px solid #000;
+        border-bottom: 2px solid #000;
+      }
+      .table-wrapper thead th {
+        font-weight: 600;
+        text-align: center;
+        padding: 0.6rem 1rem;
+        border-bottom: 1.5px solid #000;
+      }
+      .table-wrapper thead th.property,
+      .table-wrapper thead th.value {
+        text-align: left;
+      }
+      .table-wrapper tbody td {
+        padding: 0.5rem 1rem;
+        vertical-align: top;
+      }
+      .table-wrapper th.material,
+      .table-wrapper td.material {
+        min-width: 9rem;
+        text-align: left;
+        white-space: nowrap;
+        font-weight: 600;
+      }
+      .table-wrapper th.definition,
+      .table-wrapper td.definition {
+        min-width: 6rem;
+        text-align: left;
+        white-space: nowrap;
+      }
+      .table-wrapper th.category,
+      .table-wrapper td.category {
+        min-width: 7rem;
+        white-space: nowrap;
+        font-style: normal;
+        text-align: left;
+      }
+      .table-wrapper td.value {
+        text-align: left;
+        white-space: nowrap;
+      }
+      .table-wrapper .math {
+        font-style: italic;
+      }
+      .table-wrapper .cite {
+        text-decoration: none;
+        color: inherit;
+        font-size: 0.85em;
+        vertical-align: super;
+        margin-left: 0.15em;
+      }
+      .table-wrapper .cite::before { content: "["; }
+      .table-wrapper .cite::after { content: "]"; }
+      .table-wrapper tr.section-break td {
+        padding-top: 0.85rem;
+      }
+      .table-wrapper tr.section-break td:first-child {
+        padding-top: 1.1rem;
+      }
+      .table-wrapper tr.material-divider td {
+        padding: 0;
+        height: 0.65rem;
+        border-top: 1.5px solid #000;
+      }
+      .ear-content-grid {
+        width: 100%;
+        display: flex;
+        gap: 4.75rem;
+        align-items: flex-start;
+      }
+      .ear-main {
+        order: 1;
+        flex: 1;
+        min-width: 0;
+      }
+      .ear-toc {
+        order: 0;
+        width: min(24%);
+        position: sticky;
+        top: 4.5rem;
+        align-self: flex-start;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        background-image: none;
+        overflow: hidden;
+        z-index: 0;
+        border: 1.5px solid var(--ui-text-2);
+        border-radius: 1.5rem;
+        padding: 1.5rem 1rem 2.75rem;
+        /* box-shadow: 0 15px 35px rgba(193, 183, 249, 0.53); */
+        max-height: calc(100vh - 5rem);
+        /* min-height: calc(100vh - 20rem); */
+        display: flex;
+        flex-direction: column;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .ear-toc::before {
+        content: "";
+        position: absolute;
+        inset: -6% -8%;
+        /* background-image: url("../paper%20texture.png"); */
+        background-size: 420px auto;
+        background-repeat: repeat;
+        background-position: center;
+        opacity: 0.55;
+        transform: rotate(-4deg);
+        filter: contrast(1.05) brightness(1.02);
+        z-index: -1;
+        pointer-events: none;
+      }
+      .ear-toc::-webkit-scrollbar {
+        display: none;
+      }
+      .ear-toc .toc-section {
+        padding-bottom: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px dotted var(--ui-text-2);
+      }
+      .ear-toc .toc-section:last-of-type {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+      .ear-toc h3 {
+        font-size: 0.75rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        margin: 0 0 0.65rem 0;
+        color: var(--ui-color-n-500);
+      }
+      .ear-toc ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+      .ear-toc h2 {
+        color: var(--ui-color-n-500);
+        font-size: x-large;
+        font-weight: 700;
+        /* letter-spacing: 0.25em; */
+      }
+      .ear-toc a {
+        color: #5b564f;
+        text-decoration: none;
+        display: block;
+        padding: 0.4rem 0.75rem;
+        border: 2px solid transparent;
+        border-radius: 0.65rem;
+        transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      }
+      .ear-toc a:hover,
+      .ear-toc a:focus-visible {
+        color: #201f1a;
+        /* border-color: var(--ui-color-n-g); */
+        /* background: #201f1a; */
+        font-weight: 600;
+      }
+      .ear-toc a[aria-current="true"],
+      .ear-toc a[aria-current="section"] {
+        color: #1f1d19;
+        font-weight: 600;
+        border-color: #f2bb2a;
+        background: rgba(242, 187, 42, 0.12);
+      }
+      .ear-toc a.request-access-link {
+        color: #0a4ea5;
+        font-weight: 500;
+      }
+      .ear-toc a.request-access-link:hover,
+      .ear-toc a.request-access-link:focus-visible {
+        font-weight: 700;
+      }
+      .ear-highlight-link {
+        color: #0a4ea5;
+        font-weight: 600;
+        text-decoration: none;
+        /* background: rgba(10, 78, 165, 0.12); */
+        padding: 0.05em 0.35em;
+        border-radius: 0.35rem;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+      .ear-highlight-link:hover,
+      .ear-highlight-link:focus-visible {
+        background: rgba(10, 78, 165, 0.22);
+        color: #06306a;
+        text-decoration: underline;
+      }
+      .text-intro--lead {
+        font-size: clamp(1rem, 2vw, 1.35rem);
+      }
+      .conductive-video-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.75rem;
+        margin: 2.25rem 0 0;
+      }
+      .conductive-video-card {
+        flex: 1 1 320px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+        align-items: center;
+        text-align: center;
+      }
+      .conductive-video-label {
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .conductive-video-label--air { color: #c81616; }
+      .conductive-video-label--cm { color: #0a4ea5; }
+      .conductive-video-wrapper {
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        background: #000;
+      }
+      .conductive-video-wrapper iframe,
+      .conductive-video-wrapper video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        border-radius: inherit;
+        object-fit: cover;
+      }
+      .ear-toc .toc-preview__link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        white-space: nowrap;
+        padding: 0.35rem 0.9rem;
+        border-radius: 0.45rem;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+      .ear-toc .toc-preview__link:hover,
+      .ear-toc .toc-preview__link:focus-visible {
+        /* background: #095ea8; */
+        box-shadow: 0 6px 16px rgba(168, 204, 235, 0.4);
+        border-color: #074a88;
+      }
+      .toc-preview__text {
+        flex: 0 1 auto;
+      }
+      .toc-preview__thumb {
+        width: 2.1rem;
+        height: 2.1rem;
+        flex-shrink: 0;
+        object-fit: contain;
+        padding: 0;
+        background: transparent;
+      }
+      .figure-zoom {
+        position: relative;
+      }
+      .figure-zoom__trigger {
+        position: absolute;
+        top: -0.75rem;
+        right: -0.75rem;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 999px;
+        padding: 0.35rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .figure-zoom__trigger:hover,
+      .figure-zoom__trigger:focus-visible {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        outline: none;
+      }
+      .figure-zoom__icon {
+        font-size: 1.05rem;
+      }
+      .figure-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        z-index: 1200;
+        transition: opacity 0.2s ease;
+      }
+      .figure-modal[aria-hidden="true"] {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .figure-modal__content {
+        position: relative;
+        max-width: min(90vw, 1100px);
+        max-height: 90vh;
+        background: #fff;
+        border-radius: 0.75rem;
+        padding: 1.25rem;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .figure-modal__content img {
+        width: 100%;
+        height: auto;
+      }
+      #fig-3-1-modal img,
+      #fig-3-3-modal img {
+        width: 90%;
+        margin: 0 auto;
+      }
+      .figure-modal__close {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        border: none;
+        background: transparent;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #2c2b27;
+      }
+      .figure-modal__caption {
+        font-size: 0.9rem;
+        color: #4a4843;
+        text-align: center;
+      }
+      .request-modal {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 1300;
+        transition: opacity 0.2s ease;
+      }
+      .request-modal[aria-hidden="true"] {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .request-modal__content {
+        position: relative;
+        width: min(480px, 90vw);
+        background: #fff;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 25px 65px rgba(0, 0, 0, 0.35);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .request-modal__title {
+        font-size: 1.35rem;
+        margin: 0;
+        color: #1f1d19;
+      }
+      .request-modal__body {
+        color: #4a4843;
+        line-height: 1.6;
+        font-size: 1rem;
+        margin: 0;
+      }
+      .request-modal__email {
+        font-weight: 600;
+        color: #074a88;
+        text-decoration: none;
+      }
+      .request-modal__actions {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+      .request-modal__button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.65rem 1.25rem;
+        border-radius: 999px;
+        background: #074a88;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background 0.2s ease;
+      }
+      .request-modal__button:hover,
+      .request-modal__button:focus-visible {
+        background: #053b6b;
+        color: #fff;
+      }
+      .request-modal__close {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        border: none;
+        background: transparent;
+        font-size: 1.35rem;
+        cursor: pointer;
+        color: #4a4843;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      body.modal-open {
+        overflow: hidden;
+      }
+      .ear-references p {
+        font-size: inherit !important;
+        line-height: inherit;
+      }
+      .ear-hero {
+        background-color: var(--ui-color-n-2);
+      }
+      .ear-footer-spacer {
+        height: 4rem;
+      }
+      .ear-footer-note {
+        text-align: center;
+        font-size: 0.85rem;
+        color: #5b564f;
+        padding: 2rem 1rem;
+        border-top: 2px solid rgba(0, 0, 0, 0.08);
+        background: #ffffff00fff00;
+      }
+      @media (max-width: 992px) {
+        .ear-content-grid {
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+        .ear-toc {
+          width: 100%;
+          position: static;
+          order: 2;
+          box-shadow: none;
+          border-radius: 1rem;
+          padding: 1.25rem;
+        }
+        .ear-main {
+          order: 1;
+        }
+      }
+    </style>
+    <title>MEMS Transducer</title>
   </head>
 
   <body overflow="hidden">
@@ -46,23 +532,357 @@
       <div class="ui-layout-container">
         <div class="ui-component-cta ui-layout-flex">
           <div class="ui-layout-flex" style="flex-direction: column; gap: 1rem; padding-top: 2vh; padding-bottom: 2vh;">
-            <p class="text-intro" style="padding-top: 2vh;">
-            Expanding on the concept of delivering sound through mechanical conduction, I designed a microelectromechanical systems (MEMS) designed to operate at a fraction of the size and power consumption of commercial devices.
-            By leveraging MEMS fabrication techniques, I developed a proof-of-concept device that can discretely intergrated into wearable technologies for conduction hearing applications.
+            <p class="text-intro text-intro--lead" style="padding-top: 2vh;">
+              Expanding on my work <a href="../Ear/ear.html" target="_blank" rel="noopener" class="ear-highlight-link">modeling sound through mechanical conduction,</a> I designed a microelectromechanical systems (MEMS) device that operates at a fraction of the size and power consumption of commercial devices.
+            </p>
+            <div id="fig-1">
+              <img src="../MEMS/MEMS.png" style="max-width:50%; display:block; margin-top:2vh; margin-bottom:2vh;">
+              <figcaption class="small" style="text-align:center; font-style:italic; margin-top:0.5rem;">
+                  TODO
+              </figcaption>
+            </div>
+            <p class="text-intro text-intro--lead">
+              <a href="coursicle.com/harvard/courses/ENGSCI/276/" target="_blank" rel="noopener" class="ear-highlight-link">ES276, Microelectromechanical Systems,</a> is a graduate-level course offered at Harvard that covers the design, fabrication, and application of MEMS devices.
+              For my final project, I designed and fabricated a MEMS transducer that can convert electrical signals into mechanical vibrations for bone conduction hearing.
+              On this page, I document the design process, fabrication steps, and testing results of the MEMS transducer.
+              I separately include important cleanroom skills acquired through the course.
+            </p>
             <br><br>
-            ES276, Microelectromechanical Systems, is a graduate-level course offered at Harvard that covers the design, fabrication, and application of MEMS devices.
-            For my final project, I designed and fabricated a MEMS transducer that can convert electrical signals into mechanical vibrations for bone conduction hearing.
-            On this page, I document the design process, fabrication steps, and testing results of the MEMS transducer.
+            <div class="ear-content-grid">
+              <div class="ear-main">
+              <h1 id="abstract" class="roboto" style="text-align: left; width: 100%; display: block;">ABSTRACT</h1>
+              <p class="text-intro">
+              As screen-based devices become increasingly integrated into daily life, I became interested in how sound could be delivered more comfortably and accessibly&ndash; without blocking the ear canal or isolating users from their surroundings.
+              <br><br>
+              The work focuses on the design and fabrication of a <strong>cartilage-mediated sound transmission transducer</strong>, which delivers audio through mechanical excitation of the outer ear rather than conventional air conduction. 
+              Through iterative design, microfabrication, and experimental validation, this project presents a proof-of-concept device that can discretly be intergrated into wearable technology for conductive hearing applications.
+              </p>
+              <div class="conductive-video-grid" aria-label="Comparison of air conduction and cartilage-mediated headphone pathways">
+                <div class="conductive-video-card">
+                  <div class="conductive-video-wrapper">
+                    <video src="https://drive.google.com/uc?export=download&id=1KoaZOeXuPF9MBkYFFlPMqv9W2epFsMew" autoplay loop muted playsinline controls preload="auto" title="Cartilage-mediated headphones animation"></video>
+                  </div>
+                </div>
+                <div class="conductive-video-card">
+                  <div class="conductive-video-wrapper">
+                    <video src="https://drive.google.com/uc?export=download&id=1F_bSqf8HBVKd0NW9Xc9JoFDH12Pe2FgJ" autoplay loop muted playsinline controls preload="auto" title="Air conduction animation"></video>
+                  </div>
+                </div>
+              </div>
+              <br><br>
+              <h1 id="problem" class="roboto" style="text-align: left; width: 100%; display: block;">PROBLEM STATEMENT</h1>
+              <p class="text-intro">
+              People are spending more time on screens than ever before&ndash; <strong>7 hours per day globally,</strong>  and close to <strong>9 hours per day among Gen Z,</strong> exceeding the length of a full work shift. 
+              At the same time, more than <strong>2.2 billion people</strong> worldwide live with visual impairment, increasing reliance on audio as a primary interface for interacting with technology.
+              <br><br>
+              Most consumer audio solutions rely on in-ear headphones, which can be uncomfortable for extended use and poorly suited for continuous, ambient interaction with digital assistants or wearable displays.
+              These constraints motivated me to explore <strong>non-occluding, conductive sound interfaces</strong> that could better support long-term use, accessibility, and emerging screen-based devices such as smart glasses.
+              </p>
+            <br><br>
+            <h1 id="design" style="text-align: left;"><span class="roboto">DESIGN</span></h1>
+            <p class="text-intro">
+            The goal of this project was to build a compact intermediary device capable of transmitting sound to the user through a cartilage-mediated pathway. 
+            Unlike traditional bone-conduction systems that depend on rigid skull contact, this approach targets the outer ear cartilage, which provides a softer and more wearable mechanical interface.
+            <br><br>
+            The transducer was designed as a layered microfabricated structure incorporating a lead zirconate titanate (PZT) piezoelectric element. 
+            Patterned metal electrodes were fabricated on silicon and glass substrates using photolithography, followed by mechanical assembly of the piezo stack. 
+            To improve wearability and skin contact, the device was encapsulated in PDMS and housed in a custom casing designed to preserve membrane motion while maintaining structural alignment.
             </p>
-            <h1 class="roboto" style="text-align: left; width: 100%; display: block;">PROBLEM STATEMENT</h1>
+            <br><br>
+            <h1 id="results" class="roboto" style="text-align: left; width: 100%; display: block;">RESULTS & DISCUSSION</h1>
             <p class="text-intro" style="padding-top: 2vh;">
-            Traditional hearing aids often rely on air conduction to deliver sound, which can be ineffljdsjflsdjf
+              Device performance was evaluated using <strong>laser Doppler vibrometry (LDV)</strong> to measure membrane displacement across frequency. 
+              Measurements were taken on the PDMS side of the transducer under different backing conditions to assess how structural constraints influenced mechanical output.
+              <br><br>
+              The results demonstrated that membrane flexibility is critical for efficient vibration. 
+              Removing rigid backing significantly increased displacement, while PDMS encapsulation introduced substantial damping that reduced overall output. 
+              These findings highlight a key design trade-off: soft materials improve comfort and wearability but can limit acoustic efficiency.
+              <br><br>
+              Additionally, the small piezoelectric element required relatively high driving voltages (approximately 10 V) to achieve measurable displacement. 
+              This suggests that future iterations would benefit from thicker or stacked PZT layers to reduce voltage requirements and improve performance.
+              Overall, the results validate cartilage-mediated sound transmission as a viable pathway, while also identifying clear directions for optimization.
             </p>
-            <h1 class="roboto" style="text-align: left; width: 100%; display: block;">DESIGN & FABRICATION</h1>
+            
+            <br><br>
+            <h1 class="roboto" style="text-align: left; width: 100%; display: block;">CLEANROOM & TECHNICAL SKILLS</h1>
+            <br>
+            <h2 id="photolithography" style="text-align: left; width: 100%; display: block;font-size: 3rem;">Photolithography</h2>
+
+            <br><br>
+            <h1 id="acknowledgements" class="roboto" style="text-align: left; width: 100%; display: block;">ACKNOWLEDGEMENTS</h1>
+            <p class="text-intro" style="padding-top: 2vh;">
+
+            This project was completed as part of ES276 with guidance from Fawwaz Habbal and Kamar Reda. 
+            Fabrication was supported by the lab facilities at the Harvard Center for Nanoscale Systems, with experimental validation enabled by support from the Nakajima Lab at MEE.
+            <br><br>
+            <section id="references" aria-label="References" style="width: 100%;">
+              <h1 class="roboto" style="text-align: left; width: 100%; display: block;">REFERENCES</h1>
+              <div class="text-intro ear-references" style="padding:2rem 0; font-size:0.8rem; opacity:0.65; text-align:left;">
+                <p id="ref-1" style="margin:0;">
+                  1. I. S. University, &ldquo;Nondestructive Evaluation Physics: Sound,&rdquo; 2021.
+                </p>
+                <p id="ref-2" style="margin:0;">
+                  2. L. Aranda-Lara, E. Torres-Garca, and R. Oros-Pantoja, &ldquo;Biological tissue modeling with agar gel phantom for radiation dosimetry of 99mtc,&rdquo; Open Journal of Radiology, vol. 2014, 02 2014.<br>
+                </p>
+                <p id="ref-3" style="margin:0;">
+                  3. J. Lim, I. Dobrev, C. Rsli, S. Stenfelt, and N. Kim, &ldquo;Development of a finite element model of a human head including auditory periphery for understanding of boneconducted hearing,&rdquo; Hearing Research, p. 108337, 08 2021.<br>
+                </p>
+                <p id="ref-4" style="margin:0;">
+                  4. P. Suetens, &ldquo;Ultrasound imaging,&rdquo; Cambridge University Press eBooks, pp. 128&ndash;158, 08 2009.<br>
+                </p>
+                <p id="ref-5" style="margin:0;">
+                  5. C. Baumgartner, P. Hasgall, F. Di Gennaro, E. Neufeld, B. Lloyd, M. Gosselin, and N. Kuster, &ldquo;Dielectric properties it&rsquo;is foundation,&rdquo; 08 2025.<br>
+                </p>
+                <p id="ref-6" style="margin:0;">
+                  6. M. F. Griffin, Y. Premakumar, A. M. Seifalian, M. Szarko, and P. E. M. Butler, &ldquo;Biomechanical characterisation of the human auricular cartilages; implications for tissue engineering,&rdquo; Annals of Biomedical Engineering, vol. 44, p. 34603467, 2016.<br>
+                </p>
+                <p id="ref-7" style="margin:0;">
+                  7. S. Leicht and K. Raum, &ldquo;Acoustic impedance changes in cartilage and subchondral bone due to primary arthrosis,&rdquo; Ultrasonics, vol. 48, pp. 613&ndash;620, 11 2008.<br>
+                </p>
+                <p id="ref-8" style="margin:0;">
+                  8. A. Auperrin, R. Delille, D. Lesueur, K. Bruyre, C. Masson, and P. Draztic, &ldquo;Geometrical and material parameters to assess the macroscopic mechanical behaviour of fresh cranial bone samples,&rdquo; Journal of Biomechanics, vol. 47, pp. 1180&ndash;1185, 01 2014.<br>
+                </p>
+                <p id="ref-9" style="margin:0;">
+                  9. C. W. Connor, G. T. Clement, and K. Hynynen, &ldquo;A unified model for the speed of sound in cranial bone based on genetic algorithm optimization,&rdquo; Physics in Medicine and Biology, vol. 47, pp. 3925&ndash;3944, 10 2002.<br>
+                </p>
+                <p id="ref-10" style="margin:0;">
+                  10. B. Schulz, M. Thali, R. Kubik-Huch, and T. Niemann, &rsquo;Auricular dimensions in computed-tomography: Unveiling the relationship between ear dimensions, age, and sex using three-dimensional volume rendering reconstructions,&rsquo; World Journal of Radiology, vol. 16, pp. 760&ndash; 770, 12 2024.<br>
+                </p>
+                <p id="ref-11" style="margin:0;">
+                  11. A. P. Balouch, K. Bekhazi, H. E. Durkee, R. M. Farrar, M. Sok, D. H. Keefe, A. K. Remenschneider, N. J. Horton, and S. E. Voss, &rsquo;Measurements of ear-canal geometry from high-resolution ct scans of human adult ears,&rsquo; Hearing Research, vol. 434, pp. 108782&ndash;108782, 04 2023.<br>
+                </p>
+                <p id="ref-12" style="margin:0;">
+                  12.H. Wang, S. Merchant, and M. Sorensen, &rsquo;A downloadable three-dimensional virtual model of the visible ear,&rsquo; ORL; journal for oto-rhino-laryngology and its related specialties, vol. 69, pp. 63&ndash;7, 02 2007. <br>
+                </p>
+              </div>
+            </section>
+            <div class="ear-footer-spacer" aria-hidden="true"></div>
+          </div>
+          <aside class="ear-toc" aria-label="Page navigation">
+            <div class="toc-section">
+              <h2>FINAL PROJECT</h2>
+              <ul>
+                <li><a href="#abstract" data-ear-section-link>ABSTRACT</a></li>
+                <li><a href="#problem" data-ear-section-link>PROBLEM STATEMENT</a></li>
+                <li><a href="#design" data-ear-section-link>DESIGN</a></li>
+                <li><a href="#results" data-ear-section-link>RESULTS &amp; DISCUSSION</a></li>
+              </ul>
+            </div>
+            <div class="toc-section">
+              <h2>CLEANROOM & TECHNICAL SKILLS</h2>
+              <ul>
+                <li><a href="#photolithography">PHOTOLITHOGRAPHY</a></li>
+                <li><a href="#table-2">TABLE 2 </a></li>
+                <li><a href="#table-3">TABLE 3 </a></li>
+              </ul>
+            </div>
+            <div class="toc-section">
+              <ul>
+                <li><a href="#acknowledgements" data-ear-section-link>ACKNOWLEDGEMENTS</a></li>
+                <li><a href="#references" data-ear-section-link>REFERENCES</a></li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+      <div id="request-access-modal" class="request-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="request-access-title">
+        <div class="request-modal__content">
+          <button type="button" class="request-modal__close" data-request-access-close aria-label="Close request access dialog">&times;</button>
+          <h2 class="request-modal__title" id="request-access-title">Request Full Thesis Access</h2>
+          <p class="request-modal__body">
+            Please email <a class="request-modal__email" href="mailto:alyssa2.suh@gmail.com">alyssa2.suh@gmail.com</a> with your name, affiliation, and a short explanation of why you need full access to the document.
+          </p>
+          <p class="request-modal__body">
+            Include any deadlines or project context so we can prioritize your request and respond promptly.
+          </p>
+          <div class="request-modal__actions">
+            <a class="request-modal__button" href="mailto:alyssa2.suh@gmail.com?subject=Full%20Thesis%20Access%20Request">Compose Email</a>
           </div>
         </div>
       </div>
-      </main>
-    <br><br><br><br><br>
-  </body>
-</html>
+    </main>
+    <footer class="ear-footer-note">
+      All figures, diagrams, and graphs were created by the author unless otherwise noted. Permission is required for use or reproduction :)
+    </footer>
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const conductiveVideos = document.querySelectorAll('.conductive-video-grid video');
+
+          if (conductiveVideos.length) {
+            const primeVideo = video => {
+              const tryPlay = () => {
+                const playAttempt = video.play();
+                if (playAttempt && typeof playAttempt.catch === 'function') {
+                  playAttempt.catch(() => {});
+                }
+              };
+
+              video.muted = true;
+              video.setAttribute('muted', '');
+              video.setAttribute('playsinline', '');
+              video.setAttribute('autoplay', '');
+              video.loop = true;
+
+              if (video.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA) {
+                tryPlay();
+              } else {
+                video.addEventListener('loadeddata', tryPlay, { once: true });
+              }
+            };
+
+            conductiveVideos.forEach(primeVideo);
+
+            const resumePlayback = () => {
+              conductiveVideos.forEach(video => {
+                video.play().catch(() => {});
+              });
+            };
+
+            document.addEventListener('visibilitychange', () => {
+              if (!document.hidden) {
+                resumePlayback();
+              }
+            });
+
+            window.addEventListener('focus', resumePlayback);
+            document.addEventListener('click', resumePlayback, { once: true, capture: true });
+          }
+
+          const sectionLinks = Array.from(document.querySelectorAll('[data-ear-section-link]'));
+          const sections = sectionLinks
+            .map(link => document.querySelector(link.getAttribute('href')))
+            .filter(Boolean);
+
+          if (sections.length) {
+            const setActive = id => {
+              sectionLinks.forEach(link => {
+                if (link.getAttribute('href') === `#${id}`) {
+                  link.setAttribute('aria-current', 'true');
+                } else {
+                  link.removeAttribute('aria-current');
+                }
+              });
+            };
+
+            const getVisibleAmount = (start, end, viewportTop, viewportBottom) => {
+              return Math.max(0, Math.min(end, viewportBottom) - Math.max(start, viewportTop));
+            };
+
+            let ticking = false;
+
+            const updateActiveSection = () => {
+              ticking = false;
+              const viewportTop = window.scrollY;
+              const viewportBottom = viewportTop + window.innerHeight;
+              let bestId = null;
+              let bestVisible = 0;
+
+              sections.forEach((section, index) => {
+                if (section.id === 'acknowledgements') {
+                  const rect = section.getBoundingClientRect();
+                  const bandTop = window.innerHeight / 3;
+                  const bandBottom = window.innerHeight * (2 / 3);
+                  const intersectsCenterBand = rect.top <= bandBottom && rect.bottom >= bandTop;
+                  if (intersectsCenterBand) {
+                    bestId = section.id;
+                    bestVisible = Number.MAX_VALUE;
+                    return;
+                  }
+                }
+
+                if (bestVisible === Number.MAX_VALUE) {
+                  return;
+                }
+
+                const start = section.offsetTop;
+                const end = index < sections.length - 1 ? sections[index + 1].offsetTop : document.body.scrollHeight;
+                const visible = getVisibleAmount(start, end, viewportTop, viewportBottom);
+
+                if (visible > bestVisible) {
+                  bestVisible = visible;
+                  bestId = section.id;
+                }
+              });
+
+              if (bestId) {
+                setActive(bestId);
+              }
+            };
+
+            const requestTick = () => {
+              if (!ticking) {
+                requestAnimationFrame(updateActiveSection);
+                ticking = true;
+              }
+            };
+
+            window.addEventListener('scroll', requestTick, { passive: true });
+            window.addEventListener('resize', requestTick);
+            updateActiveSection();
+          }
+
+          const zoomTriggers = document.querySelectorAll('.figure-zoom__trigger');
+          const figureModals = document.querySelectorAll('.figure-modal');
+
+          const openModal = modal => {
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+          };
+
+          const closeModal = modal => {
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+          };
+
+          zoomTriggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+              const modal = document.getElementById(trigger.dataset.zoomTarget);
+              if (modal) {
+                openModal(modal);
+              }
+            });
+          });
+
+          figureModals.forEach(modal => {
+            modal.addEventListener('click', event => {
+              if (event.target === modal || event.target.closest('[data-figure-close]')) {
+                closeModal(modal);
+              }
+            });
+          });
+
+          const requestAccessTrigger = document.querySelector('[data-request-access-trigger]');
+          const requestAccessModal = document.getElementById('request-access-modal');
+
+          if (requestAccessTrigger && requestAccessModal) {
+            requestAccessTrigger.addEventListener('click', event => {
+              event.preventDefault();
+              openModal(requestAccessModal);
+              const closeButton = requestAccessModal.querySelector('[data-request-access-close]');
+              if (closeButton) {
+                closeButton.focus();
+              }
+            });
+
+            requestAccessModal.addEventListener('click', event => {
+              if (event.target === requestAccessModal || event.target.closest('[data-request-access-close]')) {
+                event.preventDefault();
+                closeModal(requestAccessModal);
+              }
+            });
+          }
+
+          document.addEventListener('keydown', event => {
+            if (event.key === 'Escape') {
+              const activeModal = document.querySelector('.figure-modal[aria-hidden="false"], .request-modal[aria-hidden="false"]');
+              if (activeModal) {
+                closeModal(activeModal);
+              }
+            }
+          });
+        });
+      </script>
+    </body>
+  </html>

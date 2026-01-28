@@ -184,9 +184,10 @@
         flex-direction: column;
         gap: 0.3rem;
       }
-      .ear-toc h4 {
+      .ear-toc h2 {
         color: var(--ui-color-n-500);
-        /* letter-spacing: 0.25em; */
+        font-size: x-large;
+        font-weight: 700;
       }
       .ear-toc a {
         color: #5b564f;
@@ -233,6 +234,9 @@
         background: rgba(10, 78, 165, 0.22);
         color: #06306a;
         text-decoration: underline;
+      }
+      .text-intro--lead {
+        font-size: clamp(1rem, 2vw, 1.35rem);
       }
       .ear-toc .toc-preview__link {
         display: inline-flex;
@@ -501,7 +505,7 @@
                   Outer ear morphology examined. Panel A: points for standardized anatomical measurements of a human ear.
               </figcaption>
             </div>
-            <p class="text-intro" style="padding-top: 2vh;font-size: 1.25rem;">
+            <p class="text-intro text-intro--lead" style="padding-top: 2vh;">
               Inspired by a personal project building a <a href="https://alyssasuh.github.io/PS70/" target="_blank" rel="noopener" class="ear-highlight-link">personal assistant device</a> based in conductive-sound my junior year, I became deeply interested in the physical processes at the human interface of such systems. 
               This curiosity led me to independently seek out experts in the field to better understand cartilage-mediated sound transmission.
               <br> <br>
@@ -996,7 +1000,7 @@
           </div>
           <aside class="ear-toc" aria-label="Page navigation">
             <div class="toc-section">
-              <h4>OUTLINE</h4>
+              <h2>OUTLINE</h2>
               <ul>
                 <li><a href="#abstract" data-ear-section-link>ABSTRACT</a></li>
                 <li><a href="#design" data-ear-section-link>DESIGN</a></li>
@@ -1007,7 +1011,7 @@
               </ul>
             </div>
             <div class="toc-section">
-              <h4>TABLES</h4>
+              <h2>TABLES</h2>
               <ul>
                 <li><a href="#table-1">TABLE 1 </a></li>
                 <li><a href="#table-2">TABLE 2 </a></li>
@@ -1015,7 +1019,7 @@
               </ul>
             </div>
             <div class="toc-section">
-              <h4>FULL THESIS ACCESS</h4>
+              <h2>FULL THESIS ACCESS</h2>
               <ul>
                 <li>
                   <a href="Thesis%20Preview.pdf" target="_blank" rel="noopener" class="toc-preview__link">
@@ -1052,7 +1056,7 @@
       </div>
     </main>
     <footer class="ear-footer-note">
-      All figures, diagrams, and graphs were created by the author unless otherwise noted. Permission is required for use or reproduction. :)
+      All figures, diagrams, and graphs were created by the author unless otherwise noted. Permission is required for use or reproduction :)
     </footer>
       <script>
         document.addEventListener('DOMContentLoaded', () => {
