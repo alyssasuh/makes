@@ -21,8 +21,449 @@
     <link rel="preload" as="style" href="../style.css">
     <link rel="stylesheet" href="../style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      .table-wrapper {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 0.95rem;
+        color: #000;
+        margin: 0 auto;
+        max-width: 1100px;
+      }
+      .table-wrapper.table-full-bleed {
+        width: min(96vw, 100%);
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        
+      }
+      .table-title {
+        text-align: center;
+        font-style: italic;
+        font-size: 0.8rem;
+        margin-bottom: 0.65rem;
+      }
+      .table-wrapper table {
+        width: 100%;
+        border-collapse: collapse;
+        border-top: 2px solid #000;
+        border-bottom: 2px solid #000;
+      }
+      .table-wrapper thead th {
+        font-weight: 600;
+        text-align: center;
+        padding: 0.6rem 1rem;
+        border-bottom: 1.5px solid #000;
+      }
+      .table-wrapper thead th.property,
+      .table-wrapper thead th.value {
+        text-align: left;
+      }
+      .table-wrapper tbody td {
+        padding: 0.5rem 1rem;
+        vertical-align: top;
+      }
+      .table-wrapper th.material,
+      .table-wrapper td.material {
+        min-width: 9rem;
+        text-align: left;
+        white-space: nowrap;
+        font-weight: 600;
+      }
+      .table-wrapper th.definition,
+      .table-wrapper td.definition {
+        min-width: 6rem;
+        text-align: left;
+        white-space: nowrap;
+      }
+      .table-wrapper th.category,
+      .table-wrapper td.category {
+        min-width: 7rem;
+        white-space: nowrap;
+        font-style: normal;
+        text-align: left;
+      }
+      .table-wrapper td.value {
+        text-align: left;
+        white-space: nowrap;
+      }
+      .table-wrapper .math {
+        font-style: italic;
+      }
+      .table-wrapper .cite {
+        text-decoration: none;
+        color: inherit;
+        font-size: 0.85em;
+        vertical-align: super;
+        margin-left: 0.15em;
+      }
+      .table-wrapper .cite::before { content: "["; }
+      .table-wrapper .cite::after { content: "]"; }
+      .table-wrapper tr.section-break td {
+        padding-top: 0.85rem;
+      }
+      .table-wrapper tr.section-break td:first-child {
+        padding-top: 1.1rem;
+      }
+      .table-wrapper tr.material-divider td {
+        padding: 0;
+        height: 0.65rem;
+        border-top: 1.5px solid #000;
+      }
+      .ear-content-grid {
+        width: 100%;
+        display: flex;
+        gap: 4.75rem;
+        align-items: flex-start;
+      }
+      .ear-main {
+        order: 1;
+        flex: 1;
+        min-width: 0;
+      }
+      .ear-toc {
+        order: 0;
+        width: min(24%);
+        position: sticky;
+        top: 4.5rem;
+        align-self: flex-start;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        background-image: none;
+        overflow: hidden;
+        z-index: 0;
+        border: 1.5px solid var(--ui-text-2);
+        border-radius: 1.5rem;
+        padding: 1.5rem 1rem 2.75rem;
+        /* box-shadow: 0 15px 35px rgba(193, 183, 249, 0.53); */
+        max-height: calc(100vh - 5rem);
+        /* min-height: calc(100vh - 20rem); */
+        display: flex;
+        flex-direction: column;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .ear-toc::before {
+        content: "";
+        position: absolute;
+        inset: -6% -8%;
+        /* background-image: url("../paper%20texture.png"); */
+        background-size: 420px auto;
+        background-repeat: repeat;
+        background-position: center;
+        opacity: 0.55;
+        transform: rotate(-4deg);
+        filter: contrast(1.05) brightness(1.02);
+        z-index: -1;
+        pointer-events: none;
+      }
+      .ear-toc::-webkit-scrollbar {
+        display: none;
+      }
+      .ear-toc .toc-section {
+        padding-bottom: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px dotted var(--ui-text-2);
+      }
+      .ear-toc .toc-section:last-of-type {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+      .ear-toc h3 {
+        font-size: 0.75rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        margin: 0 0 0.65rem 0;
+        color: var(--ui-color-n-500);
+      }
+      .ear-toc ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+      .ear-toc h4 {
+        color: var(--ui-color-n-500);
+        /* letter-spacing: 0.25em; */
+      }
+      .ear-toc a {
+        color: #5b564f;
+        text-decoration: none;
+        display: block;
+        padding: 0.4rem 0.75rem;
+        border: 2px solid transparent;
+        border-radius: 0.65rem;
+        transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      }
+      .ear-toc a:hover,
+      .ear-toc a:focus-visible {
+        color: #201f1a;
+        /* border-color: var(--ui-color-n-g); */
+        /* background: #201f1a; */
+        font-weight: 600;
+      }
+      .ear-toc a[aria-current="true"],
+      .ear-toc a[aria-current="section"] {
+        color: #1f1d19;
+        font-weight: 600;
+        border-color: #f2bb2a;
+        background: rgba(242, 187, 42, 0.12);
+      }
+      .ear-toc a.request-access-link {
+        color: #0a4ea5;
+        font-weight: 500;
+      }
+      .ear-toc a.request-access-link:hover,
+      .ear-toc a.request-access-link:focus-visible {
+        font-weight: 700;
+      }
+      .ear-highlight-link {
+        color: #0a4ea5;
+        font-weight: 600;
+        text-decoration: none;
+        /* background: rgba(10, 78, 165, 0.12); */
+        padding: 0.05em 0.35em;
+        border-radius: 0.35rem;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+      .ear-highlight-link:hover,
+      .ear-highlight-link:focus-visible {
+        background: rgba(10, 78, 165, 0.22);
+        color: #06306a;
+        text-decoration: underline;
+      }
+      .ear-toc .toc-preview__link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        white-space: nowrap;
+        padding: 0.35rem 0.9rem;
+        border-radius: 0.45rem;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+      .ear-toc .toc-preview__link:hover,
+      .ear-toc .toc-preview__link:focus-visible {
+        /* background: #095ea8; */
+        box-shadow: 0 6px 16px rgba(168, 204, 235, 0.4);
+        border-color: #074a88;
+      }
+      .toc-preview__text {
+        flex: 0 1 auto;
+      }
+      .toc-preview__thumb {
+        width: 2.1rem;
+        height: 2.1rem;
+        flex-shrink: 0;
+        object-fit: contain;
+        padding: 0;
+        background: transparent;
+      }
+      .figure-zoom {
+        position: relative;
+      }
+      .figure-zoom__trigger {
+        position: absolute;
+        top: -0.75rem;
+        right: -0.75rem;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 999px;
+        padding: 0.35rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .figure-zoom__trigger:hover,
+      .figure-zoom__trigger:focus-visible {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        outline: none;
+      }
+      .figure-zoom__icon {
+        font-size: 1.05rem;
+      }
+      .figure-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        z-index: 1200;
+        transition: opacity 0.2s ease;
+      }
+      .figure-modal[aria-hidden="true"] {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .figure-modal__content {
+        position: relative;
+        max-width: min(90vw, 1100px);
+        max-height: 90vh;
+        background: #fff;
+        border-radius: 0.75rem;
+        padding: 1.25rem;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .figure-modal__content img {
+        width: 100%;
+        height: auto;
+      }
+      #fig-3-1-modal img,
+      #fig-3-3-modal img {
+        width: 90%;
+        margin: 0 auto;
+      }
+      .figure-modal__close {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        border: none;
+        background: transparent;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #2c2b27;
+      }
+      .figure-modal__caption {
+        font-size: 0.9rem;
+        color: #4a4843;
+        text-align: center;
+      }
+      .request-modal {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 1300;
+        transition: opacity 0.2s ease;
+      }
+      .request-modal[aria-hidden="true"] {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .request-modal__content {
+        position: relative;
+        width: min(480px, 90vw);
+        background: #fff;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 25px 65px rgba(0, 0, 0, 0.35);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .request-modal__title {
+        font-size: 1.35rem;
+        margin: 0;
+        color: #1f1d19;
+      }
+      .request-modal__body {
+        color: #4a4843;
+        line-height: 1.6;
+        font-size: 1rem;
+        margin: 0;
+      }
+      .request-modal__email {
+        font-weight: 600;
+        color: #074a88;
+        text-decoration: none;
+      }
+      .request-modal__actions {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+      .request-modal__button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.65rem 1.25rem;
+        border-radius: 999px;
+        background: #074a88;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background 0.2s ease;
+      }
+      .request-modal__button:hover,
+      .request-modal__button:focus-visible {
+        background: #053b6b;
+        color: #fff;
+      }
+      .request-modal__close {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        border: none;
+        background: transparent;
+        font-size: 1.35rem;
+        cursor: pointer;
+        color: #4a4843;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      body.modal-open {
+        overflow: hidden;
+      }
+      .ear-references p {
+        font-size: inherit !important;
+        line-height: inherit;
+      }
+      .ear-hero {
+        background-color: var(--ui-color-n-2);
+      }
+      .ear-footer-spacer {
+        height: 4rem;
+      }
+      .ear-footer-note {
+        text-align: center;
+        font-size: 0.85rem;
+        color: #5b564f;
+        padding: 2rem 1rem;
+        border-top: 2px solid rgba(0, 0, 0, 0.08);
+        background: #ffffff00fff00;
+      }
+      @media (max-width: 992px) {
+        .ear-content-grid {
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+        .ear-toc {
+          width: 100%;
+          position: static;
+          order: 2;
+          box-shadow: none;
+          border-radius: 1rem;
+          padding: 1.25rem;
+        }
+        .ear-main {
+          order: 1;
+        }
+      }
+    </style>
     <!-- TITLE -->
-    <title>CELL ENGINEERING</title>
+    <title>MODELING THE HUMAN EAR</title>
   </head>
 
   <body overflow="hidden">
@@ -32,7 +473,6 @@
               style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: nowrap; gap: 1rem;">
             <!-- LOGO -->
             <a href="../index.html" role="link" aria-label="Home" style="text-align: left;">
-              <!-- <span class="viaoda-libre-regular">EUNGYO</span> -->
               <h1 style="text-align: left;"><span class="roboto">MODELING THE HUMAN EAR</span></h1>
             </a>
             <!-- MENU -->
@@ -42,14 +482,713 @@
           </div>
         </div>
       </header>
-      <p class="text-intro" style="padding-top: 2vh;">
-      The scope of bioengineering can span many scales— but what happens when we focus on fabrication at the level of individual cells? 
-      For my final project in my Cellular Engineering class, I investigated collective cell migration during gap closure.
-      <br><br>
-      Cellular engineering is a rigorous, graduate level undergraduate class focused on using modern lab techniques to manipulate cell behavior. 
-      I took this class during my senior year at Harvard.
-      On this page, I document the lab skills I acquired throughout the course, along with the final project in which I investigated collective cell migration during gap closure across various geometries.
-      </p>
+      <main role="main">
+      <!-- <div class="about-hero ear-hero">
+        <img src="ear_header.png"
+            loading="lazy"
+            alt="#"
+            class="align-left ui-image-half-right-about"
+            width="100%"
+            style="display: block; margin: 0; padding: 0; position: relative; z-index: 6;">
+      </div> -->
+      <div class="ui-layout-container">
+        <div class="ui-component-cta ui-layout-flex">
+          <div class="ui-layout-flex" style="flex-direction: column; gap: 1rem; padding-top: 2vh; padding-bottom: 2vh; align-items:flex-start; text-align:left; width:100%;">
+            <div id="fig-1">
+              <img src="../Ear/FIG1.png" style="max-width:80%; display:block; margin-top:2vh; margin-bottom:2vh;">
+              <figcaption class= "small" style="text-align:center; font-style:italic; margin-top:0.5rem;">
+                  Schematic of the final ear model, segmented into the three primary layers&ndash; soft tissue, cartilage, and bone. Renderings of each individual layer are shown.
+                  Outer ear morphology examined. Panel A: points for standardized anatomical measurements of a human ear.
+              </figcaption>
+            </div>
+            <p class="text-intro" style="padding-top: 2vh;font-size: 1.25rem;">
+              Inspired by a personal project building a <a href="https://alyssasuh.github.io/PS70/" target="_blank" rel="noopener" class="ear-highlight-link">personal assistant device</a> based in conductive-sound my junior year, I became deeply interested in the physical processes at the human interface of such systems. 
+              This curiosity led me to independently seek out experts in the field to better understand cartilage-mediated sound transmission.
+              <br> <br>
+              With the support of mentors I connected with through this outreach, I developed and initiated a senior thesis project in collaboration with <a href="https://masseyeandear.org/" target="_blank" rel="noopener" class="ear-highlight-link">Mass Eye and Ear</a>. 
+              This page summarizes the work of my senior thesis, which explores how cartilage-mediated sound transmission can be physically modeled to evaluate and optimize next-generation cartilage conduction headphones.
+            </p>
+            <br><br>
+            <div class="ear-content-grid">
+              <div class="ear-main">
+              <h1 id="abstract" class="roboto" style="text-align: left; width: 100%; display: block;">ABSTRACT</h1>
+              <p class="text-intro">
+              <span style="font-weight: 700;">Cartilage mediated headphones (CMH)</span> are devices that can deliver sound via vibrations
+              applied directly to the skin overlying cartilaginous surfaces of the outer ear. These
+              devices typically sit outside of the ear canal, enabling users to enjoy audio without occluding
+              their ear canals to external sound. However, shortcomings in CMH optimization have
+              led to unresolved issues, such as sound leakage at high volumes and optimized location to
+              interface CMH to the outer ear, discouraging wider adaption. Currently, there is no standardized
+              method for evaluating and comparing these devices that would help advance the
+              sound pathway.
+              <br><br>
+              This project aims to build a physical model of the outer ear capable to objectively simulating
+              the acoustic transmission of sound from a transducer vibrating the pinna to the resulting
+              sound pressure at the tympanic membrane. To achieve this, the model replicates the
+              anatomical geometry and material properties of the outer ear including cartilage, soft tissue,
+              and bone that compose the pinna and ear canal using a combination of PDMS-MoldMax60
+              composite, PDMS-Ecoflex50 composite, and Composite-X Resin respectively. The
+              model integrates all three materials to capture the anatomical morphology and material
+              properties of the outer ear, with the goal of creating an accessible and reproducible platform
+              for acoustic testing and research.
+              </p>
+            <br><br>
+            <h1 id="design" style="text-align: left;"><span class="roboto">DESIGN</span></h1>
+            <p class="text-intro">
+            Current research on cartilage conduction headphones relies on subjective testing methods, which are often time-consuming, expensive, and difficult to standardize.
+            There is a need for a faster, more accessible alternative method to evaluate different transducers throughout the outer ear, one that can accurately and repeatedly mimic the material and acoustic properties of soft tissue, bone, and intricate cartilage structures of the outer ear.
 
-  </body>
-</html>
+            Propagation of sound through a material is primarily determined by its elastic and density properties, which together determine the acoustic impedance and wave velocity<sup><a href="#ref-1" title="Reference 1">[1]</a></sup>.
+            These parameters are critical for our model, which aims to replicate the acoustic and mechanical properties of the outer ear. 
+            Based on literature research, we established target values for each anatomical material properties to serve as a performance benchmark for our model.
+            </p>
+
+            <div id="table-1" class="table-wrapper journal boxed-cites table-full-bleed" style="margin-top:0; margin-bottom:0;">
+              <div class="table-title" style="margin-top:0;">
+                <strong>Table 1:</strong> Target Mechanical and Acoustic Properties for Ear Model Materials
+              </div>
+
+              <table class="journal-table">
+                <thead>
+                  <tr>
+                    <th class="material">Material</th>
+                    <th class="category"></th>
+                    <th class="property">Property</th>
+                    <th class="value">Value (Tolerance)</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td class="material" rowspan="4">Soft Tissue</td>
+                    <td class="category" rowspan="2">Mechanical</td>
+                    <td class="property">Density <span class="math">&rho;</span></td>
+                    <td class="value">1.06 (5.2%) g/cm&sup3; <sup><a href="#ref-2">[2] </a></sup>
+                  </tr>
+                  <tr>
+                    <td class="property">Young&rsquo;s Modulus <span class="math">E</span></td>
+                    <td class="value">0.70 (32.6%) MPa <sup><a href="#ref-3">[3] </a></sup>
+                  </tr>
+                  <tr>
+                    <td class="category" rowspan="2">Acoustic</td>
+                    <td class="property">Speed of Sound <span class="math">c</span></td>
+                    <td class="value">1540 (25.7%) m/s <sup><a href="#ref-4">[4] </a></sup>
+                  </tr>
+                  <tr>
+                    <td class="property">Acoustic Impedance <span class="math">Z</span></td>
+                    <td class="value">1.6 (25.0%) MRayl <sup><a href="#ref-4">[4] </a></sup>
+                  </tr>
+
+                  <tr class="material-divider">
+                    <td colspan="4"></td>
+                  </tr>
+
+                  <tr class="section-break">
+                    <td class="material" rowspan="4">Cartilage</td>
+                    <td class="category" rowspan="2">Mechanical</td>
+                    <td class="property">Density <span class="math">&rho;</span></td>
+                    <td class="value">1.10 (2.55%) g/cm&sup3; <sup><a href="#ref-5">[5] </a></sup>
+                  </tr>
+                  <tr>
+                    <td class="property">Young&rsquo;s Modulus <span class="math">E</span></td>
+                    <td class="value">1.60 (71.9%) MPa <sup><a href="#ref-6">[6] </a></sup>
+                  </tr>
+                  <tr>
+                    <td class="category" rowspan="2">Acoustic</td>
+                    <td class="property">Speed of Sound <span class="math">c</span></td>
+                    <td class="value">1639.6 (4.37%) m/s <sup><a href="#ref-5">[5] </a></sup>
+                  </tr>
+                  <tr>
+                    <td class="property">Acoustic Impedance <span class="math">Z</span></td>
+                    <td class="value">2.12 (20.8%) MRayl <sup><a href="#ref-7">[7] </a></sup>
+                  </tr>
+
+                  <tr class="material-divider">
+                    <td colspan="4"></td>
+                  </tr>
+
+                  <tr class="section-break">
+                    <td class="material" rowspan="4">Bone</td>
+                    <td class="category" rowspan="2">Mechanical</td>
+                    <td class="property">Density <span class="math">&rho;</span></td>
+                    <td class="value">1.782 (16.27%) g/cm&sup3; <sup><a href="#ref-8">[8] </a></sup>
+                  </tr>
+                  <tr>
+                    <td class="property">Young&rsquo;s Modulus <span class="math">E</span></td>
+                    <td class="value">9.710 (59.28%) MPa <sup><a href="#ref-8">[8] </a></sup>
+                  </tr>
+                  <tr>
+                    <td class="category" rowspan="2">Acoustic</td>
+                    <td class="property">Speed of Sound <span class="math">c</span></td>
+                    <td class="value">1534 (94.85%) m/s <sup><a href="#ref-9">[9] </a></sup>
+                  </tr>
+                  <tr>
+                    <td class="property">Acoustic Impedance <span class="math">Z</span></td>
+                    <td class="value">2.73 (123.9%) MRayl <sup><a href="#ref-9">[9] </a></sup>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-intro" style="padding-top: 2vh;">
+            The form factor of the model must also replicate the general anatomy of a healthy adult human outer ear, including key structures such as the the pinna and ear canal.
+            To validate the morphology of our model, we established literature measurements of adult ear dimensions to serve as benchmarks for our design.
+            </p>
+            <div id="fig-2" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+              <div class="figure-zoom" style="max-width:95%; margin-left:auto; margin-right:auto;">
+                <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-2-modal">
+                  <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                  <span class="sr-only">Open an enlarged view of the outer ear morphology figure</span>
+                </button>
+                <img src="../Ear/FIG2.png" alt="Outer ear morphology diagrams" style="width:100%; display:block;">
+              </div>
+              <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                  Outer ear morphology examined. Panel A) depicts the points of interest for standardized anatomical measurements of a human pinna. While panel B) is an illustration of ear canal morphology and its key measurement points.
+              </figcaption>
+            </div>
+            <div id="fig-2-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Outer ear morphology figure">
+              <div class="figure-modal__content">
+                <button type="button" class="figure-modal__close" data-figure-close>&times;<span class="sr-only">Close enlarged figure</span></button>
+                <img src="../Ear/FIG2.png" alt="Outer ear morphology diagrams">
+                <p class="figure-modal__caption">Outer ear morphology with labeled anatomical landmarks and ear canal measurement points.</p>
+              </div>
+            </div>
+
+            <br>
+            <div id="table-2" class="table-wrapper journal boxed-cites table-full-bleed" style="margin-top:0; margin-bottom:0;">
+              <div class="table-title" style="margin-top:0;">
+                <strong>Table 2:</strong> Mean and standard deviations of outer ear morphology across 329 male subjects (ages 18&ndash;97) from predefined anatomical points <a href="#ref-10">[10]</a>
+              </div>
+              <table class="journal-table">
+                <thead>
+                  <tr>
+                    <th class="definition"></th>
+                    <th class="property">Definition</th>
+                    <th class="value">Target (cm)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="definition"><strong>Length 1</strong></td>
+                    <td class="property">Distance between superaurale and subaurale</td>
+                    <td class="value">6.91 &plusmn; 0.50</td>
+                  </tr>
+                  <tr>
+                    <td class="definition"><strong>Length 2</strong></td>
+                    <td class="property">Distance between tragus and subaurale</td>
+                    <td class="value">2.83 &plusmn; 0.35</td>
+                  </tr>
+                  <tr>
+                    <td class="definition"><strong>Width 1</strong></td>
+                    <td class="property">Distance between postaurale and base superior, orthogonal to Length 1 while horizontally parallel to preaurale superior</td>
+                    <td class="value">3.94 &plusmn; 0.32</td>
+                  </tr>
+                  <tr>
+                    <td class="definition"><strong>Width 2</strong></td>
+                    <td class="property">Distance between tragus and preaurale</td>
+                    <td class="value">3.51 &plusmn; 0.34</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <br><br>
+            <div id="table-3" class="table-wrapper journal boxed-cites table-full-bleed" style="margin-top:0; margin-bottom:0;">
+              <div class="table-title" style="margin-top:0;">
+                <strong>Table 3:</strong> Mean area and distance dimensions (and 95% confidence intervals) of healthy ear canals (n=47) taken from CT scans <a href="#ref-11">[11]</a>
+              </div>
+              <table class="journal-table">
+                <thead>
+                  <tr>
+                    <th class="material">Metric</th>
+                    <th class="category">Location</th>
+                    <th class="property">Target (mean)</th>
+                    <th class="property">95% CI</th>
+                    <th class="value">SD</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="material" rowspan="3">Area (mm&sup2;)</td>
+                    <td class="category">Canal Entrance</td>
+                    <td class="property">97</td>
+                    <td class="property">90&ndash;104</td>
+                    <td class="value">&plusmn;23.84</td>
+                  </tr>
+                  <tr>
+                    <td class="category">First Bend</td>
+                    <td class="property">53</td>
+                    <td class="property">48&ndash;58</td>
+                    <td class="value">&plusmn;17.03</td>
+                  </tr>
+                  <tr>
+                    <td class="category">Tympanic Annulus</td>
+                    <td class="property">56</td>
+                    <td class="property">54&ndash;59</td>
+                    <td class="value">&plusmn;8.51</td>
+                  </tr>
+
+                  <tr class="material-divider">
+                    <td colspan="5"></td>
+                  </tr>
+
+                  <tr>
+                    <td class="material" rowspan="3">Distance (mm)</td>
+                    <td class="category">Entrance to Bend</td>
+                    <td class="property">6.0</td>
+                    <td class="property">5.4&ndash;6.6</td>
+                    <td class="value">&plusmn;2.04</td>
+                  </tr>
+                  <tr>
+                    <td class="category">Bend to Annulus</td>
+                    <td class="property">25.4</td>
+                    <td class="property">24.8&ndash;26.1</td>
+                    <td class="value">&plusmn;2.21</td>
+                  </tr>
+                  <tr>
+                    <td class="category">Canal Length</td>
+                    <td class="property">31.4</td>
+                    <td class="property">30.5&ndash;32.3</td>
+                    <td class="value">&plusmn;3.07</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <br><br>
+            
+            <p class="text-intro" style="padding-top: 2vh;">
+              With the dimentional benchmarks established, we next designed the physical model by starting off with a digital rendering of a real human ear.
+              Using images taken of anatomical slices of a frozen human cadaver specimen<sup><a href="#ref-12">[12]</a></sup>, we reconstructed a 3D model of the outer ear using a segmentation software (Monolith) which included the inner material properties.  
+            </p>
+            <div id="fig-2-1" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+              <div class="figure-zoom" style="max-width:100%; margin-left:auto; margin-right:auto;">
+                <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-2-1-modal">
+                  <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                  <span class="sr-only">Open an enlarged view of the cadaver slice segmentation figure</span>
+                </button>
+                <img src="../Ear/FIG2.1.png" alt="Cadaver slice stack segmented into cartilage, soft tissue, and bone" style="width:100%; display:block;">
+              </div>
+              <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                  Image stack of cadaver slices compiled into segmented layers in Monolith (a multi-material modeling software) composed of cartilage, soft tissue, and bone. On the right, is an image slice of the frozen cadaveric speciment of the 85-year old female.
+              </figcaption>
+            </div>
+            <div id="fig-2-1-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Cadaver slice segmentation figure">
+              <div class="figure-modal__content">
+                <button type="button" class="figure-modal__close" data-figure-close>&times;<span class="sr-only">Close enlarged figure</span></button>
+                <img src="../Ear/FIG2.1.png" alt="Cadaver slice stack segmented into cartilage, soft tissue, and bone">
+                <p class="figure-modal__caption">Cadaver slice stack aligned in Monolith to isolate cartilage, soft tissue, and bone layers.</p>
+              </div>
+            </div>
+            <p class="text-intro" style="padding-top: 2vh;">
+              Because the image stack omits the top and bottom portions of the outer ear, and the preservation processes applied to the cadaver resulted in morpological distortions, we supplemented the model with a detailed surface geometry of a human ear obtained from a LiDAR scan of a live subject.
+              This surface scan was then aligned and merged with the segmented cadaver model to create a final composite digital model of the outer ear.
+            </p> 
+            <div id="fig-2-2" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+              <div class="figure-zoom" style="max-width:80%; margin-left:auto; margin-right:auto;">
+                <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-2-2-modal">
+                  <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                  <span class="sr-only">Open an enlarged view of the composite ear model figure</span>
+                </button>
+                <img src="../Ear/FIG2.2.png" alt="Composite ear model created from cadaver segmentation and LiDAR scan" style="width:100%; display:block;">
+              </div>
+              <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                  The resulting digital ear model model (right) created by combining the segmented cadaver ear (left) with a LiDAR scan of a live human ear.              </figcaption>
+            </div>
+            <div id="fig-2-2-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Composite ear model figure">
+              <div class="figure-modal__content">
+                <button type="button" class="figure-modal__close" data-figure-close>&times;<span class="sr-only">Close enlarged figure</span></button>
+                <img src="../Ear/FIG2.2.png" alt="Composite ear model created from cadaver segmentation and LiDAR scan">
+                <p class="figure-modal__caption">Composite ear model formed by merging segmented cadaver anatomy with a LiDAR surface scan.</p>
+              </div>
+            </div>
+            <br><br>
+            <h1 id="materials" class="roboto" style="text-align: left; width: 100%; display: block;">MATERIAL SELECTION & FABRICATION</h1>
+            <p class="text-intro" style="padding-top: 2vh;">
+                Extensive experimental testing was conducted to identify suitable candidate materials that could replicate the target mechanical and acoustic properties of each anatomical layer.
+                PDMS-Ecoflex50 composite, PDMS-MoldMax60 composite, and Composite-X Resin (Liqcreate) were selected to replicate soft tissue, cartilage, and bone respectively.
+                <br><br>
+                Then, through a series of molding and casting one layer on top of of the next, we were left a 3-layer model pictured below.
+            </p>
+            <div id="fig-2-3" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+              <div class="figure-zoom" style="max-width:95%; margin-left:auto; margin-right:auto;">
+                <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-2-3-modal">
+                  <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                  <span class="sr-only">Open an enlarged view of the fabricated ear model figure</span>
+                </button>
+                <img src="../Ear/FIG2.3.png" alt="Layered ear model showing soft tissue, cartilage, and bone" style="width:100%; display:block;">
+              </div>
+              <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                  The resulting digital ear model model (right) created by combining the segmented cadaver ear (left) with a LiDAR scan of a live human ear.              </figcaption>
+            </div>
+            <div id="fig-2-3-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Fabricated ear model figure">
+              <div class="figure-modal__content">
+                <button type="button" class="figure-modal__close" data-figure-close>&times;<span class="sr-only">Close enlarged figure</span></button>
+                <img src="../Ear/FIG2.3.png" alt="Layered ear model showing soft tissue, cartilage, and bone">
+                <p class="figure-modal__caption">Three-layer ear model produced through sequential molding of soft tissue, cartilage, and bone analogs.</p>
+              </div>
+            </div>
+            <br><br>
+            <h1 id="results" class="roboto" style="text-align: left; width: 100%; display: block;">RESULTS & DISCUSSION</h1>
+            <p class="text-intro" style="padding-top: 2vh;">
+              To evaluate the acoustic performance of the fabricated ear model, we conducted in a sound chamber provided by the Nakajima lab.
+              A nitrile glove membrane was superguled over the tympanic annulus in place of a tympanic membrane.
+              A pair of commercial cartilage conduction headphones (Shokz) were used to transmit sound through the model at a fixed applied static force.
+              Meanwhile, a probe microphone and a laser Doppler vibrometer (LDV) were employed to characterize the resulting acoustic and vibrational responses. 
+            </p>
+            <div id="fig-3" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+              <div class="figure-zoom" style="max-width:95%; margin-left:auto; margin-right:auto;">
+                <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-3-modal">
+                  <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                  <span class="sr-only">Open an enlarged view of the experimental setup figure</span>
+                </button>
+                <img src="../Ear/FIG3.png" alt="Experimental setup schematic with LDV and probe microphone placements" style="width:100%; display:block;">
+              </div>
+              <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                  3D schematic of the experimental setup. LDV and probe microphone measurements were performed with a transducer placed at the tragus, anti-tragus, and anti-helix (middle). An air-conduction speaker setup (right) was used for comparison.
+              </figcaption>
+            </div>
+            <div id="fig-3-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Experimental setup figure">
+              <div class="figure-modal__content">
+                <button type="button" class="figure-modal__close" data-figure-close>&times;<span class="sr-only">Close enlarged figure</span></button>
+                <img src="../Ear/FIG3.png" alt="Experimental setup schematic with LDV and probe microphone placements">
+                <p class="figure-modal__caption">Experimental setup showing LDV, probe microphone, and cartilage conduction transducer locations.</p>
+              </div>
+            </div>
+
+            <p class="text-intro" style="padding-top: 2vh;">
+              We test the model with the transducers, first evaluated at its baseline performance under normal air conduction as a control, comparing it to previously collected data from a cadaver ear.
+              Along output signals ranging from 0.1&ndash;20kHz, we generated using a National Instruments DAQ, system. 
+              We measured the magnitude of the tympanic membrane motion normalized by ear-canal pressure across varying frequencies.
+              The results are summarized in the figure below.
+            </p>
+            <div id="fig-3-1" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+              <div class="figure-zoom" style="max-width:50%; margin-left:auto; margin-right:auto;">
+                <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-3-1-modal">
+                  <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                  <span class="sr-only">Open an enlarged version of the eardrum displacement figure</span>
+                </button>
+                <img src="../Ear/FIG3.1_results.png" style="width:100%; display:block;">
+              </div>
+              <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                  Eardrum Displacement with respect to ear-canal sound stimulus. Magnitude and phase of the
+                  eardrums displacement-to-pressure response for artificial and cadaveric ears. The observed ~180 phase
+                  offset results from the LDV direction of measurement on the canal side for the cadaveric ear versus the
+                  opposite side for the artificial ear.
+              </figcaption>
+            </div>
+            <div id="fig-3-1-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Eardrum displacement figure">
+              <div class="figure-modal__content">
+                <button type="button" class="figure-modal__close" data-figure-close>&times;<span class="sr-only">Close enlarged figure</span></button>
+                <img src="../Ear/FIG3.1_results.png" alt="Enlarged eardrum displacement response figure">
+                <p class="figure-modal__caption">
+                  Eardrum displacement-to-pressure response comparison for artificial and cadaveric ears.
+                </p>
+              </div>
+            </div>
+            <p class="text-intro" style="padding-top: 2vh;">
+              Next, we evaluated the transducer performance when placed at three different locations on the outer ear&ndash; the tragus, anti-tragus, and anti-helix.
+              Above approximately 700Hz, the responses closely overlap, indicating that transducer location has minimal impact on eardrum displacement at higher frequencies.
+              However, at lower frequencies below 700Hz, the Shokz simulation at all locations consistenly produced higher eardrum motion for the same ear-canal pressure. 
+              <br><br>
+              To further investigate this behavior, we replotted the same data as a function of stimulus voltage for both eardrum displacement and ear-canal pressure.
+              This representation reveals a clearer trend: above 1kHz, the ear-canal pressures produced by the Shokz and AC speaker are closely matched, whereas below 1kHz,the Shokz conistenly produces lower ear-canal pressures for the same input voltage.
+              <br><br>
+              This suggests that at lower frequencies, acoustic coupling through cartilage conduction is less efficient. 
+              The results are summarized in the figure below.
+            </p>
+            <div id="fig-3-3" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+              <div class="figure-zoom" style="max-width:50%; margin-left:auto; margin-right:auto;">
+                <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-3-3-modal">
+                  <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                  <span class="sr-only">Open an enlarged view of the variable transducer location figure</span>
+                </button>
+                <img src="../Ear/FIG3.3_results.png" alt="Eardrum displacement for different Shokz transducer locations" style="width:100%; display:block;">
+              </div>
+              <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                  Varying Shokz Locations&ndash; Eardrum Displacement.
+              </figcaption>
+            </div>
+            <div id="fig-3-3-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Transducer location comparison figure">
+              <div class="figure-modal__content">
+                <button type="button" class="figure-modal__close" data-figure-close>&times;<span class="sr-only">Close enlarged figure</span></button>
+                <img src="../Ear/FIG3.3_results.png" alt="Eardrum displacement for different Shokz transducer locations">
+                <p class="figure-modal__caption">Comparison of eardrum displacement responses across tragus, anti-tragus, and anti-helix positions.</p>
+              </div>
+            </div>
+            <div id="fig-3-6" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+              <div class="figure-zoom" style="max-width:80%; margin-left:auto; margin-right:auto;">
+                <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-3-6-modal">
+                  <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                  <span class="sr-only">Open an enlarged view of the ear canal pressure comparison figure</span>
+                </button>
+                <img src="../Ear/FIG3.6_results.png" alt="Ear canal pressure and eardrum displacement comparison for air and bone conduction" style="width:100%; display:block;">
+              </div>
+              <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                  Comparison of Ear Canal Pressure and Eardrum Displacement for Air&ndash; and Bone&ndash;Conduction Stimulation. Panel A) illustrates eardrum displacement relative to input stimulus voltage and panel B) illustrates the ear canal pressure relative to input stimulus voltage.
+              </figcaption>
+            </div>
+            <div id="fig-3-6-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Ear canal pressure comparison figure">
+              <div class="figure-modal__content">
+                <button type="button" class="figure-modal__close" data-figure-close>&times;<span class="sr-only">Close enlarged figure</span></button>
+                <img src="../Ear/FIG3.6_results.png" alt="Ear canal pressure and eardrum displacement comparison for air and bone conduction">
+                <p class="figure-modal__caption">Ear canal pressure and eardrum displacement vs. stimulus voltage for air and cartilage conduction pathways.</p>
+              </div>
+            </div>
+            <p class="text-intro" style="padding-top: 2vh;">
+            In conclusion, the novel ear model successfully met established mechanical, acoustic, and morphological benchmarks for the outer ear.
+            Acoustic testing demonstrated that the model can effectively simulate cartilage conduction sound transmission, providing valuable insight into the performance of cartilage mediated sound. 
+            <br><br>
+            Notably, at low frequencies we observed results suggesting additional transmission pathways that are contributing to tympanic membrane vibration, warrenting further investigation.
+            These finding highlight the potential of the model not only as a tool for evalutating cartilage conduction headphones, but also as a platform to explore the underlying physics of cartilage conduction.
+            <br><br>
+            Future work will focus on refining the model through comparison with cadaveric and human subjects to further improve accuracy and reliability. 
+            Even at this early stage, the model represents an meaningful advancement in the field, offering a low-cost, accessible alternative for testing CMH devices and may accelerate progress in hearing technology research. 
+            While current applications focus on headphone-like devices, the model may also be adapted to explore broader implications across medical, acoustic, and consumer domains.
+            </p>
+            <br><br>
+            <h1 id="acknowledgements" class="roboto" style="text-align: left; width: 100%; display: block;">ACKNOWLEDGEMENTS</h1>
+            <p class="text-intro" style="padding-top: 2vh;">
+
+            This project was conducted under the co-supervision of Nathan Melenbrink, Ph.D., in the Harvard Department of Physics, and Heidi Nakajima, M.D., Ph.D, at Massachusetts Eye and Ear Institute.
+            </p>
+            <br><br>
+            <section id="references" aria-label="References" style="width: 100%;">
+              <h1 class="roboto" style="text-align: left; width: 100%; display: block;">REFERENCES</h1>
+              <div class="text-intro ear-references" style="padding:2rem 0; font-size:0.8rem; opacity:0.65; text-align:left;">
+                <p id="ref-1" style="margin:0;">
+                  1. I. S. University, &ldquo;Nondestructive Evaluation Physics: Sound,&rdquo; 2021.
+                </p>
+                <p id="ref-2" style="margin:0;">
+                  2. L. Aranda-Lara, E. Torres-Garca, and R. Oros-Pantoja, &ldquo;Biological tissue modeling with agar gel phantom for radiation dosimetry of 99mtc,&rdquo; Open Journal of Radiology, vol. 2014, 02 2014.<br>
+                </p>
+                <p id="ref-3" style="margin:0;">
+                  3. J. Lim, I. Dobrev, C. Rsli, S. Stenfelt, and N. Kim, &ldquo;Development of a finite element model of a human head including auditory periphery for understanding of boneconducted hearing,&rdquo; Hearing Research, p. 108337, 08 2021.<br>
+                </p>
+                <p id="ref-4" style="margin:0;">
+                  4. P. Suetens, &ldquo;Ultrasound imaging,&rdquo; Cambridge University Press eBooks, pp. 128&ndash;158, 08 2009.<br>
+                </p>
+                <p id="ref-5" style="margin:0;">
+                  5. C. Baumgartner, P. Hasgall, F. Di Gennaro, E. Neufeld, B. Lloyd, M. Gosselin, and N. Kuster, &ldquo;Dielectric properties it&rsquo;is foundation,&rdquo; 08 2025.<br>
+                </p>
+                <p id="ref-6" style="margin:0;">
+                  6. M. F. Griffin, Y. Premakumar, A. M. Seifalian, M. Szarko, and P. E. M. Butler, &ldquo;Biomechanical characterisation of the human auricular cartilages; implications for tissue engineering,&rdquo; Annals of Biomedical Engineering, vol. 44, p. 34603467, 2016.<br>
+                </p>
+                <p id="ref-7" style="margin:0;">
+                  7. S. Leicht and K. Raum, &ldquo;Acoustic impedance changes in cartilage and subchondral bone due to primary arthrosis,&rdquo; Ultrasonics, vol. 48, pp. 613&ndash;620, 11 2008.<br>
+                </p>
+                <p id="ref-8" style="margin:0;">
+                  8. A. Auperrin, R. Delille, D. Lesueur, K. Bruyre, C. Masson, and P. Draztic, &ldquo;Geometrical and material parameters to assess the macroscopic mechanical behaviour of fresh cranial bone samples,&rdquo; Journal of Biomechanics, vol. 47, pp. 1180&ndash;1185, 01 2014.<br>
+                </p>
+                <p id="ref-9" style="margin:0;">
+                  9. C. W. Connor, G. T. Clement, and K. Hynynen, &ldquo;A unified model for the speed of sound in cranial bone based on genetic algorithm optimization,&rdquo; Physics in Medicine and Biology, vol. 47, pp. 3925&ndash;3944, 10 2002.<br>
+                </p>
+                <p id="ref-10" style="margin:0;">
+                  10. B. Schulz, M. Thali, R. Kubik-Huch, and T. Niemann, &rsquo;Auricular dimensions in computed-tomography: Unveiling the relationship between ear dimensions, age, and sex using three-dimensional volume rendering reconstructions,&rsquo; World Journal of Radiology, vol. 16, pp. 760&ndash; 770, 12 2024.<br>
+                </p>
+                <p id="ref-11" style="margin:0;">
+                  11. A. P. Balouch, K. Bekhazi, H. E. Durkee, R. M. Farrar, M. Sok, D. H. Keefe, A. K. Remenschneider, N. J. Horton, and S. E. Voss, &rsquo;Measurements of ear-canal geometry from high-resolution ct scans of human adult ears,&rsquo; Hearing Research, vol. 434, pp. 108782&ndash;108782, 04 2023.<br>
+                </p>
+                <p id="ref-12" style="margin:0;">
+                  12.H. Wang, S. Merchant, and M. Sorensen, &rsquo;A downloadable three-dimensional virtual model of the visible ear,&rsquo; ORL; journal for oto-rhino-laryngology and its related specialties, vol. 69, pp. 63&ndash;7, 02 2007. <br>
+                </p>
+              </div>
+            </section>
+            <div class="ear-footer-spacer" aria-hidden="true"></div>
+          </div>
+          <aside class="ear-toc" aria-label="Page navigation">
+            <div class="toc-section">
+              <h4>OUTLINE</h4>
+              <ul>
+                <li><a href="#abstract" data-ear-section-link>ABSTRACT</a></li>
+                <li><a href="#design" data-ear-section-link>DESIGN</a></li>
+                <li><a href="#materials" data-ear-section-link>MATERIAL SELECTION &amp; FABRICATION</a></li>
+                <li><a href="#results" data-ear-section-link>RESULTS &amp; DISCUSSION</a></li>
+                <li><a href="#acknowledgements" data-ear-section-link>ACKNOWLEDGEMENTS</a></li>
+                <li><a href="#references" data-ear-section-link>REFERENCES</a></li>
+              </ul>
+            </div>
+            <div class="toc-section">
+              <h4>TABLES</h4>
+              <ul>
+                <li><a href="#table-1">TABLE 1 </a></li>
+                <li><a href="#table-2">TABLE 2 </a></li>
+                <li><a href="#table-3">TABLE 3 </a></li>
+              </ul>
+            </div>
+            <div class="toc-section">
+              <h4>FULL THESIS ACCESS</h4>
+              <ul>
+                <li>
+                  <a href="Thesis%20Preview.pdf" target="_blank" rel="noopener" class="toc-preview__link">
+                    <span class="toc-preview__text">VIEW PREVIEW</span>
+                    <img src="PDFthumbnail.png" alt="Thumbnail of the thesis preview PDF" class="toc-preview__thumb">
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:alyssa2.suh@gmail.com" aria-controls="request-access-modal" data-request-access-trigger class="request-access-link">
+                    REQUEST ACCESS
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+      <div id="request-access-modal" class="request-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="request-access-title">
+        <div class="request-modal__content">
+          <button type="button" class="request-modal__close" data-request-access-close aria-label="Close request access dialog">&times;</button>
+          <h2 class="request-modal__title" id="request-access-title">Request Full Thesis Access</h2>
+          <p class="request-modal__body">
+            Please email <a class="request-modal__email" href="mailto:alyssa2.suh@gmail.com">alyssa2.suh@gmail.com</a> with your name, affiliation, and a short explanation of why you need full access to the document.
+          </p>
+          <p class="request-modal__body">
+            Include any deadlines or project context so we can prioritize your request and respond promptly.
+          </p>
+          <div class="request-modal__actions">
+            <a class="request-modal__button" href="mailto:alyssa2.suh@gmail.com?subject=Full%20Thesis%20Access%20Request">Compose Email</a>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="ear-footer-note">
+      All figures, diagrams, and graphs were created by the author unless otherwise noted. Permission is required for use or reproduction. :)
+    </footer>
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const sectionLinks = Array.from(document.querySelectorAll('[data-ear-section-link]'));
+          const sections = sectionLinks
+            .map(link => document.querySelector(link.getAttribute('href')))
+            .filter(Boolean);
+
+          if (sections.length) {
+            const setActive = id => {
+              sectionLinks.forEach(link => {
+                if (link.getAttribute('href') === `#${id}`) {
+                  link.setAttribute('aria-current', 'true');
+                } else {
+                  link.removeAttribute('aria-current');
+                }
+              });
+            };
+
+            const getVisibleAmount = (start, end, viewportTop, viewportBottom) => {
+              return Math.max(0, Math.min(end, viewportBottom) - Math.max(start, viewportTop));
+            };
+
+            let ticking = false;
+
+            const updateActiveSection = () => {
+              ticking = false;
+              const viewportTop = window.scrollY;
+              const viewportBottom = viewportTop + window.innerHeight;
+              let bestId = null;
+              let bestVisible = 0;
+
+              sections.forEach((section, index) => {
+                if (section.id === 'acknowledgements') {
+                  const rect = section.getBoundingClientRect();
+                  const bandTop = window.innerHeight / 3;
+                  const bandBottom = window.innerHeight * (2 / 3);
+                  const intersectsCenterBand = rect.top <= bandBottom && rect.bottom >= bandTop;
+                  if (intersectsCenterBand) {
+                    bestId = section.id;
+                    bestVisible = Number.MAX_VALUE;
+                    return;
+                  }
+                }
+
+                if (bestVisible === Number.MAX_VALUE) {
+                  return;
+                }
+
+                const start = section.offsetTop;
+                const end = index < sections.length - 1 ? sections[index + 1].offsetTop : document.body.scrollHeight;
+                const visible = getVisibleAmount(start, end, viewportTop, viewportBottom);
+
+                if (visible > bestVisible) {
+                  bestVisible = visible;
+                  bestId = section.id;
+                }
+              });
+
+              if (bestId) {
+                setActive(bestId);
+              }
+            };
+
+            const requestTick = () => {
+              if (!ticking) {
+                requestAnimationFrame(updateActiveSection);
+                ticking = true;
+              }
+            };
+
+            window.addEventListener('scroll', requestTick, { passive: true });
+            window.addEventListener('resize', requestTick);
+            updateActiveSection();
+          }
+
+          const zoomTriggers = document.querySelectorAll('.figure-zoom__trigger');
+          const figureModals = document.querySelectorAll('.figure-modal');
+
+          const openModal = modal => {
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+          };
+
+          const closeModal = modal => {
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+          };
+
+          zoomTriggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+              const modal = document.getElementById(trigger.dataset.zoomTarget);
+              if (modal) {
+                openModal(modal);
+              }
+            });
+          });
+
+          figureModals.forEach(modal => {
+            modal.addEventListener('click', event => {
+              if (event.target === modal || event.target.closest('[data-figure-close]')) {
+                closeModal(modal);
+              }
+            });
+          });
+
+          const requestAccessTrigger = document.querySelector('[data-request-access-trigger]');
+          const requestAccessModal = document.getElementById('request-access-modal');
+
+          if (requestAccessTrigger && requestAccessModal) {
+            requestAccessTrigger.addEventListener('click', event => {
+              event.preventDefault();
+              openModal(requestAccessModal);
+              const closeButton = requestAccessModal.querySelector('[data-request-access-close]');
+              if (closeButton) {
+                closeButton.focus();
+              }
+            });
+
+            requestAccessModal.addEventListener('click', event => {
+              if (event.target === requestAccessModal || event.target.closest('[data-request-access-close]')) {
+                event.preventDefault();
+                closeModal(requestAccessModal);
+              }
+            });
+          }
+
+          document.addEventListener('keydown', event => {
+            if (event.key === 'Escape') {
+              const activeModal = document.querySelector('.figure-modal[aria-hidden="false"], .request-modal[aria-hidden="false"]');
+              if (activeModal) {
+                closeModal(activeModal);
+              }
+            }
+          });
+        });
+      </script>
+    </body>
+  </html>

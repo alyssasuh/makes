@@ -51,7 +51,7 @@
               <span class="roboto-header-dark">INVESTIGATING CELL MORPHOLOGY</span>
             </h1> -->
             <p class="text-intro" style="padding-top: 2vh;">
-              The scope of bioengineering can span many scales— but what happens when we focus on fabrication at the level of individual cells? 
+              The scope of bioengineering can span many scales&ndash; but what happens when we focus on fabrication at the level of individual cells? 
               For my final project in my Cellular Engineering class, I investigated collective cell migration during gap closure.
               <br><br>
               Cellular engineering is a rigorous, graduate level undergraduate class focused on using modern lab techniques to manipulate cell behavior. 
@@ -61,7 +61,7 @@
             <div style="max-width:50rem;">
               <img src="../cell_images/img_1.jpg"> 
               <figcaption class= "small" style="text-align:center; font-style:italic; margin-top:0.5rem;">
-                Immunofluorescent microscopy image of gap junctions captured with a Zeiss microscope at 100× magnification
+                Immunofluorescent microscopy image of gap junctions captured with a Zeiss microscope at 100&times; magnification
               </figcaption>
             </div>
           <br><br>
@@ -113,7 +113,7 @@
           <p class="text-intro">
             With these cells, we first performed a wound healing (scratch) assay, allowing both cell lines to grow to full confluency before creating a scratch.
             These wounds were then imaged over the course of three days at 40x magnification to quantify the rate of wound closure.
-            The image carousel below shows HNDF cells over 56 hourse, illustrating their progressive migration and gap closure.
+            The image carousel below shows HNDF cells over 56 hours, illustrating their progressive migration and gap closure.
           </p>
 
           <div style="max-width: 55%; margin: 0 auto;">
@@ -178,7 +178,7 @@
             While the wafer was drying, we mixed PDMS at a 10:1 ratio of base to curing agent, poured the mixture over the silicon wafer, and degassed it.
             <br><br>
             At the same time, we used the same PDMS mixture to spin-coat onto our pre-sonicated glass coverslips at ramp 5, 500 rpm , and dwell 5.
-            Once both the spin-coating and degassing were complete, we placed the wafer mold and coverslips in a laboratory oven to cure overnight at 65°C.
+            Once both the spin-coating and degassing were complete, we placed the wafer mold and coverslips in a laboratory oven to cure overnight at 65&nbsp;&deg;C.
           </p>
           <img src="../cell_images/PDMS_stamp.png">
           <br><br>
@@ -385,16 +385,39 @@
           <p class="text-intro">
           For our final project, we investigated how cell type, anisotropy, and geometric constraints influence collective gap closure in human neonatal dermal fibroblasts (HNDFs) and human umbilical vein endothelial cells (HUVECs). 
           We hypothesized that HNDFs would migrate faster due to their elongated morphology and stress fiber organization, and that gaps with higher curvature would close more rapidly. 
-          Inspired by micropatterning techniques, we fabricated custom resin molds to cast PDMS stamps, which were used to create circular, square, and triangular gaps with defined geometries, each with a surface area of 30 mm². 
+          Inspired by micropatterning techniques, we fabricated custom resin molds to cast PDMS stamps, which were used to create circular, square, and triangular gaps with defined geometries, each with a surface area of 30&nbsp;mm&sup2;. 
           <img src="../cell_images/BE121 Stamp Mold v6.png">
           
           These stamps were applied to fibronectin-coated substrates prepared with both isotropic and anisotropic alignment patterns. 
           Over 72 hours, we observed that HUVECs closed gaps faster than HNDFs, and that cells on isotropic substrates and in geometries with sharper curvature (e.g., triangles) exhibited the highest migration rates. 
-          These results demonstrate how cell type, alignment, and curvature collectively influence wound closure dynamics— offering insight into how physical constraints can be leveraged in tissue engineering and regenerative medicine.
+          These results demonstrate how cell type, alignment, and curvature collectively influence wound closure dynamics&ndash; offering insight into how physical constraints can be leveraged in tissue engineering and regenerative medicine.
           </p>
         </div>
       </div>
     </main>
     <br><br><br><br><br>
+
+    <script>
+      window.addEventListener('load', () => {
+        const targets = document.querySelectorAll('main h1, main h2, main h3, main p, main figcaption, main li');
+        if (!targets.length) return;
+
+        targets.forEach((el) => el.classList.add('scroll-delay'));
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+            } else {
+              entry.target.classList.remove('is-visible');
+            }
+          });
+        }, { threshold: 0.2 });
+
+        targets.forEach((el, index) => {
+          observer.observe(el);
+        });
+      });
+    </script>
   </body>
 </html>

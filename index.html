@@ -51,16 +51,18 @@
 
           // Which element is directly behind the header band?
           const el = document.elementFromPoint(x, y);
-          const slide = el ? el.closest('.first-slide, .second-slide, .third-slide') : null;
+          const slide = el ? el.closest('.first-slide, .second-slide, .third-slide, .fourth-slide') : null;
 
-          header.classList.remove('header--alt', 'header--alt2');
+          header.classList.remove('header--alt', 'header--alt2', 'header--alt3', 'header--alt4', 'header--default');
 
           if (slide?.classList.contains('first-slide')) {
             header.classList.add('header--alt'); // White logo for grey background
           } else if (slide?.classList.contains('second-slide')) {
             header.classList.add('header--alt2'); // White logo for white background  
           } else if (slide?.classList.contains('third-slide')) {
-            header.classList.add('header--alt2'); // Dark logo for yellow background
+            header.classList.add('header--alt3'); // Dark logo for yellow background
+          } else if (slide?.classList.contains('fourth-slide')) {
+            header.classList.add('header--alt4'); // Dark logo for yellow background
           }
           // else: header returns to default styling
         }
@@ -159,7 +161,7 @@
           </section>
         </div>
 
-        <div class="sticky snap-start top-0 h-screen z-0 flex flex-col items-center justify-center bg-[var(--ui-color-typography-heading)] first-slide snap-panel">
+        <div class="sticky snap-start top-0 h-screen z-0 flex flex-col items-center justify-center grad-2 first-slide snap-panel">
           <div class= "mx-32 px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[80rem] xl2:max-w-[90rem]">
             <div class="ui-layout-container">
               <div class="ui-section-feature__layout ui-layout-grid ui-layout-grid-2-3">
@@ -169,18 +171,14 @@
                           class="block"
                           style="width:100%;height:80vh;max-height:80vh;z-index:1;"></canvas>
                 </div>
-                <!-- Add a small message that becomes visible on error or file:// -->
-                <div id="ear-model-msg" class="mt-2 text-sm text-red-700 hidden">
-                  <!-- populated by script -->
-                </div>
                 
                 <!-- FEATURE -->
                 <div>
-                  <h2 class=" font-[var(--ui-typography-roboto)] text-[var(--ui-color-background-primary)] mb-4">
+                  <h2 class=" font-[var(--ui-color-typography-logo)] text-[var(--ui-text-2)] mb-4">
                     MODELING THE HUMAN EAR
                   </h2>
                   <a href="Ear/ear.html" role="link">
-                    <p class="ui-text-intro text-[var(--ui-color-background-primary)] transform hover:translate-x-4 active:translate-x-6">
+                    <p class="ui-text-intro text-panel-2 transform hover:translate-x-4 active:translate-x-6">
                     The outer ear plays a critical role in shaping how we perceive sound- but how can we model the complexity of conductive sound in these tissues? 
                     For my senior thesis, I built a multilayer physical model of the human ear designed to replicate the material and geometric properties of soft tissue, cartilage, and bone. 
                     <!-- Using acoustic testing and 3D modeling, I investigated how sound waves travel through these structures to the eardrum, helping bridge engineering design and human anatomy in hearing research. -->
@@ -193,7 +191,33 @@
             </div>
           </div>
         </div>
-        <div class="sticky snap-start top-0 h-screen z-0 flex flex-col items-center justify-center bg-[var(--ui-color-background-primary)] text-black second-slide snap-panel">
+        <div class="sticky snap-start top-0 h-screen z-0 flex flex-col items-center justify-center grad-3 text-black second-slide snap-panel">
+          <div class= "mt-32 mx-auto px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem]">
+            <div class="ui-layout-container">
+              <div class="ui-section-feature__layout ui-layout-grid ui-layout-grid-2-3 items-center">
+                <div class="w-full h-full flex mems-image-wrapper">
+                  <img
+                    src="MEMS/MEMS.png"
+                    alt="MEMS cross-section"
+                    class="mems-image object-contain"
+                  />
+                </div>
+                <div>
+                  <h2 class="font-[var(--ui-typography-roboto)] text-[var(--ui-text-3)] mb-4">MEMS Transducer</h2>
+                  <a href="MEMS/MEMS.html" role="link">
+                    <p class="ui-text-intro text-panel-3 transition transform hover:translate-x-4 active:translate-x-6">
+                    Expanding on the concept of delivering sound through mechanical conduction, I designed a microelectromechanical systems (MEMS) designed to operate at a fraction of the size and power consumption of commercial devices.
+                    By leveraging MEMS fabrication techniques, I developed a proof-of-concept device that can discretely intergrated into wearable technologies for conduction hearing applications.
+                    <br><br>
+                    read more >>
+                    </p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sticky snap-start top-0 h-screen z-0 flex flex-col items-center justify-center grad-4 text-black third-slide snap-panel">
           <div class= "mt-32 mx-auto px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem]">
             <div class="ui-layout-container">
               <div class="ui-section-feature__layout ui-layout-grid ui-layout-grid-2-3">
@@ -216,9 +240,9 @@
                   </div>
                 </div>
                 <div>
-                  <h2 class="font-[var(--ui-typography-roboto)] text-[var(--ui-color-typography-heading)] mb-4">CELL ENGINEERING</h2>
+                  <h2 class="font-[var(--ui-typography-roboto)] text-[var(--ui-text-4)] mb-4">CELL ENGINEERING</h2>
                   <a href="CellMorphology/cellmorphology.html" role="link">
-                    <p class="ui-text-intro text-[var(--ui-color-typography-heading)] transition transform hover:translate-x-4 active:translate-x-6">
+                    <p class="ui-text-intro text-panel-4 transition transform hover:translate-x-4 active:translate-x-6">
                     The scope of bioengineering can span many scales— but what happens when we focus on fabrication at the level of individual cells? 
                     Pictured on the right is an immunofluorescent image stack of cells patterned into triangles using microcontact printing. 
                     For my final project in my Cellular Engineering class, I investigated collective cell migration during gap closure.
@@ -234,7 +258,7 @@
             <p>Scroll Down for next slide</p> -->
           </div>
         </div>
-        <div class="sticky snap-start top-0 h-screen z-0 flex flex-col items-center justify-center bg-[var(--ui-color-n-p)] text-black third-slide snap-panel">
+        <div class="sticky snap-start top-0 h-screen z-0 flex flex-col items-center justify-center grad-5 text-black fourth-slide snap-panel">
           <div class= "mx-auto px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem]">
             <div class="ui-layout-container">
               <div class="ui-section-feature__layout ui-layout-grid ui-layout-grid-2-3 items-center">
@@ -248,12 +272,10 @@
                 
                 <!-- FEATURE -->
                 <div>
-                  <h2 class="font-[var(--ui-typography-roboto)] text-[var(--ui-color-background-heading)] mb-4">
-                  CO-CONTRACTION EXTENDO ARM
-                    
-                  </h2>
-                  <a href="CellMorphology/cellmorphology.html" role="link">
-                    <p class="ui-text-intro text-[var(--ui-color-background-heading)] transform hover:translate-x-4 active:translate-x-6">
+                  <h2 class="font-[var(--ui-typography-roboto)] text-[var(--ui-text-5)] mb-4">
+                  CO-CONTRACTION EXTENDO ARM </h2>
+                  <a href="Arm/arm.html" role="link">
+                    <p class="ui-text-intro text-panel-5 transform hover:translate-x-4 active:translate-x-6">
                       There is increasing interest in human augmentation, but does the human brain have the capacity to control an additional limb? 
                       As a final project for my Biomechanics class, our team designed a lightweight, forearm-mounted extendable arm. 
                       The device is intuitively controlled via muscle co-contraction, allowing for seamless use without compromising existing degrees of freedom.

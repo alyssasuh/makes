@@ -49,7 +49,7 @@ TABLE OF CONTENT
 
   --ui-color-n-000: #fdfcf7;
   --ui-color-n-025: #4d5051;
-  --ui-color-n-050: #f5f5f5;
+  --ui-color-n-050: #fdf6e2;
   --ui-color-n-300: #aeaeae;
   --ui-color-n-500: #353535;
   --ui-color-n-900: #1a1a1a;
@@ -57,9 +57,37 @@ TABLE OF CONTENT
   --ui-color-n-100: #ffa0c1;
   --ui-color-n-p: #f8e599;
   --ui-color-n-g: #f18da3;
-  --ui-color-n-y: #f584ac;
   --ui-color-n-new: #161616;
   --ui-color-n-about_background: #fbe27e;
+
+  /* Index Slide Gradient */
+  --ui-color-n-2:  #F6E7A6;
+  --ui-color-n-shdw2: #bdb28b80;
+  --ui-text-2:#2B2B2B;
+  --ui-text-2_1:#5A5A5A;
+  --ui-accent-2:#8C8374;
+  --ui-accent-2_1:#BFC5C8;
+
+  --ui-color-n-3:  #F5F7F8;
+  --ui-color-n-shdw3: #a2afb86f;
+  --ui-text-3:#1F2A35;
+  --ui-text-3_1:#4A5A68;
+  --ui-accent-3:#6B8FB3;
+  --ui-accent-3_1:#8FBFB3;
+
+  --ui-color-n-4:  #0F172A;
+  --ui-color-n-shdw4: #22395b;
+  --ui-text-4:#EDEFF2;
+  --ui-text-4_1:#7a7f89;
+  --ui-accent-4:#3B82F6;
+  --ui-accent-4_1:#D946EF;
+
+  --ui-color-n-5:  #EFEDE8;
+  --ui-color-n-shdw5: #b0ada7;
+  --ui-text-5:#222222;
+  --ui-text-5_1:#555555;
+  --ui-accent-5:#C8A14A;
+  --ui-accent-5_1:#B36A4C;
 
   /* BACKGROUND COLOR */
   
@@ -68,7 +96,7 @@ TABLE OF CONTENT
   --ui-color-background-tertiary : var(--ui-color-n-025);
   --ui-color-background-blue : var(--ui-color-n-100);
   --ui-color-background-pink : var(--ui-color-n-g);
-  --ui-color-background-yellow : var(--ui-color-n-y);
+
   --ui-color-typography-new: var(--ui-color-n-new);
 
   /* TYPOGRAPHY COLOR */
@@ -84,6 +112,7 @@ TABLE OF CONTENT
 
   --ui-color-typography-h3: var(--ui-color-n-400);
   --ui-color-typography-h4: var(--ui-color-n-500);
+
 
   /*------------------------------------------------------------
   |
@@ -201,6 +230,34 @@ body {
   line-height: 1.6;
 }
 
+.scroll-delay {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.scroll-delay.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Slide-specific body copy colors */
+.text-panel-2 {
+  color: var(--ui-text-2_1);
+}
+
+.text-panel-3 {
+  color: var(--ui-text-3_1);
+}
+
+.text-panel-4 {
+  color: var(--ui-text-4_1);
+}
+
+.text-panel-5 {
+  color: var(--ui-text-5_1);
+}
+
 .noto-serif-kr-h3 {
   font-family: "Noto Serif KR", serif;
   font-optical-sizing: auto;
@@ -310,6 +367,35 @@ svg {
   font-style: italic;
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
+}
+
+.grad-2{
+  background-color: var(--ui-color-n-2);
+  background-image: radial-gradient(circle at center, var(--ui-color-n-2) 60%, var(--ui-color-n-shdw2));
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.grad-3{
+  background-color: var(--ui-color-n-3);
+  background-image: radial-gradient(circle at center, var(--ui-color-n-3) 40%, var(--ui-color-n-shdw3));
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.grad-4{
+  background-color: var(--ui-color-n-4);
+  background-image: radial-gradient(circle at center, var(--ui-color-n-4) 40%, var(--ui-color-n-shdw4));
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.grad-5{
+  background-color: var(--ui-color-n-5);
+  background-image: radial-gradient(circle at center, var(--ui-color-n-5) 40%, var(--ui-color-n-shdw5));
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 
@@ -760,16 +846,59 @@ div.scroll-container img {
 }
 
 #siteHeader.header--alt .logo-part {
-  color: var(--ui-color-background-primary) !important;
+  color: var(--ui-text-2) !important;
 }
 
 /* Button color updates only on the first slide */
 #siteHeader.header--alt .logo-button {
-  color: rgba(255, 255, 255, 0.25) !important;
+  color: var(--ui-text-2_1) !important;
 }
 
+
 #siteHeader.header--alt .logo-button:hover {
-  color: #b8b0a2 !important;
+  color: var(--ui-accent-2) !important;
+}
+
+#siteHeader.header--alt2 .logo-part {
+  color: var(--ui-text-3) !important;
+}
+
+/* Button color updates only on the first slide */
+#siteHeader.header--alt2 .logo-button {
+  color: var(--ui-text-3_1) !important;
+}
+
+
+#siteHeader.header--alt2 .logo-button:hover {
+  color: var(--ui-accent-3) !important;
+}
+
+#siteHeader.header--alt3 .logo-part {
+  color: var(--ui-text-4) !important;
+}
+
+/* Button color updates only on the first slide */
+#siteHeader.header--alt3 .logo-button {
+  color: var(--ui-text-4_1) !important;
+}
+
+
+#siteHeader.header--alt3 .logo-button:hover {
+  color: var(--ui-accent-4) !important;
+}
+
+#siteHeader.header--alt4 .logo-part {
+  color: var(--ui-text-5) !important;
+}
+
+/* Button color updates only on the first slide */
+#siteHeader.header--alt4 .logo-button {
+  color: var(--ui-text-5_1) !important;
+}
+
+
+#siteHeader.header--alt4 .logo-button:hover {
+  color: var(--ui-accent-5) !important;
 }
 
 /*--------------------------------------------------------------
@@ -809,7 +938,16 @@ div.scroll-container img {
 
 /* White logo override for first slide */
 #siteHeader.header--alt .viaoda-libre-regular {
-  color: var(--ui-color-background-primary) !important;
+  color: var(--ui-text-2) !important;
+}
+#siteHeader.header--alt2 .viaoda-libre-regular {
+  color: var(--ui-text-3) !important;
+}
+#siteHeader.header--alt3 .viaoda-libre-regular {
+  color: var(--ui-text-4) !important;
+}
+#siteHeader.header--alt4 .viaoda-libre-regular {
+  color: var(--ui-text-5) !important;
 }
 
 .roboto { 
@@ -824,7 +962,16 @@ div.scroll-container img {
 
 /* White logo override for first slide */
 #siteHeader.header--alt .roboto {
-  color: var(--ui-color-background-primary) !important;
+  color: var(--ui-text-2) !important;
+}
+#siteHeader.header--alt2 .roboto {
+  color: var(--ui-text-3) !important;
+}
+#siteHeader.header--alt3 .roboto {
+  color: var(--ui-text-4) !important;
+}
+#siteHeader.header--alt4 .roboto {
+  color: var(--ui-text-5) !important;
 }
 
 .roboto-header-dark { 
@@ -911,6 +1058,19 @@ div.scroll-container img {
 .ui-section-feature__layout { 
   row-gap: var(--ui-gap-feature);
   column-gap: clamp(2rem, 5vw, 3rem) !important;
+}
+
+/* MEMS slide image sizing/alignment */
+.mems-image-wrapper {
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.mems-image {
+  width: min(40vw, 40rem);
+  max-height: 40vh;
+  height: auto;
+  margin-left: 0;
 }
 
 /* Ensure gap between carousel and text on all screen sizes */
@@ -1091,8 +1251,8 @@ div.scroll-container img {
 
   .ui-layout-grid-2-3{
     column-gap: clamp(2rem, 10vw, 3rem);
-    grid-template-columns: 2fr 1fr;
-    justify-items: center;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-items: stretch;
   }
 
   .ui-layout-grid-2-3--image{
