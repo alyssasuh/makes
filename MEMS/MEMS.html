@@ -221,7 +221,7 @@
       .ear-toc a.request-access-link:focus-visible {
         font-weight: 700;
       }
-      .ear-highlight-link {
+      .highlight-link {
         color: #0a4ea5;
         font-weight: 600;
         text-decoration: none;
@@ -230,8 +230,8 @@
         border-radius: 0.35rem;
         transition: background 0.2s ease, color 0.2s ease;
       }
-      .ear-highlight-link:hover,
-      .ear-highlight-link:focus-visible {
+      .highlight-link:hover,
+      .highlight-link:focus-visible {
         background: rgba(10, 78, 165, 0.22);
         color: #06306a;
         text-decoration: underline;
@@ -239,53 +239,69 @@
       .text-intro--lead {
         font-size: clamp(1rem, 2vw, 1.35rem);
       }
-      .conductive-video-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.75rem;
-        margin: 2.25rem 0 0;
+      .problem-context-figure {
+        margin: 1.5rem 0 0;
+        padding: 1.25rem 0;
       }
-      .conductive-video-card {
-        flex: 1 1 320px;
+      .problem-context-grid {
+        display: grid;
+        grid-template-columns: 1.35fr 1fr;
+        gap: 1rem;
+        align-items: start;
+        justify-items: center;
+      }
+      .problem-context-card {
+        position: relative;
         display: flex;
         flex-direction: column;
-        gap: 0.65rem;
         align-items: center;
+        gap: 0.85rem;
+        padding: 0;
         text-align: center;
+        max-width: 520px;
       }
-      .conductive-video-label {
-        font-size: 1.15rem;
-        font-weight: 700;
-        letter-spacing: 0.05em;
+      .problem-context-card:not(:first-child)::before { display: none; }
+      .problem-context-card img {
+        display: block;
+        width: min(420px, 100%);
+        height: 210px;
+        object-fit: contain;
+        margin: 0 auto;
+      }
+      .problem-context-card--wide img {
+        width: min(460px, 100%);
+      }
+      .problem-context-card--edge img {
+        width: min(420px, 100%);
+        margin: 0 auto;
+      }
+      .problem-context-card__title {
+        font-size: 1.25rem;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
+        font-weight: 700;
+        margin: 0;
       }
-      .conductive-video-label--air { color: #c81616; }
-      .conductive-video-label--cm { color: #0a4ea5; }
-      .conductive-video-wrapper {
-        position: relative;
-        width: 100%;
-        padding-top: 56.25%;
-        border-radius: 1rem;
-        overflow: hidden;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        background: #000;
+      .problem-context-card__details {
+        font-size: 0.95rem;
+        color: #3d3c37;
+        line-height: 1.45;
+        margin: 0;
       }
-      .conductive-video-wrapper iframe,
-      .conductive-video-wrapper video {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        border: 0;
-        border-radius: inherit;
-        object-fit: cover;
+      @media (max-width: 900px) {
+        .problem-context-grid {
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+        .problem-context-card:not(:first-child)::before {
+          display: none;
+        }
       }
       .ear-toc .toc-preview__link {
         display: inline-flex;
         align-items: center;
-        gap: 0.55rem;
+        gap: 0rem;
         white-space: nowrap;
-        padding: 0.35rem 0.9rem;
+        padding: 0rem 0rem;
         border-radius: 0.45rem;
         letter-spacing: 0.02em;
         text-transform: uppercase;
@@ -352,6 +368,7 @@
         position: relative;
         max-width: min(90vw, 1100px);
         max-height: 90vh;
+        overflow-y: auto;
         background: #fff;
         border-radius: 0.75rem;
         padding: 1.25rem;
@@ -363,6 +380,9 @@
       .figure-modal__content img {
         width: 100%;
         height: auto;
+        max-height: calc(90vh - 8rem);
+        object-fit: contain;
+        align-self: center;
       }
       #fig-3-1-modal img,
       #fig-3-3-modal img {
@@ -383,6 +403,19 @@
         font-size: 0.9rem;
         color: #4a4843;
         text-align: center;
+      }
+      .fusion-viewer {
+        width: 100%;
+        margin: 2.5rem auto 3rem;
+      }
+      .fusion-viewer iframe {
+        display: block;
+        width: 100%;
+        height: min(70vh, 650px);
+        min-height: 420px;
+        border: none;
+        border-radius: 0.85rem;
+        box-shadow: 0 25px 55px rgba(0, 0, 0, 0.18);
       }
       .request-modal {
         position: fixed;
@@ -533,7 +566,7 @@
         <div class="ui-component-cta ui-layout-flex">
           <div class="ui-layout-flex" style="flex-direction: column; gap: 1rem; padding-top: 2vh; padding-bottom: 2vh;">
             <p class="text-intro text-intro--lead" style="padding-top: 2vh;">
-              Expanding on my work <a href="../Ear/ear.html" target="_blank" rel="noopener" class="ear-highlight-link">modeling sound through mechanical conduction,</a> I designed a microelectromechanical systems (MEMS) device that operates at a fraction of the size and power consumption of commercial devices.
+              Expanding on my work <a href="../Ear/ear.html" target="_blank" rel="noopener" class="highlight-link">modeling sound through mechanical conduction,</a> I designed a microelectromechanical systems (MEMS) device that operates at a fraction of the size and power consumption of commercial devices.
             </p>
             <div id="fig-1">
               <img src="../MEMS/MEMS.png" style="max-width:50%; display:block; margin-top:2vh; margin-bottom:2vh;">
@@ -542,7 +575,7 @@
               </figcaption>
             </div>
             <p class="text-intro text-intro--lead">
-              <a href="coursicle.com/harvard/courses/ENGSCI/276/" target="_blank" rel="noopener" class="ear-highlight-link">ES276, Microelectromechanical Systems,</a> is a graduate-level course offered at Harvard that covers the design, fabrication, and application of MEMS devices.
+              <a href="coursicle.com/harvard/courses/ENGSCI/276/" target="_blank" rel="noopener" class="highlight-link">ES276, Microelectromechanical Systems,</a> is a graduate-level course offered at Harvard that covers the design, fabrication, and application of MEMS devices.
               For my final project, I designed and fabricated a MEMS transducer that can convert electrical signals into mechanical vibrations for bone conduction hearing.
               On this page, I document the design process, fabrication steps, and testing results of the MEMS transducer.
               I separately include important cleanroom skills acquired through the course.
@@ -557,16 +590,26 @@
               The work focuses on the design and fabrication of a <strong>cartilage-mediated sound transmission transducer</strong>, which delivers audio through mechanical excitation of the outer ear rather than conventional air conduction. 
               Through iterative design, microfabrication, and experimental validation, this project presents a proof-of-concept device that can discretly be intergrated into wearable technology for conductive hearing applications.
               </p>
-              <div class="conductive-video-grid" aria-label="Comparison of air conduction and cartilage-mediated headphone pathways">
-                <div class="conductive-video-card">
-                  <div class="conductive-video-wrapper">
-                    <video src="https://drive.google.com/uc?export=download&id=1KoaZOeXuPF9MBkYFFlPMqv9W2epFsMew" autoplay loop muted playsinline controls preload="auto" title="Cartilage-mediated headphones animation"></video>
-                  </div>
+              <div id="fig-2" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+                <div class="figure-zoom" style="max-width:60%; margin-left:auto; margin-right:auto;">
+                  <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-2-modal">
+                    <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                    <span class="sr-only">Open an enlarged view</span>
+                  </button>
+                  <img src="../MEMS/Abstract.png" alt="Outer ear morphology diagrams" style="width:100%; display:block;">
                 </div>
-                <div class="conductive-video-card">
-                  <div class="conductive-video-wrapper">
-                    <video src="https://drive.google.com/uc?export=download&id=1F_bSqf8HBVKd0NW9Xc9JoFDH12Pe2FgJ" autoplay loop muted playsinline controls preload="auto" title="Air conduction animation"></video>
-                  </div>
+                <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                    Conceptual integration of a MEMS transducer within a wearable ear interface. 
+                    The ear-mounting structure (right) illustrates the intended housing and placement of the fabricated transducer (inset).
+                </figcaption>
+              </div>
+              <div id="fig-2-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-2-modal-title">
+                <div class="figure-modal__content">
+                  <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
+                  <img src="../MEMS/Abstract.png" alt="Expanded view of the outer ear morphology diagrams" style="transform: scale(0.9); transform-origin: center top;">
+                  <p class="figure-modal__caption" id="fig-2-modal-title">
+                    Conceptual integration of a MEMS transducer within a wearable ear interface. 
+                  </p>
                 </div>
               </div>
               <br><br>
@@ -578,21 +621,170 @@
               Most consumer audio solutions rely on in-ear headphones, which can be uncomfortable for extended use and poorly suited for continuous, ambient interaction with digital assistants or wearable displays.
               These constraints motivated me to explore <strong>non-occluding, conductive sound interfaces</strong> that could better support long-term use, accessibility, and emerging screen-based devices such as smart glasses.
               </p>
+              <!-- <figure class="problem-context-figure" aria-describedby="problem-context-caption">
+                <div class="problem-context-grid">
+                  <div class="problem-context-card problem-context-card--wide">
+                    <p class="problem-context-card__title">Screens</p>
+                    <img src="./screens.png" alt="iPhone next to G1 glasses used as reference screens">
+                  </div>
+                  <div class="problem-context-card problem-context-card--edge">
+                    <p class="problem-context-card__title">Headphones</p>
+                    <img src="./sound.png" alt="Pair of AirPods referenced for in-ear headphones">
+                  </div>
+                </div>
+                <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1.25rem;">
+                  Popular modern devices motivating an alternative. Pictured on the left are screen-based devices; the iPhone 17 pro (Apple 2025) and G2 smart glasses (Even Realities 2025). 
+                  Pictured on the right are in-ear headphones; the AirPods 3 Pro (Apple 2025).
+                </figcaption>
+              </figure> -->
             <br><br>
-            <h1 id="design" style="text-align: left;"><span class="roboto">DESIGN</span></h1>
+            <h1 id="design" style="text-align: left;"><span class="roboto">DESIGN & FABRICATION</span></h1>
             <p class="text-intro">
-            The goal of this project was to build a compact intermediary device capable of transmitting sound to the user through a cartilage-mediated pathway. 
-            Unlike traditional bone-conduction systems that depend on rigid skull contact, this approach targets the outer ear cartilage, which provides a softer and more wearable mechanical interface.
+              Most commercially available conductive-sound transducers appear to rely on electromagnetic actuation, using coils, magnets, and moving masses to generate vibration. 
+              While effective, these mechanisms tend to be bulky, mechanically complex, and power-intensive, limiting their suitability for compact, ear-mounted devices. 
+              <strong>These constraints highlight the need for scaled-down transducer architectures that enable lighter, simpler, and more energy-efficient wearable audio systems.</strong>  
+              </p>
+                <div id="fig-2-2" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+                <div class="figure-zoom" style="max-width:100%; margin-left:auto; margin-right:auto;">
+                  <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-2-2-modal">
+                    <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                    <span class="sr-only">Open an enlarged view</span>
+                  </button>
+                  <img src="../MEMS/problemstatement2.png" alt="Outer ear morphology diagrams" style="width:100%; display:block;">
+                </div>
+                <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; margin-bottom:3rem; display:block; width:100%;">
+                    Commercial bone-conduction transducers rely on electromagnetic actuation.
+                    Left) A commercial bone-conduction transducer produced by Adafruit; Right) a diagram from a bone-conduction transducer patent filed by Face International Corp (2006).
+                </figcaption>
+              </div>
+              <div id="fig-2-2-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-2-modal-title">
+                <div class="figure-modal__content">
+                  <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
+                  <img src="../MEMS/problemstatement2.png" alt="Expanded view of the outer ear morphology diagrams" style="transform: scale(0.9); transform-origin: center top;">
+                  <p class="figure-modal__caption" id="fig-2-2-modal-title">
+                    Left) A commercial bone-conduction transducer produced by Adafruit; Right) a diagram from a bone-conduction transducer patent filed by Face International Corp (2006).
+                  </p>
+                </div>
+              </div>
+            <p class="text-intro">
+            The goal of this project was to build a compact intermediary device capable of transmitting sound to the user through a cartilage&ndash;mediated pathway. 
+            Unlike traditional bone-conduction systems that depend on mechanical contact of the bone, this approach targets the outer ear cartilage, which provides a softer mederiary interface.
+            Inspired by low-power <a href="https://www.audiowell.com/technology/187.html" class="highlight-link">piezo buzzers/speakers</a> I had worked with in past projects, I thought it would be interesting to miniaturize this concept using MEMS fabrication techniques to create a tiny, piezoelectric-based transducer. 
             <br><br>
-            The transducer was designed as a layered microfabricated structure incorporating a lead zirconate titanate (PZT) piezoelectric element. 
-            Patterned metal electrodes were fabricated on silicon and glass substrates using photolithography, followed by mechanical assembly of the piezo stack. 
-            To improve wearability and skin contact, the device was encapsulated in PDMS and housed in a custom casing designed to preserve membrane motion while maintaining structural alignment.
             </p>
+            <div id="fig-1-2" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+                <div class="figure-zoom" style="max-width:70%; margin-left:auto; margin-right:auto;">
+                  <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-1-3-modal">
+                    <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                    <span class="sr-only">Open an enlarged view</span>
+                  </button>
+                  <img src="../MEMS/FIG1.3.png" alt="Outer ear morphology diagrams" style="width:100%; display:block;">
+                </div>
+                <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; margin-bottom:3rem; display:block; width:100%;">
+                  How piezos can be used to generate sound through mechanical vibration.
+                </figcaption>
+              </div>
+              <div id="fig-1-2-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-2-modal-title">
+                <div class="figure-modal__content">
+                  <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
+                  <img src="../MEMS/FIG1.3.png" alt="Expanded view of the outer ear morphology diagrams" style="transform: scale(0.9); transform-origin: center top;">
+                  <p class="figure-modal__caption" id="fig-1-2-modal-title">
+                    How piezos can be used to generate sound through mechanical vibration.
+                  </p>
+                </div>
+              </div>
+            <p class="text-intro">
+            The design of the transducer took on several iterations, but finalized to implement a layered structure with four 2x2mm lead zirconate titanate (PZT) pieces sandwiched in between two conductive plates.
+            These conductive plates were fabricated using photolithography, with silicon and quartz explored as substrate materials. 
+            Quartz&ndash; a flexible yet mechanically robust material&ndash; was ultimately selected to maximize membrane displacement. 
+            Detailed fabrication procedures are documented in the <a href="../MEMS/photolithography.html" target="_blank" rel="noopener" class="highlight-link">photolithography</a> section under CLEANROOM & TECHNICAL SKILLS.
+            <br><br> 
+            </p>
+            <div id="fig-2-6" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+                <div class="figure-zoom" style="max-width:100%; margin-left:auto; margin-right:auto;">
+                  <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-2-6-modal">
+                    <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                    <span class="sr-only">Open an enlarged view</span>
+                  </button>
+                  <img src="../MEMS/MEMSFIG2.6.png" alt="Outer ear morphology diagrams" style="width:100%; display:block;">
+                </div>
+                <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; margin-bottom:3rem; display:block; width:100%;">
+                  TODO
+                </figcaption>
+              </div>
+              <div id="fig-2-6-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-2-modal-title">
+                <div class="figure-modal__content">
+                  <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
+                  <img src="../MEMS/MEMSFIG2.6.png" alt="Expanded view of the outer ear morphology diagrams" style="transform: scale(0.9); transform-origin: center top;">
+                  <p class="figure-modal__caption" id="fig-2-6-modal-title">
+                    How piezos can be used to generate sound through mechanical vibration.
+                  </p>
+                </div>
+              </div>
+            <p class="text-intro">
+            Next, the patterned substrates were carefully assembled, establishing electrical contact between the electrodes and the piezoelectric layer to enable voltage-driven actuation. 
+            To improve wearability and provide electrical isolation, the assembled transducer was encapsulated in polydimethylsiloxane (PDMS). 
+            A custom housing was then designed to maintain structural alignment while preserving sufficient clearance for maximum membrane motion, ensuring effective sound transmission.
+            </p>
+              <div id="fig-2-5" style="width:100%; margin-top:3vh; margin-bottom:2vh;">
+                <div class="figure-zoom" style="max-width:100%; margin-left:auto; margin-right:auto;">
+                  <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-2-5-modal">
+                    <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                    <span class="sr-only">Open an enlarged view</span>
+                  </button>
+                  <img src="../MEMS/MEMSFIG2.5.png" alt="Outer ear morphology diagrams" style="width:100%; display:block;">
+                </div>
+                <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; margin-bottom:3rem; display:block; width:100%;">
+                    Diagram of the photolithography process used to fabricate the MEMS transducer.
+                </figcaption>
+              </div>
+              <div id="fig-2-5-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-2-modal-title">
+                <div class="figure-modal__content">
+                  <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
+                  <img src="../MEMS/MEMSFIG2.5.png" alt="Expanded view of the outer ear morphology diagrams" style="transform: scale(0.9); transform-origin: center top;">
+                  <p class="figure-modal__caption" id="fig-2-5-modal-title">
+                    Diagram of the photolithography process used to fabricate the MEMS transducer.
+                  </p>
+                </div>
+              </div>
+            
             <br><br>
             <h1 id="results" class="roboto" style="text-align: left; width: 100%; display: block;">RESULTS & DISCUSSION</h1>
+              <div id="fig-2-7" style="width:100%; margin-top:3vh; margin-bottom:2vh;">
+                <div class="figure-zoom" style="max-width:100%; margin-left:auto; margin-right:auto;">
+                  <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-2-7-modal">
+                    <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                    <span class="sr-only">Open an enlarged view</span>
+                  </button>
+                  <img src="../MEMS/MEMSFIG2.7.png" alt="Outer ear morphology diagrams" style="width:100%; display:block;">
+                </div>
+                <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; margin-bottom:3rem; display:block; width:100%;">
+                    Diagram of the photolithography process used to fabricate the MEMS transducer.
+                </figcaption>
+              </div>
+              <div id="fig-2-7-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-2-modal-title">
+                <div class="figure-modal__content">
+                  <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
+                  <img src="../MEMS/MEMSFIG2.7.png" alt="Expanded view of the outer ear morphology diagrams" style="transform: scale(0.9); transform-origin: center top;">
+                  <p class="figure-modal__caption" id="fig-2-7-modal-title">
+                    Diagram of the photolithography process used to fabricate the MEMS transducer.
+                  </p>
+                </div>
+              </div>
             <p class="text-intro" style="padding-top: 2vh;">
               Device performance was evaluated using <strong>laser Doppler vibrometry (LDV)</strong> to measure membrane displacement across frequency. 
               Measurements were taken on the PDMS side of the transducer under different backing conditions to assess how structural constraints influenced mechanical output.
+            </p>
+            <div class="fusion-viewer" role="figure" aria-label="Interactive Fusion 360 model of the MEMS transducer">
+              <iframe
+                src="https://college680.autodesk360.com/shares/public/SH28cd1QT2badd0ea72bfc41fc660cdb50a1?mode=embed"
+                allowfullscreen="true"
+                webkitallowfullscreen="true"
+                mozallowfullscreen="true"
+                loading="lazy"
+              ></iframe>
+            </div>
+            <p class="text-intro" style="padding-top: 2vh;">
               <br><br>
               The results demonstrated that membrane flexibility is critical for efficient vibration. 
               Removing rigid backing significantly increased displacement, while PDMS encapsulation introduced substantial damping that reduced overall output. 
@@ -607,6 +799,65 @@
             <h1 class="roboto" style="text-align: left; width: 100%; display: block;">CLEANROOM & TECHNICAL SKILLS</h1>
             <br>
             <h2 id="photolithography" style="text-align: left; width: 100%; display: block;font-size: 3rem;">Photolithography</h2>
+            <p class="text-intro" style="padding-top: 2vh;">
+              Photolithography is a microfabrication technique used to pattern features on a substrate using light-sensitive photoresist materials. 
+              The process involves coating the substrate with photoresist, exposing it to UV light through a photomask, and developing the exposed resist to create a patterned layer. 
+              This patterned resist can then be used as a mask for etching or depositing materials onto the substrate.
+              In my final project, this technique was employed to create gold electrodes on both silicon and quartz substrates.
+              <br><br>
+            </p>
+              <div id="fig-2-3" style="width:100%; margin-top:3vh; margin-bottom:2vh;">
+                <div class="figure-zoom" style="max-width:100%; margin-left:auto; margin-right:auto;">
+                  <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-2-3-modal">
+                    <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                    <span class="sr-only">Open an enlarged view</span>
+                  </button>
+                  <img src="../MEMS/FIG1.2.png" alt="Outer ear morphology diagrams" style="width:100%; display:block;">
+                </div>
+                <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; margin-bottom:3rem; display:block; width:100%;">
+                    Diagram of the photolithography process used to fabricate the MEMS transducer.
+                </figcaption>
+              </div>
+              <div id="fig-2-3-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-2-modal-title">
+                <div class="figure-modal__content">
+                  <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
+                  <img src="../MEMS/FIG1.2.png" alt="Expanded view of the outer ear morphology diagrams" style="transform: scale(0.9); transform-origin: center top;">
+                  <p class="figure-modal__caption" id="fig-2-3-modal-title">
+                    Diagram of the photolithography process used to fabricate the MEMS transducer.
+                  </p>
+                </div>
+              </div>
+              <p class="text-intro" style="padding-top: 2vh;">
+              <strong>Process Steps:</strong>
+              <br><br>
+              <strong>1. Substrate Preparation:</strong>
+            The substrate (silicon or quartz) is thoroughly cleaned in each solvent bath for <strong>5 minutes</strong> in the following order: methanol, isopropanol, and acetone.
+            The washed substrate is then dried using a nitrogen gun to remove any residual moisture.
+            Once the substrate is cleaned, photoresist coating can begin.
+            LOR 3A is spun as the bottom layer to form an undercut profile, followed by a top layer of S1805 positive photoresist.
+            Both resists are soft-baked between layers to evaporate solvents and improve adhesion.
+            <br><br>
+
+            <strong>2. Mask Alignment and Exposure:</strong>
+            The substrate is carefully relocated to a maskless aligner (&micro;MLA) and secured in place.
+            The desired electrode pattern is aligned using the aligner software interface, ensuring precise positioning on the substrate.
+            Once aligned, the substrate is exposed to UV light at a dose of approximately <strong>400 mJ/cm<sup>2</sup></strong>.
+            <br><br>
+
+            <strong>3. Development:</strong>
+            After exposure, the sample is submerged in MF319 developer for around 50 seconds to remove the exposed photoresist, during which partial dissolution of the LOR layer produces a lateral undercut beneath the patterned openings.
+            This undercut is critical for preventing metal continuity along the resist sidewalls during deposition.
+            <br><br>
+
+            <strong>4. Metal Deposition:</strong>
+            Following development, metal electrodes were deposited using electron-beam evaporation (EE-5).
+            A thin chromium adhesion layer (&sim;0.01 nm) was first deposited to promote adhesion to the substrate, followed by a gold layer (&sim;0.18 nm) to serve as the primary conductive electrode material.
+            Deposition was performed normal to the substrate surface to preserve the resist undercut profile.
+            <br><br>
+
+            <strong>5. Lift-off:</strong>
+            The deposited pattern is revealed through lift-off using a combination of PG Remover and acetone.
+            The solvent dissolves the remaining photoresist stack, removing unwanted metal and all remaining photoresist.
 
             <br><br>
             <h1 id="acknowledgements" class="roboto" style="text-align: left; width: 100%; display: block;">ACKNOWLEDGEMENTS</h1>
@@ -664,7 +915,7 @@
               <ul>
                 <li><a href="#abstract" data-ear-section-link>ABSTRACT</a></li>
                 <li><a href="#problem" data-ear-section-link>PROBLEM STATEMENT</a></li>
-                <li><a href="#design" data-ear-section-link>DESIGN</a></li>
+                <li><a href="#design" data-ear-section-link>DESIGN & FABRICATION</a></li>
                 <li><a href="#results" data-ear-section-link>RESULTS &amp; DISCUSSION</a></li>
               </ul>
             </div>
@@ -708,48 +959,6 @@
     </footer>
       <script>
         document.addEventListener('DOMContentLoaded', () => {
-          const conductiveVideos = document.querySelectorAll('.conductive-video-grid video');
-
-          if (conductiveVideos.length) {
-            const primeVideo = video => {
-              const tryPlay = () => {
-                const playAttempt = video.play();
-                if (playAttempt && typeof playAttempt.catch === 'function') {
-                  playAttempt.catch(() => {});
-                }
-              };
-
-              video.muted = true;
-              video.setAttribute('muted', '');
-              video.setAttribute('playsinline', '');
-              video.setAttribute('autoplay', '');
-              video.loop = true;
-
-              if (video.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA) {
-                tryPlay();
-              } else {
-                video.addEventListener('loadeddata', tryPlay, { once: true });
-              }
-            };
-
-            conductiveVideos.forEach(primeVideo);
-
-            const resumePlayback = () => {
-              conductiveVideos.forEach(video => {
-                video.play().catch(() => {});
-              });
-            };
-
-            document.addEventListener('visibilitychange', () => {
-              if (!document.hidden) {
-                resumePlayback();
-              }
-            });
-
-            window.addEventListener('focus', resumePlayback);
-            document.addEventListener('click', resumePlayback, { once: true, capture: true });
-          }
-
           const sectionLinks = Array.from(document.querySelectorAll('[data-ear-section-link]'));
           const sections = sectionLinks
             .map(link => document.querySelector(link.getAttribute('href')))

@@ -238,6 +238,49 @@
       .text-intro--lead {
         font-size: clamp(1rem, 2vw, 1.35rem);
       }
+      .conductive-video-grid {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.75rem;
+        margin: 2.25rem 0 0;
+        justify-content: space-between;
+      }
+      .conductive-video-card {
+        flex:  0 0 calc((100% - 1.75rem) / 2); /* 2 cards + 1 gap */
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+        align-items: center;
+        text-align: center;
+      }
+      .conductive-video-label {
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .conductive-video-wrapper {
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%;
+        border: 1.5px solid var(--ui-text-2);
+        border-radius: 1.5rem;
+        overflow: hidden;
+      }
+      .conductive-video-wrapper iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        border-radius: 1rem;
+      }
+      .conductive-video-grid figcaption {
+        flex-basis: 100%;
+        text-align: center;
+        margin: 0 auto;
+      }
       .ear-toc .toc-preview__link {
         display: inline-flex;
         align-items: center;
@@ -498,15 +541,23 @@
       <div class="ui-layout-container">
         <div class="ui-component-cta ui-layout-flex">
           <div class="ui-layout-flex" style="flex-direction: column; gap: 1rem; padding-top: 2vh; padding-bottom: 2vh; align-items:flex-start; text-align:left; width:100%;">
-            <div id="fig-1">
-              <img src="../Ear/FIG1.png" style="max-width:80%; display:block; margin-top:2vh; margin-bottom:2vh;">
+            <div class="conductive-video-grid" aria-label="Comparison of air conduction and cartilage-mediated headphone pathways">
+              <div class="conductive-video-card">
+                <div class="conductive-video-wrapper">
+                  <iframe src="https://drive.google.com/file/d/10SDeqfJAegYJbXd2zEPuEGWchQAAmfg5/preview" allow="autoplay;" allowfullscreen title="Cartilage-mediated headphones animation"></iframe>
+                </div>
+              </div>
+              <div class="conductive-video-card">
+                <div class="conductive-video-wrapper">
+                  <iframe src="https://drive.google.com/file/d/1UVlOj7xKUOEtawWJr612siaYNu_reGdD/preview" allow="autoplay;" allowfullscreen title="Air conduction animation"></iframe>
+                </div>
+              </div>
               <figcaption class= "small" style="text-align:center; font-style:italic; margin-top:0.5rem;">
-                  Schematic of the final ear model, segmented into the three primary layers&ndash; soft tissue, cartilage, and bone. Renderings of each individual layer are shown.
-                  Outer ear morphology examined. Panel A: points for standardized anatomical measurements of a human ear.
+                Video summary of how sound is transmitted through (left) air conduction headphones and (right) cartilage-mediated headphones.
               </figcaption>
             </div>
             <p class="text-intro text-intro--lead" style="padding-top: 2vh;">
-              Inspired by a personal project building a <a href="https://alyssasuh.github.io/PS70/" target="_blank" rel="noopener" class="ear-highlight-link">personal assistant device</a> based in conductive-sound my junior year, I became deeply interested in the physical processes at the human interface of such systems. 
+              Originally inspired by a personal project building a <a href="https://alyssasuh.github.io/PS70/" target="_blank" rel="noopener" class="ear-highlight-link">personal assistant device</a> based in conductive-sound, I became deeply interested in the physical processes at the human interface of such systems. 
               This curiosity led me to independently seek out experts in the field to better understand cartilage-mediated sound transmission.
               <br> <br>
               With the support of mentors I connected with through this outreach, I developed and initiated a senior thesis project in collaboration with <a href="https://masseyeandear.org/" target="_blank" rel="noopener" class="ear-highlight-link">Mass Eye and Ear</a>. 
@@ -516,6 +567,28 @@
             <div class="ear-content-grid">
               <div class="ear-main">
               <h1 id="abstract" class="roboto" style="text-align: left; width: 100%; display: block;">ABSTRACT</h1>
+              <div id="fig-1" style="width:100%; margin-top:2vh; margin-bottom:2vh;">
+                <div class="figure-zoom" style="max-width:95%; margin-left:auto; margin-right:auto;">
+                  <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-1-modal">
+                    <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                    <span class="sr-only">Open an enlarged view of the ear model schematic</span>
+                  </button>
+                  <img src="../Ear/FIG1.png" alt="Layered ear model showing soft tissue, cartilage, and bone renderings" style="width:100%; display:block;">
+                </div>
+                <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                    Schematic of the final ear model, segmented into the three primary layers&ndash; soft tissue, cartilage, and bone. Renderings of each individual layer are shown.
+                    Outer ear morphology examined. Panel A: points for standardized anatomical measurements of a human ear.
+                </figcaption>
+              </div>
+              <div id="fig-1-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-1-modal-title">
+                <div class="figure-modal__content">
+                  <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
+                  <img src="../Ear/FIG1.png" alt="Expanded schematic showing layered ear model rendering">
+                  <p class="figure-modal__caption" id="fig-1-modal-title">
+                    Schematic of the three-layer ear model highlighting soft tissue, cartilage, and bone renderings.
+                  </p>
+                </div>
+              </div>
               <p class="text-intro">
               <span style="font-weight: 700;">Cartilage mediated headphones (CMH)</span> are devices that can deliver sound via vibrations
               applied directly to the skin overlying cartilaginous surfaces of the outer ear. These
