@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" overflow="hidden">
   <head>
+    <meta charset="UTF-8">
     <!-- SPEED -->
     <link rel="preconnect" href="https://res.cloudinary.com">
     <link rel="dns-prefetch" href="https://res.cloudinary.com">
@@ -25,11 +26,12 @@
       .cell-content-grid {
         width: 100%;
         display: flex;
-        gap: 4rem;
+        gap: 4.75rem;
         align-items: flex-start;
         margin-top: 2rem;
       }
       .cell-main {
+        order: 1;
         flex: 1;
         min-width: 0;
         display: flex;
@@ -59,21 +61,27 @@
         text-transform: uppercase;
         letter-spacing: 0.08em;
       }
-        .cell-toc {
-          order: -1;
-        width: min(26%, 320px);
+      .cell-toc {
+        order: 0;
+        width: min(24%, 320px);
         position: sticky;
         top: 4.5rem;
         align-self: flex-start;
         font-size: 0.95rem;
         line-height: 1.5;
+        background-color: transparent;
+        overflow: hidden;
+        z-index: 0;
         border: 1.5px solid var(--ui-text-2);
         border-radius: 1.5rem;
-        padding: 1.5rem 1rem 2.25rem;
-        background: #fff;
+        padding: 1.5rem 1rem 2.75rem;
+        max-height: calc(100vh - 5rem);
         display: flex;
         flex-direction: column;
-        gap: 1.75rem;
+        gap: 1.5rem;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        background-image: none;
       }
       .cell-toc::before {
         content: "";
@@ -82,18 +90,30 @@
         background-size: 420px auto;
         background-repeat: repeat;
         background-position: center;
-        opacity: 0.35;
-        transform: rotate(-3deg);
+        opacity: 0.55;
+        transform: rotate(-4deg);
         filter: contrast(1.05) brightness(1.02);
         z-index: -1;
         pointer-events: none;
       }
+      .cell-toc::-webkit-scrollbar {
+        display: none;
+      }
+      .cell-toc .toc-section {
+        border-bottom: 1px dotted rgba(32, 31, 26, 0.25);
+        padding-bottom: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .cell-toc .toc-section:last-of-type {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
       .cell-toc h2 {
-        font-size: 0.9rem;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        margin: 0 0 0.5rem 0;
         color: var(--ui-color-n-500);
+        font-size: x-large;
+        font-weight: 700;
+        margin: 0 0 0.75rem 0;
       }
       .cell-toc ul {
         list-style: none;
@@ -107,49 +127,157 @@
         color: #5b564f;
         text-decoration: none;
         display: block;
-        padding: 0.5rem 0.75rem;
-        border-radius: 0.75rem;
+        padding: 0.4rem 0.75rem;
         border: 2px solid transparent;
-        transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-      }
-      .cell-toc .toc-section {
-        border-bottom: 1px dotted rgba(32, 31, 26, 0.25);
-        padding-bottom: 1.25rem;
-        margin-bottom: 1.25rem;
-      }
-      .cell-toc .toc-section:last-of-type {
-        border-bottom: none;
-        padding-bottom: 0;
-        margin-bottom: 0;
+        border-radius: 0.65rem;
+        transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
       }
       .cell-toc a:hover,
       .cell-toc a:focus-visible {
         color: #201f1a;
         border-color: #f2bb2a;
-        background: rgba(242, 187, 42, 0.14);
+        background: rgba(242, 187, 42, 0.12);
         font-weight: 600;
       }
-      .cell-media-callout {
-        padding: 1rem;
-        border-radius: 1.1rem;
-        border: 1px dashed rgba(32, 31, 26, 0.2);
-        background: rgba(246, 231, 166, 0.22);
+      .cell-toc a[aria-current="true"],
+      .cell-toc a[aria-current="section"] {
+        color: #1f1d19;
+        font-weight: 600;
+        border-color: #f2bb2a;
+        background: rgba(242, 187, 42, 0.12);
       }
-      .cell-media-callout p {
-        margin: 0;
+      .section-divider {
+        width: 100%;
+        border-top: 2px dotted var(--ui-text-2);
+        margin: 4rem auto 3rem;
+        opacity: 0.8;
+      }
+      .media-block {
+        width: 100%;
+        margin: 2.5rem auto 3rem;
+      }
+      .media-narrow,
+      .media-mid,
+      .media-wide {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .media-narrow { max-width: 60%; }
+      .media-mid { max-width: 75%; }
+      .media-wide { max-width: 100%; }
+      @media (max-width: 768px) {
+        .media-narrow,
+        .media-mid {
+          max-width: 100%;
+        }
+      }
+      .figure-zoom {
+        position: relative;
+      }
+      .figure-zoom__trigger {
+        position: absolute;
+        top: -0.75rem;
+        right: -0.75rem;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 999px;
+        padding: 0.35rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .figure-zoom__trigger:hover,
+      .figure-zoom__trigger:focus-visible {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        outline: none;
+      }
+      .figure-zoom__icon {
+        font-size: 1.05rem;
+      }
+      .figure-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        z-index: 1200;
+        transition: opacity 0.2s ease;
+      }
+      .figure-modal[aria-hidden="true"] {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .figure-modal__content {
+        position: relative;
+        max-width: min(90vw, 1100px);
+        max-height: 90vh;
+        overflow-y: auto;
+        background: #fff;
+        border-radius: 0.75rem;
+        padding: 1.25rem;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .figure-modal__content img {
+        width: 100%;
+        height: auto;
+        max-height: calc(90vh - 8rem);
+        object-fit: contain;
+        align-self: center;
+      }
+      .figure-modal__close {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        border: none;
+        background: transparent;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #2c2b27;
+      }
+      .figure-modal__caption {
         font-size: 0.9rem;
-        line-height: 1.4;
+        color: #4a4843;
+        text-align: center;
+      }
+      body.modal-open {
+        overflow: hidden;
+      }
+      .ear-footer-spacer {
+        height: 4rem;
+      }
+      .ear-footer-note {
+        text-align: center;
+        font-size: 0.85rem;
+        color: #5b564f;
+        padding: 2rem 1rem;
+        border-top: 2px solid rgba(0, 0, 0, 0.08);
+        background: #ffffff00fff00;
       }
       @media (max-width: 992px) {
         .cell-content-grid {
           flex-direction: column;
-          gap: 2rem;
+          gap: 1.5rem;
         }
         .cell-toc {
           width: 100%;
           position: static;
           order: 2;
           box-shadow: none;
+          max-height: none;
+          border-radius: 1rem;
+          padding: 1.25rem;
+        }
+        .cell-main {
+          order: 1;
         }
       }
     </style>
@@ -164,7 +292,7 @@
               style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: nowrap; gap: 1rem;">
             <!-- LOGO -->
             <a href="../index.html" role="link" aria-label="Home" style="text-align: left;">
-              <h1 style="text-align: left;"><span class="roboto">INVESTIGATING CELL MORPHOLOGY</span></h1>
+              <h1 style="text-align: left;"><span class="roboto">ENGINEERING THE CELL</span></h1>
             </a>
             <!-- MENU -->
             <a href="../index.html" role="link" aria-label="Home">
@@ -176,28 +304,200 @@
     <main role="main">
       <div class="ui-layout-container">
         <div class="ui-component-cta ui-layout-flex" style="flex-direction: column; gap: 2rem;">
-          <section id="overview" class="cell-section" style="padding-top: 2vh;">
-            <h1 class="roboto cell-section__title" style="text-align:left;">OVERVIEW</h1>
             <p class="text-intro">
-              The scope of bioengineering can span many scales&ndash; but what happens when we focus on fabrication at the level of individual cells?
-              For my final project in Cellular Engineering, I investigated collective cell migration during gap closure while building a toolkit of lab techniques along the way.
-              Cellular Engineering is a rigorous, graduate-level undergraduate class focused on manipulating cell behavior with modern lab techniques, which I took during my senior year at Harvard.
-              This page documents the skills I gained and the final project exploring gap closure across varying geometries.
+              <br><br>
+              The scope of bioengineering spans many length scales, from molecular interactions to tissue-level organization. However, collective cellular behaviors—such as migration, coordination, and wound healing—emerge at the scale of individual cells interacting with their immediate physical environment. Framing cells as <b>engineering building materials</b> enables systematic investigation of how physical constraints, geometry, and substrate organization regulate these behaviors.
             </p>
-            <figure class="cell-figure" style="max-width:50rem; margin: 0 auto; text-align:center;">
-              <img src="../cell_images/img_1.jpg" alt="Immunofluorescent microscopy image of gap junctions" loading="lazy">
-              <figcaption class="small">
-                Immunofluorescent microscopy image of gap junctions captured with a Zeiss microscope at 100&times; magnification.
-              </figcaption>
-            </figure>
+            <div id="fig-1" style="width:100%; margin-top:0vh; margin-bottom:2vh;">
+              <img src="../cell_images/img_1.jpg" style="width:50%;">
+                <figcaption class="small" style="text-align:center; font-style:italic; margin-top:0.5rem;">
+                  Immunofluorescent microscopy image of gap junctions captured with a Zeiss microscope at 100&times; magnification.
+                </figcaption>
+            </div>
+            <p class="text-intro">
+              For my final project in <b>Cellular Engineering</b>, I investigated collective cell migration during <i>in vitro</i> wound closure, asking how <b>cell type and substrate anisotropy</b> influence the rate and dynamics of gap closure under controlled conditions. 
+              Specifically, the project compared dermal fibroblasts and endothelial cells to determine how intrinsic cellular properties and initial monolayer organization affect collective migration. 
+              To isolate these effects, experiments controlled for cell seeding density, spatial geometry, and time, with migration quantified using time-lapse microscopy.
+            </p>
+            <p class="text-intro">
+              This page documents the final project and the supporting experiments and techniques developed to engineer the cellular microenvironment and quantitatively probe wound healing-like dynamics.
+            </p>
           </section>
           <div class="cell-content-grid">
             <article class="cell-main">
-              <section id="lab-techniques" class="cell-section">
-                <h1 class="roboto cell-section__title">LAB TECHNIQUES</h1>
+              <section id="prompt" class="cell-section">
+                <h1 id="lab-techniques" class="roboto" style="text-align: left; width: 100%; display: block;">PROMPT</h1>
                 <p class="text-intro">
-                  Throughout the course we gained hands-on experience with fundamental tissue culture techniques, primarily working with human normal dermal fibroblasts (HNDF)
-                  and human umbilical vein endothelial cells (HUVEC). Our team was responsible for maintaining both lines throughout the semester, ensuring they were healthy and ready for each experiment.
+                  The final project tasked students with designing and executing an <i>in vitro</i> wound healing experiment to evaluate collective cell migration under controlled conditions. Specifically, the project asked which cell type—dermal fibroblasts or human umbilical vein endothelial cells (HUVECs)—closes a defined wound gap more rapidly, and whether the initial organization of the cell monolayer (isotropic versus anisotropic) influences closure dynamics. Experiments were required to control for cell seeding density, spatial geometry, and time, with migration quantified using time-lapse microscopy and appropriate image-based analysis. 
+               </p>
+              </section>
+
+              <section id="abstract" class="cell-section">
+                <h1 id="lab-techniques" class="roboto" style="text-align: left; width: 100%; display: block;">ABSTRACT</h1>
+                <p class="text-intro">
+                  The final project examined collective gap closure behavior in <b>human normal dermal fibroblasts (HNDFs)</b> and <b>human umbilical vein endothelial cells (HUVECs)</b>. We hypothesized that differences in cell morphology and cytoskeletal organization would lead to distinct migration dynamics, and that gaps with higher curvature would close more rapidly due to increased edge-driven migration forces.
+                  To test these hypotheses, we engineered substrates with well-defined gap geometries and alignment cues. Custom PDMS stamps were used to create <b> circular, square, and triangular gaps</b>, all with equal surface areas (30 mm²), allowing geometry to be varied independently of gap size. Substrates were prepared with both <b>isotropic</b> and <b>anisotropic</b> fibronectin patterns to examine how alignment influences collective migration.               </p>
+              </section>
+              
+              <section id="experimental-methods" class="cell-section">
+                <h1 id="lab-techniques" class="roboto" style="text-align: left; width: 100%; display: block;">EXPERIMENTAL METHODS</h1>
+                <p class="text-intro">
+                  To investigate collective cell migration during gap closure under controlled geometric and alignment conditions, a multi-step experimental workflow was implemented combining custom PDMS mold fabrication, substrate patterning, controlled cell seeding, and time-lapse imaging.
+                </p>
+                <div id="fig-2" class="media-block" style="margin-top:1rem;">
+                  <div class="figure-zoom media-wide">
+                    <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-2-modal">
+                      <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                    </button>
+                    <img src="../CellMorphology/Experimental Setup.png" style="width:100%; display:block;">
+                  </div>
+                  <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                      Experimental summary. Schematic of the experimental workflow used to study collective cell migration during gap closure, including PDMS stamp fabrication, fibronectin patterning under isotropic and anisotropic conditions, controlled cell seeding, stamp removal, and time-lapse imaging.
+                  </figcaption>
+                </div>
+                <div id="fig-2-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-2-modal-title">
+                  <div class="figure-modal__content">
+                    <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
+                    <img src="../CellMorphology/Experimental Setup.png" alt="Expanded view of the outer ear morphology diagrams" style="transform: scale(0.9); transform-origin: center top;">
+                    <p class="figure-modal__caption" id="fig-2-modal-title">
+                      Experimental summary. Schematic of the experimental workflow used to study collective cell migration during gap closure, including PDMS stamp fabrication, fibronectin patterning under isotropic and anisotropic conditions, controlled cell seeding, stamp removal, and time-lapse imaging.
+                    </p>
+                  </div>
+                </div>
+                <h2>PDMS MOLD AND STAMP FABRICATION</h2>
+                <p class="text-intro">
+                  Custom molds defining gap geometries were designed using CAD software and fabricated via resin 3D printing. Printed molds were post-cured and allowed to dry overnight before being submerged in Milli-Q water for <b>2 hours</b> to remove residual resin. The molds were then baked at <b>85 °C overnight</b>, followed by repeated cleaning with detergent and a brush to ensure complete removal of contaminants. After drying, a thin layer of mold release agent was applied to facilitate PDMS demolding.
+                </p>
+                <div id="fig-3" class="media-block" style="margin-top:1rem;">
+                  <div class="figure-zoom" style="max-width:35%; margin-left:auto; margin-right:auto;">
+                    <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-3-modal">
+                      <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                    </button>
+                    <img src="../CellMorphology/StampMold.png" style="width:100%; display:block;">
+                  </div>
+                  <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                      Schematic of PDMS stamps featuring defined geometric patterns with controlled areas, used to generate reproducible gap geometries for cell migration experiments.
+                  </figcaption>
+                </div>
+                <div id="fig-3-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-3-modal-title">
+                  <div class="figure-modal__content">
+                    <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
+                    <img src="../CellMorphology/StampMold.png" alt="Expanded view of the outer ear morphology diagrams" style="transform: scale(0.9); transform-origin: center top;">
+                    <p class="figure-modal__caption" id="fig-3-modal-title">
+                      Schematic of PDMS stamps featuring defined geometric patterns with controlled areas, used to generate reproducible gap geometries for cell migration experiments.
+                    </p>
+                  </div>
+                </div>
+                <p class="text-intro">
+                  Polydimethylsiloxane (PDMS) was prepared and poured into the molds, degassed under vacuum for approximately <b>2 hours</b> to remove trapped air bubbles, and cured at <b>65 °C for 24 hours</b>. Once fully cured, PDMS stamps defining circular, square, and triangular gaps were carefully excised from the molds using a razor blade.
+                </p>
+                <div id="fig-3-1" class="media-block" style="margin-top:1rem;">
+                  <div class="figure-zoom media-mid">
+                    <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-3-1-modal">
+                      <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                    </button>
+                    <img src="../CellMorphology/FIG3.png" style="width:100%; display:block;">
+                  </div>
+                  <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                      Fabricated PDMS stamps. Cured PDMS stamps removed from resin molds after thermal curing, showing multiple geometric gap features used for controlled cell migration experiments.
+                  </figcaption>
+                </div>
+                <div id="fig-3-1-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-3-1-modal-title">
+                  <div class="figure-modal__content">
+                    <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
+                    <img src="../CellMorphology/FIG3.png" alt="Expanded view of the outer ear morphology diagrams" style="transform: scale(0.9); transform-origin: center top;">
+                    <p class="figure-modal__caption" id="fig-3-1-modal-title">
+                        Fabricated PDMS stamps. Cured PDMS stamps removed from resin molds after thermal curing, showing multiple geometric gap features used for controlled cell migration experiments.
+                    </p>
+                  </div>
+                </div>
+                <h2>SUBSTRATE PREPARATION AND PROTEIN PATTERNING</h2>
+                <p class="text-intro">
+                   To create micropatterned substrates for cell culture, PDMS stamps were used to transfer fibronectin onto glass coverslips. Stamps were sonicated and treated with UV ozone to ensure surface cleanliness, while coverslips were also UVO-treated to promote protein adsorption. Fibronectin was incubated on the stamps for <b>1 hour</b> before being applied to the coverslips to generate anisotropic alignment patterns. For isotropic substrates, fibronectin was directly deposited onto UVO-treated coverslips.
+                   <br><br>
+                   To create defined gap geometries, PDMS stamps were blocked with <b>Pluronic F-127</b> to prevent protein adsorption within the gap regions. The stamps were then placed onto the coverslips, which were briefly aspirated to ensure conformal contact. Substrates were incubated for approximately <b>15 minutes</b> to allow equilibration to physiological temperature prior to cell seeding.
+                  <br><br>
+                  Prior to use, PDMS stamps were sonicated for <b>30 minutes</b> to remove surface debris. Stamps attached to petri dish slabs were additionally treated with UV ozone (UVO) to enhance surface cleanliness. Line-patterned stamps were incubated with fibronectin for <b>1 hour</b>, while glass coverslips were UVO-treated for <b>8 minutes</b> to promote protein adsorption.
+                  <br><br>
+                  All materials were transferred to a biosafety cabinet to maintain sterility. Fibronectin-coated stamps were applied to designated coverslips to generate anisotropic alignment patterns, while fibronectin was directly deposited onto remaining coverslips to create isotropic substrates. After protein transfer, excess fibronectin was removed and substrates were rinsed <b>2-3 times</b> with phosphate-buffered saline (PBS).
+                  <br><br>
+                  For geometric gap formation, PDMS stamps were first blocked with <b>Pluronic F-127</b> for <b>5 minutes</b> and rinsed thoroughly with PBS to prevent protein adsorption within the gap regions. The stamps were then carefully placed onto the coverslips, which were briefly aspirated to ensure conformal contact. Substrates were incubated for approximately <b>15 minutes</b> to allow equilibration to physiological temperature prior to cell seeding.
+                  <br><br>
+                </p>
+                <div id="fig-4" class="media-block" style="margin-top:1rem;">
+                  <div class="figure-zoom media-mid">
+                    <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-4-modal">
+                      <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                    </button>
+                    <img src="../CellMorphology/FIG4.png" style="width:100%; display:block;">
+                  </div>
+                  <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                      Substrate preparation and protein patterning. Photograph of PDMS stamps placed on fibronectin-coated coverslips following surface treatment and blocking, illustrating the setup used to create controlled gap geometries for cell migration experiments.
+                  </figcaption>
+                </div>
+                <div id="fig-4-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-4-modal-title">
+                  <div class="figure-modal__content">
+                    <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
+                    <img src="../CellMorphology/FIG4.png" alt="Expanded view of the outer ear morphology diagrams" style="transform: scale(0.9); transform-origin: center top;">
+                    <p class="figure-modal__caption" id="fig-4-modal-title">
+                        Substrate preparation and protein patterning. Experimental setup for fibronectin transfer and gap formation.
+                    </p>
+                  </div>
+                </div>
+
+                <h2>CELL SEEDING AND CULTURE</h2>
+                <p class="text-intro">
+                  Human normal dermal fibroblasts (HNDFs) and human umbilical vein endothelial cells (HUVECs) were trypsinized, resuspended, and counted prior to seeding. Approximately <b>500,000 cells per well</b> were seeded onto each patterned substrate in <b>~2 mL</b> of culture media to ensure uniform monolayer formation. Cells were allowed to adhere and spread for <b>24 hours</b>, after which PDMS stamps were removed to reveal defined gap geometries.
+                  <br><br>
+                </p>
+                <h2>IMAGING AND ANALYSIS</h2>
+                <p class="text-intro">
+                  Gap closure dynamics were monitored using time-lapse microscopy over a <b>72-hour</b> period. Continuous imaging was performed to capture collective migration behavior under each experimental condition. In select experiments, cells were fixed and immunostained to visualize cytoskeletal organization and cell-cell junctions. Migration was quantified by measuring gap closure over time, enabling comparison across cell types, substrate anisotropy, and geometric curvature.
+                </p>
+                <div id="fig-5" class="media-block" style="margin-top:1rem;">
+                  <div class="figure-zoom media-mid">
+                    <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-5-modal">
+                      <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                    </button>
+                    <img src="../CellMorphology/FIG5.png" style="width:100%; display:block;">
+                  </div>
+                  <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                      Cell seeding and culture. Patterned substrates seeded with HNDFs and HUVECs and cultured to confluence prior to PDMS stamp removal, revealing defined gap geometries for migration assays.
+                  </figcaption>
+                </div>
+                <div id="fig-5-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-5-modal-title">
+                  <div class="figure-modal__content">
+                    <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
+                    <img src="../CellMorphology/FIG5.png" alt="Expanded view of the outer ear morphology diagrams" style="transform: scale(0.9); transform-origin: center top;">
+                    <p class="figure-modal__caption" id="fig-5-modal-title">
+                        Cell seeding and culture. Patterned substrates seeded with HNDFs and HUVECs and cultured to confluence prior to PDMS stamp removal, revealing defined gap geometries for migration assays.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <section id="results-discussion" class="cell-section">
+                <h1 id="lab-techniques" class="roboto" style="text-align: left; width: 100%; display: block;"> RESULTS & DISCUSSION</h1>
+                <p class="text-intro">
+                  Gap closure was monitored over a <b>72-hour period</b> using time-lapse microscopy. Across all conditions, both geometry and substrate alignment significantly influenced migration dynamics. Contrary to our initial hypothesis, <b>HUVECs consistently closed gaps faster than HNDFs</b>, despite the elongated morphology and stress fiber organization of fibroblasts.
+                  <br><br>
+                  Isotropic substrates and sharp-curvature geometries produced the highest migration rates, while anisotropic alignment constrained lateral motion and slowed closure. These findings demonstrate that <b>cell identity, curvature, and alignment cues collectively regulate wound closure behavior</b>, highlighting the importance of physical microenvironment design in cell engineering studies.
+              </section>
+
+              <section id="conclusion" class="cell-section">
+                <h1 id="lab-techniques" class="roboto" style="text-align: left; width: 100%; display: block;"> CONCLUSION</h1>
+                <p class="text-intro">
+                  Immunofluorescent microscopy revealed distinct cellular responses to different geometric and anisotropic constraints. Cells confined to linear patterns exhibited elongated, aligned morphologies, while cells on isotropic shapes displayed more symmetric spreading. These observations confirmed that micropatterned substrates effectively impose physical cues that influence cytoskeletal organization and migration behavior.
+                  <br><br>
+                  By combining engineered substrates with controlled gap geometries and alignment cues, this project demonstrates how cell engineering approaches can be used to systematically study collective migration and wound closure dynamics. The results emphasize that biological behavior cannot be separated from physical context, and that careful engineering of the cellular microenvironment is essential for uncovering mechanistic insight into tissue-level processes.
+                </section>
+                
+              <div class="section-divider" aria-hidden="true"></div>
+                <section id="supporting-techniques" class="cell-section">
+                <h1 id="lab-techniques" class="roboto" style="text-align: left; width: 100%; display: block;">TISSUE CULTURE TECHNIQUES</h1>
+                <p class="text-intro">
+                  Throughout the course, we gained hands-on experience with fundamental <b>tissue culture and cell engineering techniques</b>, primarily working with HNDFs and HUVECs. Our team was responsible for maintaining both cell lines throughout the semester, including passaging, monitoring confluency, and preparing cells for experiments.
+                  <br><br>
                 </p>
                 <figure class="cell-figure" style="max-width:50rem; margin:0 auto;">
                   <div id="carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -230,14 +530,15 @@
                     labCaption.textContent = caption;
                   });
                 </script>
-              </section>
-
-              <section id="wound-healing" class="cell-section">
-                <h1 class="roboto cell-section__title">WOUND HEALING ASSAY</h1>
                 <p class="text-intro">
-                  We first performed a wound healing (scratch) assay, allowing both cell lines to grow to full confluency before creating a scratch.
-                  The wounds were imaged over three days at 40x magnification to quantify the rate of wound closure.
-                  The carousel captures HNDF behavior over 56 hours, highlighting progressive migration and gap closure.
+                  Additional techniques developed during the course included microcontact printing, PDMS handling, immunofluorescent staining, and high-resolution microscopy. Together, these methods enabled the design and execution of controlled experiments probing how engineered physical environments influence collective cell behavior.
+                </p>
+              </section>
+              
+              <section class="cell-section">
+                <h2 id="wound-healing" style="text-align: left; width: 100%; display: block;font-size: 2rem;">WOUND HEALING ASSAY</h2>
+                <p class="text-intro">
+                  As an initial benchmark, we performed a standard <b>wound healing (scratch) assay experiment</b> using both HNDFs and HUVECs. Cells were grown to full confluency before a linear scratch was introduced to create a cell-free gap. Migration into the gap was imaged over three days at 40× magnification.
                 </p>
                 <figure class="cell-figure" style="max-width:55%; margin:0 auto;">
                   <div id="woundHealingCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -282,22 +583,42 @@
                 </script>
               </section>
 
-              <section id="substrate-stamps" class="cell-section">
-                <h1 class="roboto cell-section__title">SUBSTRATE &amp; STAMP MAKING</h1>
+              <section class="cell-section">
+                <h2 id="stamp-fab" class="roboto" style="text-align: left; width: 100%; display: block;">SUBSTRATE AND STAMP FABRICATION</h2>
                 <p class="text-intro">
-                  To culture cells on micropatterned surfaces, we prepared a polydimethylsiloxane (PDMS) mixture that served as both the coverslip coating and the mold material.
-                  Desired geometries were etched onto a 3&quot; silicon wafer in the cleanroom, cleaned with isopropanol, and dried with nitrogen.
-                  We poured PDMS over the wafer, degassed it, and spin-coated the same mixture onto glass coverslips before curing both overnight at 65&nbsp;&deg;C.
-                </p>
+                  To enable micropatterned cell culture, polydimethylsiloxane (PDMS) substrates and stamps were fabricated using soft lithography techniques. Desired geometries were first defined on a silicon master wafer in the cleanroom, which served as the mold for subsequent PDMS casting. This process produced both compliant culture substrates and reusable stamps for microcontact printing.
+                 </p>
                 <figure class="cell-figure" style="max-width:50rem; margin:0 auto;">
                   <img src="../cell_images/PDMS_substrate.png" alt="PDMS substrate workflow" loading="lazy">
                 </figure>
                 <p class="text-intro">
-                  Once cured, the PDMS stamps were carefully detached from the wafers, trimmed to size, and paired with their matching substrates.
+                  <b>Process Steps:</b>
+                  <br><br>
+                    <b>1. Master Wafer Preparation</b>
+                    Desired geometric patterns were etched onto a 3-inch silicon wafer using standard cleanroom fabrication techniques. The patterned wafer was cleaned with isopropanol and dried with nitrogen to remove surface contaminants prior to PDMS casting.
+                    <br><br>
+                    <b>2. PDMS Preparation</b>
+                    PDMS base and curing agent were mixed thoroughly at a 10:1 ratio to ensure uniform crosslinking. The mixture was degassed under vacuum to remove trapped air bubbles that could compromise pattern fidelity during molding.
+                    <br><br>
+                    <b>3. Stamp Casting</b>
+                    Degassed PDMS was poured directly over the patterned silicon wafer to form the PDMS stamps. Care was taken to fully cover the patterned features and achieve uniform thickness across the mold.
+                    <br><br>
+                    <b>4. Substrate Coating</b>
+                    In parallel, the same PDMS mixture was spin-coated onto clean glass coverslips to create thin, compliant PDMS-coated substrates suitable for cell culture. Spin-coating ensured a uniform PDMS layer while preserving optical transparency for subsequent imaging.
+                    <br><br>
+                    <b>5. Curing</b>
+                    Both the PDMS stamps and PDMS-coated coverslips were cured overnight at <b>65°C</b>, allowing complete polymer crosslinking and mechanical stabilization of the features.
+                    <br><br>
+                    <b>6. Device Release and Trimming</b>
+                    After curing, PDMS stamps were carefully peeled from the silicon master wafer and trimmed to size. Individual stamps were then paired with their corresponding PDMS-coated substrates to ensure proper alignment during pattern transfer.
                 </p>
                 <figure class="cell-figure" style="max-width:50rem; margin:0 auto;">
                   <img src="../cell_images/PDMS_stamp.png" alt="Finished PDMS stamp" loading="lazy">
                 </figure>
+                <p class="text-intro">
+                  <b>7. Pattern Validation</b>
+                  Fluorescent <b>BSA–FITC dye tests</b> were performed to verify stamp integrity, feature resolution, and transfer fidelity. Successful pattern transfer was confirmed for multiple single-cell geometries (square, triangle, and circle) as well as line features of varying widths.
+                </p>
                 <figure class="cell-figure" style="max-width:50rem; margin:0 auto;">
                   <div id="patternsCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
                     <div class="carousel-inner" style="max-width:80rem; margin:auto;">
@@ -328,9 +649,6 @@
                   </div>
                   <figcaption id="patternsCaption" class="small">Square pattern - BSA-FITC dye test</figcaption>
                 </figure>
-                <p class="text-intro">
-                  BSA-FITC dye tests confirmed proper stamp formation and transfer for three single-cell shapes (square, triangle, circle) plus two line widths (10&nbsp;&mu;m, 20&nbsp;&mu;m).
-                </p>
                 <script>
                   const patternsCarousel = document.getElementById('patternsCarousel');
                   const patternsCaption = document.getElementById('patternsCaption');
@@ -341,12 +659,10 @@
                 </script>
               </section>
 
-              <section id="micropatterning" class="cell-section">
-                <h1 class="roboto cell-section__title">MICROPATTERNING CELLS</h1>
+              <section class="cell-section">
+                <h2 id="micropatterning" class="roboto" style="text-align: left; width: 100%; display: block;">MICROPATTERNING AND CELL SEEDING</h2>
                 <p class="text-intro">
-                  Using the validated stamps, we microcontact printed fibronectin patterns onto PDMS-coated coverslips.
-                  Stamps were inked, dried, and pressed to transfer the protein, followed by Pluronic F-127 treatment to block non-patterned regions.
-                  HNDF cells were seeded and allowed to adhere for 24 hours before imaging.
+                  Microcontact printing was used to define adhesive protein patterns on compliant PDMS substrates, enabling precise control over cell shape, alignment, and spatial organization. This process established the physical constraints required for both single-cell and collective migration experiments.
                 </p>
                 <figure class="cell-figure" style="max-width:50rem; margin:0 auto;">
                   <div id="immunostainCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -391,10 +707,34 @@
                     immunostainCaption.innerHTML = immunostainCaptions[index] || immunostainCaptions[0];
                   });
                 </script>
+                <p class="text-intro">
+                  <b>Process Steps:</b>
+                  <br><br>
+                  <b>1. Stamp Inking</b>
+                  Validated PDMS stamps were incubated with a fibronectin solution to coat the raised features with adhesive protein. Excess solution was removed and the stamps were gently dried to ensure uniform protein coverage without flooding the patterned features.
+                  <br><br>
+                  <b>2. Protein Transfer</b>
+                  The inked stamps were brought into conformal contact with PDMS-coated glass coverslips and lightly pressed to transfer the fibronectin pattern onto the substrate surface. Care was taken to maintain consistent contact pressure and alignment during stamping.
+                  <br><br>
+                  <b>3. Surface Passivation</b>
+                  Following protein transfer, non-patterned regions of the substrate were treated with Pluronic F-127 to passivate the surface and prevent nonspecific cell adhesion outside the patterned areas. This step ensured that cells adhered exclusively to the intended fibronectin geometries.
+                  <br><br>
+                  <b>4. Cell Seeding</b>
+                  Cells were seeded onto the patterned substrates at a controlled density and allowed to settle and attach under standard culture conditions. Seeding density was chosen to promote uniform coverage of the patterned regions while minimizing cell overlap.
+                  <br><br>
+                  <b>5. Adhesion and Spreading</b>
+                  Seeded cells were allowed to adhere and spread on the patterned substrates for 24 hours prior to imaging or further experimentation. This incubation period ensured stable attachment and cytoskeletal organization within the imposed geometric constraints.
+                </p>
               </section>
-
+              <div class="section-divider" aria-hidden="true"></div>
+                <section class="cell-section">
+                <h1 id="acknowledgements" class="roboto" style="text-align: left; width: 100%; display: block;">ACKNOWLEDGEMENTS</h1>
+                <p class="text-intro">
+                  This work was completed as part of the Harvard Active Learning Lab. I would like to thank Professor Kevin Kit Parker and the course staff for their guidance and support, including Dr. Melissa Hancock and Avery Normandin. I also thank the teaching fellows, Dr. Yongjun Jang and Kevin Shani, for their instruction and feedback. Finally, I am grateful to my lab partner, Anna Clouvel, for her collaboration throughout this project.
+                </p>
+              <!--
               <section id="pattern-gallery" class="cell-section">
-                <h1 class="roboto cell-section__title">PATTERNED IMAGE STACKS</h1>
+                <h1 id="lab-techniques" class="roboto" style="text-align: left; width: 100%; display: block;">PATTERNED IMAGE STACKS</h1>
                 <p class="text-intro">
                   Additional immunofluorescent stacks show how HNDF cells respond to varying geometries and anisotropy.
                   Navigate between pattern types using the arrows; the carousel auto-cycles through each staining channel for that geometry.
@@ -484,7 +824,7 @@
               </section>
 
               <section id="final-project" class="cell-section">
-                <h1 class="roboto cell-section__title">FINAL PROJECT</h1>
+                <h1 id="lab-techniques" class="roboto" style="text-align: left; width: 100%; display: block;">FINAL PROJECT</h1>
                 <p class="text-intro">
                   Our final project explored how cell type, anisotropy, and geometric constraints influence collective gap closure in HNDFs and HUVECs.
                   We hypothesized that HNDFs would migrate faster due to their elongated morphology and stress fiber organization, and that higher-curvature gaps would close more rapidly.
@@ -499,29 +839,113 @@
                   These findings underscore how cell type, alignment, and curvature collectively influence wound closure dynamics, informing future tissue-engineering strategies.
                 </p>
               </section>
+            -->
             </article>
-
             <aside class="cell-toc" aria-label="Page navigation">
               <div class="toc-section">
-                <h2>OUTLINE</h2>
+                <h2>FINAL PROJECT</h2>
                 <ul>
-                  <li><a href="#overview">Overview</a></li>
-                  <li><a href="#lab-techniques">Lab Techniques</a></li>
-                  <li><a href="#wound-healing">Wound Healing Assay</a></li>
-                  <li><a href="#substrate-stamps">Substrate &amp; Stamp Making</a></li>
-                  <li><a href="#micropatterning">Micropatterning Cells</a></li>
-                  <li><a href="#pattern-gallery">Patterned Image Stacks</a></li>
-                  <li><a href="#final-project">Final Project</a></li>
+                  <li><a href="#prompt" data-cell-section-link>PROMPT</a></li>
+                  <li><a href="#abstract" data-cell-section-link>ABSTRACT</a></li>
+                  <li><a href="#experimental-methods" data-cell-section-link>EXPERIMENTAL METHODS</a></li>
+                  <li><a href="#results-discussion" data-cell-section-link>RESULTS &amp; DISCUSSION</a></li>
+                  <li><a href="#conclusion" data-cell-section-link>CONCLUSION</a></li>
                 </ul>
               </div>
-              <div class="cell-media-callout">
-                <p>Tip: every carousel in this case study auto-cycles. Hover or tap to pause and use the arrows for manual review.</p>
+              <div class="toc-section">
+                <h2>TISSUE CULTURE TECHNIQUES</h2>
+                <ul>
+                  <li><a href="#wound-healing" data-cell-section-link>WOUND HEALING ASSAY</a></li>
+                  <li><a href="#stamp-fab" data-cell-section-link>SUBSTRATE &amp; STAMP FABRICATION</a></li>
+                  <li><a href="#micropatterning" data-cell-section-link>MICROPATTERNING &amp; CELL SEEDING</a></li>
+                </ul>
+              </div>
+              <div class="toc-section">
+                <ul>
+                  <li><a href="#acknowledgements" data-cell-section-link>ACKNOWLEDGEMENTS</a></li>
+                </ul>
               </div>
             </aside>
           </div>
+          <div class="ear-footer-spacer" aria-hidden="true"></div>
         </div>
       </div>
     </main>
+
+    <footer class="ear-footer-note">
+      All figures, diagrams, and graphs were created by the author unless otherwise noted. Permission is required for use or reproduction :)
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const tocLinks = Array.from(document.querySelectorAll('[data-cell-section-link]'));
+        const sections = tocLinks
+          .map((link) => document.querySelector(link.getAttribute('href')))
+          .filter(Boolean);
+
+        if (sections.length) {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                tocLinks.forEach((link) => {
+                  if (link.getAttribute('href') === `#${entry.target.id}`) {
+                    link.setAttribute('aria-current', 'true');
+                  } else {
+                    link.removeAttribute('aria-current');
+                  }
+                });
+              }
+            });
+          }, {
+            rootMargin: '-45% 0px -45% 0px',
+            threshold: 0.1,
+          });
+
+          sections.forEach((section) => observer.observe(section));
+        }
+
+        const zoomTriggers = document.querySelectorAll('.figure-zoom__trigger');
+        const figureModals = document.querySelectorAll('.figure-modal');
+
+        const openModal = (modal) => {
+          modal.setAttribute('aria-hidden', 'false');
+          document.body.classList.add('modal-open');
+        };
+
+        const closeModal = (modal) => {
+          modal.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('modal-open');
+        };
+
+        zoomTriggers.forEach((trigger) => {
+          trigger.addEventListener('click', () => {
+            const modal = document.getElementById(trigger.dataset.zoomTarget);
+            if (modal) {
+              openModal(modal);
+            }
+          });
+        });
+
+        figureModals.forEach((modal) => {
+          modal.addEventListener('click', (event) => {
+            if (event.target === modal || event.target.closest('[data-figure-close]')) {
+              event.preventDefault();
+              closeModal(modal);
+            }
+          });
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') {
+            figureModals.forEach((modal) => {
+              if (modal.getAttribute('aria-hidden') === 'false') {
+                closeModal(modal);
+              }
+            });
+          }
+        });
+      });
+    </script>
 
     <script>
       window.addEventListener('load', () => {

@@ -129,6 +129,7 @@ TABLE OF CONTENT
   --ui-typography-h2: 1.2rem;
   --ui-typography-h3: 1.5rem;
   --ui-typography-h4: 28rem;
+  --ui-typography-h5: 2rem;
   --ui-typography-p : .9125rem;
   --ui-typography-s : .6125rem;
   --ui-typography-b : 1.2rem;
@@ -140,7 +141,7 @@ TABLE OF CONTENT
   /* LEADING */
 
   --ui-typography-h1-leading: 1.2;
-  --ui-typography-h2-leading: 1.2;
+  --ui-typography-h2-leading: 1;
   --ui-typography-p-leading : 1.5;
 
   /* MARGIN */
@@ -415,6 +416,10 @@ svg {
 --------------------------------------------------------------*/
 
 .ui-layout-container {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   padding-left: var(--ui-layout-container);
   padding-right: var(--ui-layout-container);
 }
@@ -1414,7 +1419,7 @@ div.scroll-container img {
   LAYOUT
   ------------------------------------------------------------*/
   
-  .ui-layout-container { width: 60rem; }
+  .ui-layout-container { max-width: 60rem; }
 
   .ui-layout-grid-3 { grid-template-columns: repeat(3, 1fr); }
 
@@ -1443,7 +1448,7 @@ div.scroll-container img {
     /* FONT SIZE */
 
     --ui-typography-h1: 2.75rem;
-    --ui-typography-h2: 2.1875rem;
+    --ui-typography-h2: 2rem;
     --ui-typography-p: 1.4rem;
 
     --ui-typography-s : .8rem;
@@ -1484,7 +1489,7 @@ div.scroll-container img {
   LAYOUT
   ------------------------------------------------------------*/
   
-  .ui-layout-container { width: 70rem; }
+  .ui-layout-container { max-width: 70rem; }
 
   /*------------------------------------------------------------
   COMPONENT
@@ -1638,7 +1643,7 @@ main .ui-text-intro {
 
 /* Fallback for any h2 without classes */
 main h2 {
-  font-size: clamp(1.5rem, 4vw, 4rem);
+  font-size: clamp(1rem, 4vw, 2rem);
   line-height: 1.1;
 }
 
