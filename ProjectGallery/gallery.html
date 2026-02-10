@@ -40,7 +40,7 @@
         margin: 0;
         font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         background: var(--gallery-bg);
-        color: #201f1a;
+        color: #201a1a;
         min-height: 100vh;
         overflow: hidden;
       }
@@ -102,19 +102,22 @@
         /* letter-spacing: 0.25em; 
       } */
 
-      .frame-stack1 {
-        position: relative;
-        width: clamp(220px, 20vw, 360px);
-        aspect-ratio: 3 / 4;
-        display: grid;
-        place-items: center;
-      }
+      .frame-stack1,
       .frame-stack2 {
         position: relative;
-        width: clamp(300px, 26vw, 450px);
         aspect-ratio: 3 / 4;
         display: grid;
         place-items: center;
+        width: auto;
+        max-width: 90vw;
+      }
+
+      .frame-stack1 {
+        height: clamp(320px, 55vh, 560px);
+      }
+
+      .frame-stack2 {
+        height: clamp(360px, 62vh, 620px);
       }
 
       .art-slot {
@@ -123,9 +126,24 @@
         background: rgba(255, 255, 255, 0.9);
         border: 2px solid rgba(0, 0, 0, 0.12);
         border-radius: 0.5rem;
+        position: relative;
+        overflow: hidden;
         box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.08);
         background-size: cover;
         background-position: center;
+      }
+
+      .art-slot::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        box-shadow:
+          inset 55px 0 65px -45px rgba(0, 0, 0, 0.55),
+          inset -55px 0 65px -45px rgba(0, 0, 0, 0.5);
+        mix-blend-mode: multiply;
+        opacity: 0.65;
       }
 
       .frame-overlay {
@@ -141,8 +159,8 @@
         background: var(--placard-bg);
         color: var(--placard-text);
         text-align: center;
-        padding: .5rem .5rem .5rem;
-        width: min(130px, 50vw);
+        padding: 0.85rem 1rem;
+        width: clamp(220px, 32vh, 360px);
         /* border-radius: 0.9rem; */
         overflow: hidden;
         box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15);
@@ -155,14 +173,14 @@
 
       .placard h2 {
         color: var(--ui-color-n-050);
-        font-size: 1rem;
-        font-weight:400;
+        font-size: 1.1rem;
+        font-weight: 500;
       }
 
       .placard p {
         margin: 0;
-        font-size: 0.5rem;
-        line-height: 1.35;
+        font-size: 0.7rem;
+        line-height: 1.45;
       }
 
       .placard:hover {
@@ -174,30 +192,74 @@
       .scroll-zone-hotspot {
         pointer-events: auto;
         position: fixed;
-        top: 50%;
-        right: clamp(35px, 6vw, 60px);
-        transform: translateY(-50%);
+        top: 0;
+        height: 100vh;
+        width: clamp(3px, 6vw, 64px);
         z-index: 16;
-        background: #fff;
-        border-radius: 999px;
-        width: 52px;
-        height: 52px;
-        display: grid;
-        place-items: center;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
-        color: var(--accent);
-        font-size: 1.35rem;
-        cursor: e-resize;
+        cursor: pointer;
+        /* background: linear-gradient(90deg, rgba(51, 67, 146, 0.05), transparent);
+        transition: background 0.2s ease; */
+      }
+
+      .scroll-zone-hotspot--right {
+        right: 0;
+        background: linear-gradient(270deg, rgba(32, 32, 33, 0.274), transparent);
+      }
+
+      .scroll-zone-hotspot--left {
+        left: 0;
+        background: linear-gradient(90deg, rgba(32, 32, 33, 0.274), transparent);
       }
 
       .scroll-instructions {
-        position: absolute;
-        bottom: 1.5rem;
-        left: clamp(2rem, 4vw, 4rem);
+        position: fixed;
+        bottom: clamp(1rem, 3vh, 2.5rem);
+        left: clamp(1.5rem, 4vw, 4rem);
         font-size: 0.85rem;
         text-transform: uppercase;
         letter-spacing: 0.18em;
-        color: rgba(32, 31, 26, 0.7);
+        color: rgba(42, 42, 41, 0.7);
+        z-index: 18;
+        pointer-events: none;
+      }
+
+      @media (max-width: 1400px) {
+        .gallery-strip {
+          gap: clamp(2.25rem, 3vw, 3.5rem);
+          padding-right: clamp(2rem, 4vw, 4rem);
+        }
+        .gallery-item {
+          gap: 1rem;
+        }
+        .gallery-item:hover {
+          transform: translateY(-100px);
+        }
+        .frame-stack1 {
+          height: clamp(280px, 50vh, 460px);
+        }
+        .frame-stack2 {
+          height: clamp(320px, 55vh, 520px);
+        }
+        .placard {
+          width: clamp(200px, 30vh, 320px);
+          padding: 0.75rem 0.9rem;
+        }
+        .placard:hover {
+          transform: translateY(-20px) scale(1.7);
+        }
+      }
+
+      @media (max-height: 900px) {
+        body {
+          overflow-y: auto;
+        }
+        main {
+          min-height: auto;
+        }
+        .scroll-instructions {
+          font-size: 0.75rem;
+          bottom: 0.75rem;
+        }
       }
 
       @media (max-width: 768px) {
@@ -292,53 +354,57 @@
           </div>
         </div>
       </div>
-      <div class="scroll-zone-hotspot" aria-hidden="true">
-        <span aria-hidden="true">➜</span>
-      </div>
-      <p class="scroll-instructions">Hover near the right edge to stroll forward</p>
+      <div class="scroll-zone-hotspot scroll-zone-hotspot--left" data-scroll-direction="-1" aria-hidden="true"></div>
+      <div class="scroll-zone-hotspot scroll-zone-hotspot--right" data-scroll-direction="1" aria-hidden="true"></div>
+      <p class="scroll-instructions">Hover near either edge to stroll</p>
     </main>
 
     <script>
       const scroller = document.getElementById('galleryScroller');
-      const scrollHotspot = document.querySelector('.scroll-zone-hotspot');
-      let scrollAnimation = null;
-      let isScrolling = false;
+      const scrollHotspots = document.querySelectorAll('[data-scroll-direction]');
 
-      const stepScroll = () => {
-        if (!isScrolling) {
-          scrollAnimation = null;
-          return;
-        }
-        scroller.scrollLeft += 2.5;
-        scrollAnimation = requestAnimationFrame(stepScroll);
-      };
+      const attachScrollControls = (element, direction) => {
+        let isScrolling = false;
+        let animation = null;
 
-      const startScroll = () => {
-        if (isScrolling) return;
-        isScrolling = true;
-        scrollAnimation = requestAnimationFrame(stepScroll);
-      };
+        const step = () => {
+          if (!isScrolling) {
+            animation = null;
+            return;
+          }
+          scroller.scrollLeft += direction * 2.5;
+          animation = requestAnimationFrame(step);
+        };
 
-      const stopScroll = () => {
-        isScrolling = false;
-        if (scrollAnimation) {
-          cancelAnimationFrame(scrollAnimation);
-          scrollAnimation = null;
-        }
-      };
+        const start = () => {
+          if (isScrolling) return;
+          isScrolling = true;
+          animation = requestAnimationFrame(step);
+        };
 
-      if (scrollHotspot) {
-        scrollHotspot.addEventListener('mouseenter', startScroll);
-        scrollHotspot.addEventListener('mouseleave', stopScroll);
-        scrollHotspot.addEventListener('touchstart', (event) => {
+        const stop = () => {
+          isScrolling = false;
+          if (animation) {
+            cancelAnimationFrame(animation);
+            animation = null;
+          }
+        };
+
+        element.addEventListener('mouseenter', start);
+        element.addEventListener('mouseleave', stop);
+        element.addEventListener('touchstart', (event) => {
           event.preventDefault();
-          startScroll();
+          start();
         });
-        scrollHotspot.addEventListener('touchcancel', stopScroll);
-        scrollHotspot.addEventListener('touchend', stopScroll);
-      }
+        element.addEventListener('touchcancel', stop);
+        element.addEventListener('touchend', stop);
+        window.addEventListener('blur', stop);
+      };
 
-      window.addEventListener('blur', stopScroll);
+      scrollHotspots.forEach((hotspot) => {
+        const direction = parseFloat(hotspot.dataset.scrollDirection) || 1;
+        attachScrollControls(hotspot, direction);
+      });
     </script>
   </body>
 </html>
