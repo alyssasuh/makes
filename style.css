@@ -510,6 +510,21 @@ img.align-right {
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
+.highlight-link {
+  color: #0a4ea5;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0.35rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.highlight-link:hover,
+.highlight-link:focus-visible {
+  background: rgba(10, 78, 165, 0.22);
+  color: #06306a;
+  text-decoration: underline;
+}
+
 /*--------------------------------------------------------------
 |
 | 6.3 LIST
@@ -934,6 +949,8 @@ div.scroll-container img {
 .ui-about-header { 
   padding-top: 4vh; 
   /* padding-bottom: 2vh;  */
+  position: relative;
+  z-index: 10;
 } 
 
 .ui-section-header__layout { 

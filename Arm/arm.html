@@ -675,19 +675,18 @@
         <div class="ui-component-cta ui-layout-flex">
           <div class="ui-layout-flex" style="flex-direction: column; gap: 1rem; padding-top: 2vh; padding-bottom: 2vh; align-items:flex-start; text-align:left; width:100%;">
               <div id="fig-live-demo" class="media-block" style="max-width:100%; margin: 2rem auto 2rem;">
-                <div class="figure-zoom" style="max-width:1000px; margin-left:auto; margin-right:auto;">
-                  <div style="position:relative; width:100%; padding-top:56.25%; border-radius:1rem; overflow:hidden; box-shadow:0 18px 45px rgba(0,0,0,0.14);">
-                    <iframe src="https://drive.google.com/file/d/1PxL8xDn69rPRTjMXgXDUQNG00EVJuQ9c/preview?autoplay=1" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allow="autoplay; fullscreen" allowfullscreen title="Extendo Arm live demo"></iframe>
-                  </div>
+                <div class="figure-zoom" style="margin-left:auto; margin-right:auto;">
+                  <video width="100%" controls autoplay loop muted class = center src="LIVE_DEMO.mov" type="video/mp4" >
+                  </video>
                 </div>
                 <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
-                  Live demonstration of the Extendo Arm responding to co-contraction input. Live view of EMG signal. 
+                  Live demonstration of the Extendo Arm responding to EMG-based co-contraction input.
                 </figcaption>
-              </div>
             <p class="text-intro text-intro--lead" style="padding-top: 2vh;">
               The Extendo Arm is a wearable assistive device designed to augment human reach and interaction through intuitive biomechanical control. Activated via muscle co-contraction, the system translates natural neuromuscular signals into mechanical extension, enabling the user to engage the device without external controllers or conscious mode switching. The project explores how assistive robotics can integrate seamlessly with human movement by leveraging existing motor control strategies.
               This work was completed as part of <a href="https://www.coursicle.com/harvard/courses/BE/124/" target="_blank" rel="noopener" class="highlight-link">BE124, Biomechanics of Movement and Assistive Robotics</a>, fall 2023.
             </p>
+            <br><br>
             <div class="ear-content-grid">
               <div class="ear-main">
               <h1 id="motivation" class="roboto" style="text-align: left; width: 100%; display: block;">MOTIVATION & CONTEXT</h1>
@@ -774,6 +773,17 @@
                     </p>
                   </div>
                 </div>
+
+                <div id="fig-live-demo" class="media-block" style="max-width:100%; margin: 2rem auto 2rem;">
+                  <div class="figure-zoom" style="width:60%; margin: 2rem auto 2rem;">
+                    <video width="80%" controls autoplay loop muted style="display:block; margin:0 auto;" src="BUILD.mov" type="video/mp4">
+                    </video>
+                  </div>
+                  <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                    Behind the scenes: Iterative testing and refinement of the rack-and-pinion mechanism. 
+                  </figcaption>
+                </div>
+
               <h2 id="system-implementation" style="text-align: left; width: 100%; display: block;font-size: 2rem; padding-top: 2vh;">SYSTEM IMPLEMENTATION</h2>
                 <p class="text-intro">
                   The system comprises an EMG-based control module and a mechanical actuation module. 
@@ -901,7 +911,7 @@
                   </div>
                   <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; margin-bottom:3rem; display:block; width:100%;">
                       Total number of detected co-contraction events across task conditions.
-                      Bar plots show the average number of co-contraction events detected within a 15-second window across three participants (ages 21–23; two female, one male) for each task condition. Intentional co-contraction trials yield consistently higher detection counts than non-co-contracting trials, with a gradual reduction in detected events as background muscle activity increases.
+                      Bar plots show the average number of co-contraction events detected within a 15-second window across three participants (ages 21&dash;23; two female, one male) for each task condition. Intentional co-contraction trials yield consistently higher detection counts than non-co-contracting trials, with a gradual reduction in detected events as background muscle activity increases.
                   </figcaption>
                 </div>
                 <div id="fig-7-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-7-modal-title">
@@ -952,9 +962,17 @@
                   It pushed me to see assistive technology not as something that replaces human ability, but as something that should work <i>with</i> the body&mdash;amplifying natural movement rather than overriding it. 
                   Both the course and this project ended up being a significant turning point in my growing interest in wearable and bio-integrated devices.
                 </p>
+                <div id="fig-live-demo" class="media-block" style="max-width:100%; margin: 2rem auto 2rem;">
+                <div class="figure-zoom" style="width:clamp(320px, 45vw, 560px); margin-left:auto; margin-right:auto;">
+                  <img src="VIDEO_MACKENZIE.gif" alt="Mackenzie testing the final device" style="display:block; margin:0 auto; width:80%; height:auto;">
+                </div>
+                <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
+                  Behind the scenes: Teamate (Mackenzie) testing out the final device.  
+                </figcaption>
+              </div>
       
               <div class="section-divider" aria-hidden="true"></div>
-              <h1 id="cleanroom-technical-skills" class="roboto" style="text-align: left; width: 100%; display: block;">ACKNOWLEDGEMENTS</h1>
+              <h1 id="acknowledgements" class="roboto" style="text-align: left; width: 100%; display: block;">ACKNOWLEDGEMENTS</h1>
                 <p class="text-intro" style="padding-top: 2vh;">
                   This project was completed in collaboration with my two group partners&mdash;and now close friends&mdash;<strong>Anhphu</strong> and <strong>Mackenzie</strong>, whose creativity, collaboration, and constant enthusiasm played a huge role in bringing this work to life. 
                   Working with them not only shaped this project, but also inspired me to continue building many of the independent projects documented on this page.

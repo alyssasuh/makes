@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en" overflow="hidden">
+  <head>
+    <meta charset="UTF-8">
+    <!-- SPEED -->
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <!-- LINK -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <!-- PERFORMANCE -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200..900&family=Reenie+Beanie&display=swap" rel="stylesheet">
+
+    <link rel="preload" as="style" href="../style.css">
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      .table-wrapper {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 0.95rem;
+        color: #000;
+        margin: 0 auto;
+        max-width: 1100px;
+      }
+      .table-wrapper.table-full-bleed {
+        width: min(96vw, 100%);
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        
+      }
+      .table-title {
+        text-align: center;
+        font-style: italic;
+        font-size: 0.8rem;
+        margin-bottom: 0.65rem;
+      }
+      .table-wrapper table {
+        width: 100%;
+        border-collapse: collapse;
+        border-top: 2px solid #000;
+        border-bottom: 2px solid #000;
+      }
+      .table-wrapper thead th {
+        font-weight: 600;
+        text-align: center;
+        padding: 0.6rem 1rem;
+        border-bottom: 1.5px solid #000;
+      }
+      .table-wrapper thead th.property,
+      .table-wrapper thead th.value {
+        text-align: left;
+      }
+      .table-wrapper tbody td {
+        padding: 0.5rem 1rem;
+        vertical-align: top;
+      }
+      .table-wrapper th.material,
+      .table-wrapper td.material {
+        min-width: 9rem;
+        text-align: left;
+        white-space: nowrap;
+        font-weight: 600;
+      }
+      .table-wrapper th.definition,
+      .table-wrapper td.definition {
+        min-width: 6rem;
+        text-align: left;
+        white-space: nowrap;
+      }
+      .table-wrapper th.category,
+      .table-wrapper td.category {
+        min-width: 7rem;
+        white-space: nowrap;
+        font-style: normal;
+        text-align: left;
+      }
+      .table-wrapper td.value {
+        text-align: left;
+        white-space: nowrap;
+      }
+      .table-wrapper .math {
+        font-style: italic;
+      }
+      .table-wrapper .cite {
+        text-decoration: none;
+        color: inherit;
+        font-size: 0.85em;
+        vertical-align: super;
+        margin-left: 0.15em;
+      }
+      .table-wrapper .cite::before { content: "["; }
+      .table-wrapper .cite::after { content: "]"; }
+      .table-wrapper tr.section-break td {
+        padding-top: 0.85rem;
+      }
+      .table-wrapper tr.section-break td:first-child {
+        padding-top: 1.1rem;
+      }
+      .table-wrapper tr.material-divider td {
+        padding: 0;
+        height: 0.65rem;
+        border-top: 1.5px solid #000;
+      }
+      .potato-content-grid {
+        width: 100%;
+        display: flex;
+        gap: 4.75rem;
+        align-items: flex-start;
+      }
+      .potato-main {
+        order: 1;
+        flex: 1;
+        min-width: 0;
+      }
+      .potato-toc {
+        order: 0;
+        width: min(24%);
+        position: sticky;
+        top: 4.5rem;
+        align-self: flex-start;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        background-image: none;
+        overflow: hidden;
+        z-index: 0;
+        border: 1.5px solid var(--ui-text-2);
+        border-radius: 1.5rem;
+        padding: 1.5rem 1rem 2.75rem;
+        /* box-shadow: 0 15px 35px rgba(193, 183, 249, 0.53); */
+        max-height: calc(100vh - 5rem);
+        /* min-height: calc(100vh - 20rem); */
+        display: flex;
+        flex-direction: column;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .potato-toc::before {
+        content: "";
+        position: absolute;
+        inset: -6% -8%;
+        /* background-image: url("../paper%20texture.png"); */
+        background-size: 420px auto;
+        background-repeat: repeat;
+        background-position: center;
+        opacity: 0.55;
+        transform: rotate(-4deg);
+        filter: contrast(1.05) brightness(1.02);
+        z-index: -1;
+        pointer-events: none;
+      }
+      .potato-toc::-webkit-scrollbar {
+        display: none;
+      }
+      .potato-toc .toc-section {
+        padding-bottom: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px dotted var(--ui-text-2);
+      }
+      .potato-toc .toc-section:last-of-type {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+      .potato-toc h3 {
+        font-size: 0.75rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        margin: 0 0 0.65rem 0;
+        color: var(--ui-color-n-500);
+      }
+      .potato-toc ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+      .potato-toc h2 {
+        color: var(--ui-color-n-500);
+        font-size: x-large;
+        font-weight: 700;
+      }
+      .potato-toc a {
+        color: #5b564f;
+        text-decoration: none;
+        display: block;
+        padding: 0.4rem 0.75rem;
+        border: 2px solid transparent;
+        border-radius: 0.65rem;
+        transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      }
+      .potato-toc a:hover,
+      .potato-toc a:focus-visible {
+        color: #201f1a;
+        /* border-color: var(--ui-color-n-g); */
+        /* background: #201f1a; */
+        font-weight: 600;
+      }
+      .potato-toc a[aria-current="true"],
+      .potato-toc a[aria-current="section"] {
+        color: #1f1d19;
+        font-weight: 600;
+        border-color: #f2bb2a;
+        background: rgba(242, 187, 42, 0.12);
+      }
+      .potato-toc a.request-access-link {
+        color: #0a4ea5;
+        font-weight: 500;
+      }
+      .potato-toc a.request-access-link:hover,
+      .potato-toc a.request-access-link:focus-visible {
+        font-weight: 700;
+      }
+      .potato-highlight-link {
+        color: #0a4ea5;
+        font-weight: 600;
+        text-decoration: none;
+        /* background: rgba(10, 78, 165, 0.12); */
+        padding: 0.05em 0.35em;
+        border-radius: 0.35rem;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+      .potato-highlight-link:hover,
+      .potato-highlight-link:focus-visible {
+        background: rgba(10, 78, 165, 0.22);
+        color: #06306a;
+        text-decoration: underline;
+      }
+      .text-intro--lead {
+        font-size: clamp(1rem, 2vw, 1.35rem);
+      }
+      .conductive-video-grid {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.75rem;
+        margin: 2.25rem 0 0;
+        justify-content: space-between;
+      }
+      .conductive-video-card {
+        flex:  0 0 calc((100% - 1.75rem) / 2); /* 2 cards + 1 gap */
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+        align-items: center;
+        text-align: center;
+      }
+      .conductive-video-label {
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .conductive-video-wrapper {
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%;
+        border: 1.5px solid var(--ui-text-2);
+        border-radius: 1.5rem;
+        overflow: hidden;
+      }
+      .conductive-video-wrapper iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        border-radius: 1rem;
+      }
+      .conductive-video-grid figcaption {
+        flex-basis: 100%;
+        text-align: center;
+        margin: 0 auto;
+      }
+      .assembly-viewer {
+        position: relative;
+        width: 100%;
+        padding-top: 60%;
+        margin: 2rem 0 0.75rem;
+        border: 1.5px solid var(--ui-text-2);
+        border-radius: 1.5rem;
+        overflow: hidden;
+      }
+      .assembly-viewer iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+      .assembly-viewer__caption {
+        text-align: center;
+        font-size: 0.95rem;
+        color: #4a4843;
+        margin: 0.5rem 0 0;
+      }
+      .potato-toc .toc-preview__link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        white-space: nowrap;
+        padding: 0.35rem 0.9rem;
+        border-radius: 0.45rem;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+      .potato-toc .toc-preview__link:hover,
+      .potato-toc .toc-preview__link:focus-visible {
+        /* background: #095ea8; */
+        box-shadow: 0 6px 16px rgba(168, 204, 235, 0.4);
+        border-color: #074a88;
+      }
+      .toc-preview__text {
+        flex: 0 1 auto;
+      }
+      .toc-preview__thumb {
+        width: 2.1rem;
+        height: 2.1rem;
+        flex-shrink: 0;
+        object-fit: contain;
+        padding: 0;
+        background: transparent;
+      }
+      .figure-zoom {
+        position: relative;
+      }
+      .figure-zoom__trigger {
+        position: absolute;
+        top: -0.75rem;
+        right: -0.75rem;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 999px;
+        padding: 0.35rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .figure-zoom__trigger:hover,
+      .figure-zoom__trigger:focus-visible {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        outline: none;
+      }
+      .figure-zoom__icon {
+        font-size: 1.05rem;
+      }
+      .figure-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        z-index: 1200;
+        transition: opacity 0.2s ease;
+      }
+      .figure-modal[aria-hidden="true"] {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .figure-modal__content {
+        position: relative;
+        max-width: min(90vw, 1100px);
+        max-height: 90vh;
+        background: #fff;
+        border-radius: 0.75rem;
+        padding: 1.25rem;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .figure-modal__content img {
+        width: 100%;
+        height: auto;
+      }
+      #fig-3-1-modal img,
+      #fig-3-3-modal img {
+        width: 90%;
+        margin: 0 auto;
+      }
+      .figure-modal__close {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        border: none;
+        background: transparent;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #2c2b27;
+      }
+      .figure-modal__caption {
+        font-size: 0.9rem;
+        color: #4a4843;
+        text-align: center;
+      }
+      .request-modal {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 1300;
+        transition: opacity 0.2s ease;
+      }
+      .request-modal[aria-hidden="true"] {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .request-modal__content {
+        position: relative;
+        width: min(480px, 90vw);
+        background: #fff;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 25px 65px rgba(0, 0, 0, 0.35);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .request-modal__title {
+        font-size: 1.35rem;
+        margin: 0;
+        color: #1f1d19;
+      }
+      .request-modal__body {
+        color: #4a4843;
+        line-height: 1.6;
+        font-size: 1rem;
+        margin: 0;
+      }
+      .request-modal__email {
+        font-weight: 600;
+        color: #074a88;
+        text-decoration: none;
+      }
+      .request-modal__actions {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+      .request-modal__button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.65rem 1.25rem;
+        border-radius: 999px;
+        background: #074a88;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background 0.2s ease;
+      }
+      .request-modal__button:hover,
+      .request-modal__button:focus-visible {
+        background: #053b6b;
+        color: #fff;
+      }
+      .request-modal__close {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        border: none;
+        background: transparent;
+        font-size: 1.35rem;
+        cursor: pointer;
+        color: #4a4843;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      body.modal-open {
+        overflow: hidden;
+      }
+      .potato-references p {
+        font-size: inherit !important;
+        line-height: inherit;
+      }
+      .potato-hero {
+        background-color: var(--ui-color-n-2);
+      }
+      .potato-footer-spacer {
+        height: 4rem;
+      }
+      .potato-footer-note {
+        text-align: center;
+        font-size: 0.85rem;
+        color: #5b564f;
+        padding: 2rem 1rem;
+        border-top: 2px solid rgba(0, 0, 0, 0.08);
+        background: #ffffff00fff00;
+      }
+      @media (max-width: 992px) {
+        .potato-content-grid {
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+        .potato-toc {
+          width: 100%;
+          position: static;
+          order: 2;
+          box-shadow: none;
+          border-radius: 1rem;
+          padding: 1.25rem;
+        }
+        .potato-main {
+          order: 1;
+        }
+      }
+    </style>
+    <!-- TITLE -->
+    <title>MRS.POTATOHEAD</title>
+  </head>
+
+  <body overflow="hidden">
+      <header role="banner" class="ui-section-header" style="padding-top: 4vh;">
+        <div class="ui-layout-container">
+          <div class="ui-section-header__layout ui-layout-flex"
+              style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: nowrap; gap: 1rem;">
+            <!-- LOGO -->
+            <a href="../index.html" role="link" aria-label="Home" style="text-align: left;">
+              <h1 style="text-align: left;"><span class="roboto">MRS.POTATOHEAD</span></h1>
+            </a>
+            <!-- MENU -->
+            <a href="../index.html" role="link" aria-label="Home">
+              <span class="reenie-button">Home</span>
+            </a>
+          </div>
+        </div>
+      </header>
+      <main role="main">
+      <div class="ui-layout-container">
+        <div class="ui-component-cta ui-layout-flex">
+          <div class="ui-layout-flex" style="flex-direction: column; gap: 1rem; padding-top: 2vh; padding-bottom: 2vh; align-items:flex-start; text-align:left; width:100%;">
+            <img src="2.1.png" style="width:100%; max-width:600px; height:auto; border-radius:1.5rem;">  
+            <p class="text-intro text-intro--lead" style="padding-top: 2vh;">
+              For the second week of <a href="https://nathanmelenbrink.github.io/ps70/about.html" target="_blank" rel="noopener" class="potato-highlight-link">PS70</a>, we were tasked with designing a box that would contain future projects we would work on throughout the semester, allowing us to practice the CAD skills we learned during lecture using Fusion.
+              Because I had previous experience working with other CAD software such as SolidWorks and Onshape, transitioning to the new program felt relatively minimal.
+              That said, it was my first time applying my CAD skills to a laser cutter, which made for a fun learning experience as I adjusted to the new tool.
+             </p>
+            <h1 id="design" class="roboto" style="text-align: left; width: 100%; display: block;">DESIGN</h1>
+            <p class="text-intro">
+              The concept of my box was inspired by a combination of a dice and the Mrs.Potato Head Toy. In other words, I wanted to animate a simple box with human features incorporated into the design. Feet, ears, nose, and lips.
+              I drew out the flattened schematic of the box, lid, and the remaining body parts. This was used as a guide for the CAD.
+            </p>
+            <img src="2.2.png" style="width:100%; max-width:600px; height:auto; border-radius:1.5rem;">  
+            <p class="text-intro">
+              However, I soon realized that I liked the box better without any facial features so I decided to keep it blank.
+            </p>
+            <img src="2.3.png" style="width:100%; max-width:600px; height:auto; border-radius:1.5rem;">  
+            <p class="text-intro">
+              Through the first iteration of the box, I realized that I could scale the model up so that I could fit more into the box. I increased the sides of the box from 10cm to 15cm while keeping the remaining body parts and slots the same as the previous iteration.
+            </p>
+            <div class="assembly-viewer" role="figure" aria-label="Interactive Fusion 360 model of the final assembly">
+              <iframe
+                src="//college680.autodesk360.com/shares/public/SH28cd1QT2badd0ea72b033429a45fda4f31?mode=embed"
+                loading="lazy"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <p class="assembly-viewer__caption">Drag to rotate, pinch or scroll to zoom.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      <div id="request-access-modal" class="request-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="request-access-title">
+        <div class="request-modal__content">
+          <button type="button" class="request-modal__close" data-request-access-close aria-label="Close request access dialog">&times;</button>
+          <h2 class="request-modal__title" id="request-access-title">Request Full Thesis Access</h2>
+          <p class="request-modal__body">
+            Please email <a class="request-modal__email" href="mailto:alyssa2.suh@gmail.com">alyssa2.suh@gmail.com</a> with your name, affiliation, and a short explanation of why you need full access to the document.
+          </p>
+          <p class="request-modal__body">
+            Include any deadlines or project context so we can prioritize your request and respond promptly.
+          </p>
+          <div class="request-modal__actions">
+            <a class="request-modal__button" href="mailto:alyssa2.suh@gmail.com?subject=Full%20Thesis%20Access%20Request">Compose Email</a>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="potato-footer-note">
+      All figures, diagrams, and graphs were created by the author unless otherwise noted. Permission is required for use or reproduction :)
+    </footer>
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const sectionLinks = Array.from(document.querySelectorAll('[data-potato-section-link]'));
+          const sections = sectionLinks
+            .map(link => document.querySelector(link.getAttribute('href')))
+            .filter(Boolean);
+
+          if (sections.length) {
+            const setActive = id => {
+              sectionLinks.forEach(link => {
+                if (link.getAttribute('href') === `#${id}`) {
+                  link.setAttribute('aria-current', 'true');
+                } else {
+                  link.removeAttribute('aria-current');
+                }
+              });
+            };
+
+            const getVisibleAmount = (start, end, viewportTop, viewportBottom) => {
+              return Math.max(0, Math.min(end, viewportBottom) - Math.max(start, viewportTop));
+            };
+
+            let ticking = false;
+
+            const updateActiveSection = () => {
+              ticking = false;
+              const viewportTop = window.scrollY;
+              const viewportBottom = viewportTop + window.innerHeight;
+              let bestId = null;
+              let bestVisible = 0;
+
+              sections.forEach((section, index) => {
+                if (section.id === 'acknowledgements') {
+                  const rect = section.getBoundingClientRect();
+                  const bandTop = window.innerHeight / 3;
+                  const bandBottom = window.innerHeight * (2 / 3);
+                  const intersectsCenterBand = rect.top <= bandBottom && rect.bottom >= bandTop;
+                  if (intersectsCenterBand) {
+                    bestId = section.id;
+                    bestVisible = Number.MAX_VALUE;
+                    return;
+                  }
+                }
+
+                if (bestVisible === Number.MAX_VALUE) {
+                  return;
+                }
+
+                const start = section.offsetTop;
+                const end = index < sections.length - 1 ? sections[index + 1].offsetTop : document.body.scrollHeight;
+                const visible = getVisibleAmount(start, end, viewportTop, viewportBottom);
+
+                if (visible > bestVisible) {
+                  bestVisible = visible;
+                  bestId = section.id;
+                }
+              });
+
+              if (bestId) {
+                setActive(bestId);
+              }
+            };
+
+            const requestTick = () => {
+              if (!ticking) {
+                requestAnimationFrame(updateActiveSection);
+                ticking = true;
+              }
+            };
+
+            window.addEventListener('scroll', requestTick, { passive: true });
+            window.addEventListener('resize', requestTick);
+            updateActiveSection();
+          }
+
+          const zoomTriggers = document.querySelectorAll('.figure-zoom__trigger');
+          const figureModals = document.querySelectorAll('.figure-modal');
+
+          const openModal = modal => {
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+          };
+
+          const closeModal = modal => {
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+          };
+
+          zoomTriggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+              const modal = document.getElementById(trigger.dataset.zoomTarget);
+              if (modal) {
+                openModal(modal);
+              }
+            });
+          });
+
+          figureModals.forEach(modal => {
+            modal.addEventListener('click', event => {
+              if (event.target === modal || event.target.closest('[data-figure-close]')) {
+                closeModal(modal);
+              }
+            });
+          });
+
+          const requestAccessTrigger = document.querySelector('[data-request-access-trigger]');
+          const requestAccessModal = document.getElementById('request-access-modal');
+
+          if (requestAccessTrigger && requestAccessModal) {
+            requestAccessTrigger.addEventListener('click', event => {
+              event.preventDefault();
+              openModal(requestAccessModal);
+              const closeButton = requestAccessModal.querySelector('[data-request-access-close]');
+              if (closeButton) {
+                closeButton.focus();
+              }
+            });
+
+            requestAccessModal.addEventListener('click', event => {
+              if (event.target === requestAccessModal || event.target.closest('[data-request-access-close]')) {
+                event.preventDefault();
+                closeModal(requestAccessModal);
+              }
+            });
+          }
+
+          document.addEventListener('keydown', event => {
+            if (event.key === 'Escape') {
+              const activeModal = document.querySelector('.figure-modal[aria-hidden="false"], .request-modal[aria-hidden="false"]');
+              if (activeModal) {
+                closeModal(activeModal);
+              }
+            }
+          });
+        });
+      </script>
+    </body>
+  </html>

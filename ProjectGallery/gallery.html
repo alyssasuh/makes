@@ -30,6 +30,7 @@
         --placard-bg: #2c2b27;
         --placard-text: #f5f4f2;
         --accent: #334392;
+        --scroll-hotspot-width: clamp(16px, 10vw, 140px);
       }
 
       * {
@@ -46,10 +47,12 @@
       }
 
       .gallery-header {
-        position: sticky;
+        /* position: sticky; */
         top: 0;
-        z-index: 10;
-        background: var(--gallery-bg);
+        z-index: 0;
+        background: transparent !important;
+        background-color: transparent !important;
+        background-image: none !important;
         padding-bottom: 1.5rem;
         padding-top: 1.5rem;
       }
@@ -79,6 +82,8 @@
         padding-left: 0;
         width: max-content;
         align-items: flex-start;
+        position: relative;
+        z-index: 2;
       }
 
       .gallery-item {
@@ -89,11 +94,26 @@
         position: relative;
         transition: transform 0.3s ease;
         will-change: transform;
+        align-self: flex-start;
       }
 
       .gallery-item:hover {
         transform: translateY(-40px);
         z-index: 3;
+      }
+
+      .gallery-link {
+        display: flex;
+        flex-direction: column;
+        gap: 1.4rem;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .gallery-link:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 6px;
       }
       /* .gallery-item h2 {
         color: var(--ui-color-n-050);
@@ -103,13 +123,19 @@
       } */
 
       .frame-stack1,
-      .frame-stack2 {
+      .frame-stack2,
+      .frame-stack3,
+      .frame-stack4 
+      {
         position: relative;
         aspect-ratio: 3 / 4;
         display: grid;
         place-items: center;
         width: auto;
         max-width: 90vw;
+        filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.478));
+        position: relative;
+        z-index: 2;
       }
 
       .frame-stack1 {
@@ -120,17 +146,52 @@
         height: clamp(360px, 62vh, 620px);
       }
 
+      .frame-stack3 {
+        height: clamp(380px, 65vh, 640px);
+      }
+
+      .frame-stack4 {
+        height: clamp(400px, 70vh, 700px);
+        margin-inline: auto;
+      }
+
       .art-slot {
-        width: 85%;
-        height: 85%;
-        background: rgba(255, 255, 255, 0.9);
-        border: 2px solid rgba(0, 0, 0, 0.12);
-        border-radius: 0.5rem;
+        width: 75%;
+        height: 75%;
+        /* background: rgba(255, 255, 255, 0.9); */
+        /* border: 2px solid rgba(0, 0, 0, 0.12); */
+        /* border-radius: 1rem; */ */
         position: relative;
         overflow: hidden;
-        box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.08);
+        /* box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.08); */
         background-size: cover;
         background-position: center;
+      }
+
+      .art-slot_horizontal {
+        width: 120%;
+        height: 70%;
+        position: relative;
+        overflow: hidden;
+        /* box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.08); */
+        background-size: cover;
+        background-position: center;
+      }
+      .art-slot_horizontal_2 {
+        width: 90%;
+        height: 50%;
+        position: relative;
+        overflow: hidden;
+        /* box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.08); */
+        background-size: cover;
+        background-position: center;
+      }
+
+      .art-slot--video video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
       }
 
       .art-slot::before {
@@ -139,11 +200,50 @@
         inset: 0;
         border-radius: inherit;
         pointer-events: none;
-        box-shadow:
+        /* box-shadow:
           inset 55px 0 65px -45px rgba(0, 0, 0, 0.55),
-          inset -55px 0 65px -45px rgba(0, 0, 0, 0.5);
+          inset -55px 0 65px -45px rgba(0, 0, 0, 0.5); */
         mix-blend-mode: multiply;
         opacity: 0.65;
+      }
+      .art-slot_horizontal::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        mix-blend-mode: multiply;
+        opacity: 0.65;
+      }
+
+      .art-slot--remy {
+        background-color: transparent;
+        width: 75%;
+        height: 75%;
+        margin: 0 auto;
+      }
+
+      .art-slot--remy::before {
+        display: none;
+      }
+
+      .art-slot--remy::after {
+        content: "";
+        position: absolute;
+        inset: 6rem;
+        background:  rgba(215, 209, 192, 0.898);;
+        border-radius: -14px;
+        z-index: 0;
+      }
+
+      .art-slot--remy .art-slot__media {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 60%;
       }
 
       .frame-overlay {
@@ -153,17 +253,46 @@
         height: 100%;
         object-fit: contain;
         pointer-events: none;
+        z-index: 2;
+      }
+
+      .frame-overlay.rotate-90 {
+        transform: rotate(90deg);
+        transform-origin: center;
+      }
+
+      .art-slot--carousel {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #050505;
+      }
+
+      .carousel-slot {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        z-index: 1;
+      }
+
+      .carousel-slot img {
+        width: 100%;
+        height: auto;
+        max-height: 80vh;
+        object-fit: contain;
       }
 
       .placard {
         background: var(--placard-bg);
         color: var(--placard-text);
-        text-align: center;
+        text-align: left;
         padding: 0.85rem 1rem;
-        width: clamp(220px, 32vh, 360px);
+        width: clamp(180px, 25vh, 290px);
         /* border-radius: 0.9rem; */
         overflow: hidden;
-        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15);
+        box-shadow:
+          0 18px 45px rgba(0, 0, 0, 0.25),
+          0 6px 16px rgba(0, 0, 0, 0.18);
         position: relative;
         transition: transform 0.25s ease, box-shadow 0.25s ease;
         transform-origin: center top;
@@ -172,20 +301,23 @@
       }
 
       .placard h2 {
-        color: var(--ui-color-n-050);
-        font-size: 1.1rem;
+        /* color: var(--ui-color-n-050); */
+        font-size: .8rem;
         font-weight: 500;
       }
 
       .placard p {
         margin: 0;
-        font-size: 0.7rem;
+        font-size: 0.5rem;
         line-height: 1.45;
+        text-indent: -0;
       }
 
       .placard:hover {
         transform: translateY(-35px) scale(2);
-        box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+        box-shadow:
+          0 24px 60px rgba(0, 0, 0, 0.38),
+          0 10px 25px rgba(0, 0, 0, 0.25);
         z-index: 2;
       }
 
@@ -194,7 +326,7 @@
         position: fixed;
         top: 0;
         height: 100vh;
-        width: clamp(3px, 6vw, 64px);
+        width: var(--scroll-hotspot-width);
         z-index: 16;
         cursor: pointer;
         /* background: linear-gradient(90deg, rgba(51, 67, 146, 0.05), transparent);
@@ -203,12 +335,12 @@
 
       .scroll-zone-hotspot--right {
         right: 0;
-        background: linear-gradient(270deg, rgba(32, 32, 33, 0.274), transparent);
+        background: linear-gradient(270deg, rgba(0, 0, 0, 0.317), transparent);
       }
 
       .scroll-zone-hotspot--left {
         left: 0;
-        background: linear-gradient(90deg, rgba(32, 32, 33, 0.274), transparent);
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.317), transparent);
       }
 
       .scroll-instructions {
@@ -224,6 +356,14 @@
       }
 
       @media (max-width: 1400px) {
+        .gallery-header {
+        /* position: sticky; */
+        top: 0;
+        z-index: 0;
+        background: transparent;
+        padding-bottom: 1.5rem;
+        padding-top: 1.5rem;
+        }
         .gallery-strip {
           gap: clamp(2.25rem, 3vw, 3.5rem);
           padding-right: clamp(2rem, 4vw, 4rem);
@@ -240,9 +380,15 @@
         .frame-stack2 {
           height: clamp(320px, 55vh, 520px);
         }
+        .frame-stack3 {
+          height: clamp(290px, 50vh, 520px);
+        }
+        .frame-stack4 {
+          height: clamp(300px, 50vh, 500px);
+        }
         .placard {
-          width: clamp(200px, 30vh, 320px);
-          padding: 0.75rem 0.9rem;
+          width: clamp(190px, 25vh, 300px);
+          padding: 0.75rem 0.75rem;
         }
         .placard:hover {
           transform: translateY(-20px) scale(1.7);
@@ -308,56 +454,327 @@
       <div class="gallery-scroller" id="galleryScroller">
         <div class="ui-layout-container">
           <div class="gallery-strip">
-          <section class="gallery-item">
-            <div class="frame-stack1">
-              <div class="art-slot" style="background-image: url('../images/aboutme.png');"></div>
-              <img src="frame1.1.png" alt="ornate gallery frame" class="frame-overlay" loading="lazy">
+          <section class="gallery-item" style="padding-inline:2.5rem;">
+            <a class="gallery-link" href="../Ear/ear.html">
+              <div class="frame-stack1">
+                <div class="art-slot art-slot--video" style="background-color: rgb(253, 229, 168); width: 65%; height: 60%; margin-top: 1rem;">
+                    <video src="../ProjectGallery/EarModel.mp4" autoplay muted loop playsinline></video>
+                  </div>
+                <img src="frame1.1.png" alt="ornate gallery frame" class="frame-overlay" loading="lazy">
+              </div>
+              <div class="placard">
+                <h2><strong>Modeling the Human Ear</strong>, 2025</h2>
+                <p>Anatomical Modeling · Molding and Casting · Experimental Acoustic Characterization
+                  <br><br>
+                  A physically engineered replica of the outer ear designed to study how sound travels through cartilage. This three-layer model—soft tissue, cartilage, and bone—recreates the ear&apos;s anatomy and material properties to simulate how vibrations applied to the pinna generate sound at the eardrum.
+                </p>
+              </div>
+            </a>
+          </section>
+
+          <section class="gallery-item" style="padding-inline:1.5rem;">
+            <a class="gallery-link" href="../under-construction.html">
+            <div class="frame-stack2" style="margin-inline:1.25rem;">
+              <div class="art-slot_horizontal" style="background-image: url('Camera.png'); background-size:90%; background-repeat:no-repeat; background-position:center;"></div>
+              <img src="frame2.1.png" alt="ornate gallery frame" class="frame-overlay rotate-90" loading="lazy">
             </div>
-            <div class="placard">
-              <h2>Project Title</h2>
-              <p>Short description of the project or medium goes here.</p>
+            <div class="placard" style="margin-top:-4rem;">
+              <h2><strong>서 Eungyo</strong>, 2023-Present</h2>
+              <p>CAD (Fusion 360) · Film photography · Optics
+                <br><br>
+                An ongoing exploration of analog image-making through the design and fabrication of a fully functional 35mm film camera.
+                Built from scratch using custom-designed components, the project investigates the mechanics of light, exposure, and film transport—bridging precision engineering with the meditative process of shooting on film.</p>
             </div>
+            </a>
+          </section>
+
+          <section class="gallery-item" style="padding-inline:2.5rem; margin-top:-3rem;">
+            <a class="gallery-link" href="../under-construction.html">
+            <div class="frame-stack4">
+              <div class="art-slot art-slot--remy">
+                <div class="art-slot__media" style="background-image: url('Remy.png'); background-size:90%;"></div>
+              </div>
+              <img src="frame3.1.png" alt="ornate gallery frame" class="frame-overlay rotate-90 width" loading="lazy">
+            </div>
+            <div class="placard" style="margin-top:-2rem;">
+              <h2><strong>REMY</strong>, 2025-2026</h2>
+              <p>Prototyping · User Validation Survey · Human-Centered Design
+                <br><br>
+                A non-occluding wearable audio interface that delivers private sound through cartilage-mediated conduction. Unlike traditional in-ear devices that rely on air conduction and block ambient awareness, Remy uses a micro-transducer placed on the outer ear to generate mechanical vibrations that become sound within the ear canal—without sealing it.
+              </p>
+            </div>
+            </a>
           </section>
 
           <section class="gallery-item">
+            <a class="gallery-link" href="../MEMS/MEMS.html">
+            <div class="frame-stack1">
+              <div class="art-slot" style="background-image: url('MEMS1.png'); background-size:65%; background-repeat:no-repeat; background-position:center;"></div>
+              <img src="frame1.1.png" style="width: 80%" alt="ornate gallery frame" class="frame-overlay" loading="lazy">
+            </div>
+            <div class="placard" style="margin-top:-3.5rem;">
+              <h2><strong>MEMS Transducer</strong>, 2025</h2>
+              <p>Photolithography · Device Assembly · PZT
+                <br><br>
+                 A millimeter-scale transducer designed to deliver sound through the cartilage of the outer ear. Fabricated using photolithography and cleanroom MEMS processes, the device converts electrical signals into mechanical vibration via a stacked piezoelectric (PZT) architecture.
+              </p>
+            </div>
+            </a>
+          </section>
+
+          <section class="gallery-item" style="padding-inline:1.5rem;">
+            <a class="gallery-link" href="../CellMorphology/cellmorphology.html">
+            <div class="frame-stack2" style="margin-inline:1.25rem;">
+              <div id="carousel" class="carousel slide carousel-fade w-full" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active" data-bs-interval="1000">
+                    <img class="d-block w-100 h-auto" style="max-height:80vh; object-fit:contain; filter:brightness(1.5);" src="../cell_images/EvosImage_40x_DAPI.jpg" alt="First slide">
+                  </div>
+                  <div class="carousel-item" data-bs-interval="1000">
+                    <img class="d-block w-100 h-auto" style="max-height:80vh; object-fit:contain; filter:brightness(1.5);" src="../cell_images/EvosImage_40x_GFP.jpg" alt="Second slide">
+                  </div>
+                  <div class="carousel-item" data-bs-interval="1000">
+                    <img class="d-block w-100 h-auto" style="max-height:80vh; object-fit:contain; filter:brightness(1.5);" src="../cell_images/EvosImage_40x_TX.jpg" alt="Third slide">
+                  </div>
+                  <div class="carousel-item" data-bs-interval="1000">
+                    <img class="d-block w-100 h-auto" style="max-height:80vh; object-fit:contain; filter:brightness(1.5);" src="../cell_images/EvosImage_40x.jpg" alt="Fourth slide">
+                  </div>
+                </div>
+              </div>
+              <img src="frame2.1.png" alt="ornate gallery frame" class="frame-overlay rotate-90" loading="lazy">
+            </div>
+            <div class="placard" style="margin-top:-4rem;">
+              <h2><strong>Cell Engineering</strong>, 2025</h2>
+              <p>Micropatterned PDMS Stamps · HUVECs · HNDFs · Live-cell Microscopy
+                <br><br>
+                An exploration of how geometry and physical alignment shape collective cell behavior. By engineering defined gap geometries and anisotropic protein patterns, this project investigates how dermal fibroblasts and endothelial cells migrate and coordinate during in vitro wound closure.</p>
+            </div>
+            </a>
+          </section>
+
+          <section class="gallery-item" style="padding-inline:2.5rem;">
+            <a class="gallery-link" href="../Mrs.Potatohead/PotatoBox.html">
+              <div class="frame-stack3">
+                <div class="art-slot_horizontal_2" style="background-image: url('potatobox.png'); background-size:60%; background-repeat:no-repeat; background-position:center; background-color: rgba(229, 185, 91, 0.898);"></div>
+                <img src="frame3.1.png" alt="ornate gallery frame" class="frame-overlay" loading="lazy">
+              </div>
+              <div class="placard" style="margin-top:-5rem;">
+                <h2><strong>Mrs. Potatohead Box</strong>, 2024</h2>
+                <p>CAD (Fusion 360) · Laser-cut Cardboard
+                <br><br>
+                  A character-inspired storage box designed through 2D CAD and fabricated using laser cutting. Originally conceived with interchangeable facial features—ears, nose, lips, and feet—the project explored how flat vector sketches translate into interlocking three-dimensional form.
+                  Through iterative scaling and prototyping, the final design embraces simplicity, retaining the playful geometry of the original concept while refining proportion, fit, and fabrication constraints.</p>
+              </div>
+            </a>
+          </section>
+
+          <section class="gallery-item" style="padding-inline:1rem;">
+            <a class="gallery-link" href="../Arm/arm.html">
             <div class="frame-stack2">
-              <div class="art-slot" style="background-image: url('../extendoarm.png');"></div>
+              <div class="art-slot" style="background-image: url('../ProjectGallery/Arm.gif'); background-size:100%; background-repeat:no-repeat; background-position:center;"></div>
               <img src="frame2.1.png" alt="ornate gallery frame" class="frame-overlay" loading="lazy">
             </div>
             <div class="placard">
-              <h2>Project Title</h2>
-              <p>Use this placard to call out context, collaborators, or awards.</p>
+              <h2><strong>Co-contraction Activated Extendo Arm</strong>, 2023</h2>
+              <p>EMG Signal Processing · Rack-and-Pinion Drive · Arduino control
+                  <br><br>
+                A forearm-mounted assistive device that translates muscle co-contraction into mechanical extension. Surface EMG signals are processed in real time to actuate a compact rack-and-pinion mechanism, converting biological intent into controlled linear motion.
+              </p>
             </div>
+            </a>
           </section>
 
           <section class="gallery-item">
+            <a class="gallery-link" href="../under-construction.html">
             <div class="frame-stack1">
-              <div class="art-slot" style="background-image: url('../3d_2.png');"></div>
-              <img src="frame1.1.png" alt="ornate gallery frame" class="frame-overlay" loading="lazy">
+              <div class="art-slot" style="background-image: url('Cytoscope.gif'); background-size:80%; background-repeat:no-repeat; background-position:center;"></div>
+              <img src="frame1.1.png" style="width: 80%" alt="ornate gallery frame" class="frame-overlay" loading="lazy">
             </div>
-            <div class="placard">
-              <h2>Project Title</h2>
-              <p>Swap the art-slot background with any still or animated GIF.</p>
+            <div class="placard" style="margin-top:-3.5rem;">
+              <h2><strong>CytoScope</strong>, 2023</h2>
+              <p>Junior capstone project (ES96) · Optics · Stepper Motor · iPS cells
+                <br><br>
+                A low-cost, high-throughput imaging platform designed for the Harvard Stem Cell Institute iPS Core Facility. The system automates daily cell monitoring by integrating a compact brightfield microscope and motorized X&hyphen;Y&hyphen;Z stage directly inside a standard incubator. 
             </div>
+            </a>
           </section>
 
-          <section class="gallery-item">
-            <div class="frame-stack2">
-              <div class="art-slot" style="background-image: url('../Fabrication.png');"></div>
-              <img src="frame2.1.png" alt="ornate gallery frame" class="frame-overlay" loading="lazy">
-            </div>
-            <div class="placard">
-              <h2>Project Title</h2>
-              <p>Keep adding gallery-item sections to extend the hallway.</p>
-            </div>
-          </section>
           </div>
         </div>
       </div>
       <div class="scroll-zone-hotspot scroll-zone-hotspot--left" data-scroll-direction="-1" aria-hidden="true"></div>
       <div class="scroll-zone-hotspot scroll-zone-hotspot--right" data-scroll-direction="1" aria-hidden="true"></div>
-      <p class="scroll-instructions">Hover near either edge to stroll</p>
+      <p class="scroll-instructions">Hover over placards for a zoomed view</p>
     </main>
+
+    <script type="module">
+      import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js';
+      import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js';
+
+      const canvas = document.getElementById('ear-model-canvas');
+      const msgEl = document.getElementById('ear-model-msg');
+
+      // Inform user when running from file:// which prevents GLB loading
+      if (location.protocol === 'file:' && msgEl) {
+        msgEl.textContent = '3D model won’t load when opened from file:// due to browser security. Start a local server (e.g., python3 -m http.server 8000) and open http://localhost:8000/index.html';
+        msgEl.classList.remove('hidden');
+      }
+
+      if (!canvas) {
+        console.error('[EarGLB] Canvas not found.');
+      } else {
+        const updateCanvasSize = () => {
+          const parent = canvas.parentElement;
+          const width = parent.clientWidth;
+          const height = Math.min(window.innerHeight * 0.6, width);
+          canvas.width = width;
+          canvas.height = height;
+          canvas.style.width = width + 'px';
+          canvas.style.height = height + 'px';
+          return { width, height };
+        };
+        const { width, height } = updateCanvasSize();
+
+        const scene = new THREE.Scene();
+        scene.background = null;
+        const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+        camera.position.set(1, 4, 50);
+        
+        // Update camera near plane for better close-up rendering
+        camera.near = 0.01;
+        camera.updateProjectionMatrix();
+
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setSize(width, height);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.setClearColor(0x000000, 0); // fully transparent canvas background
+
+        // Adjust lighting here:
+        // Ambient light provides overall illumination (color, intensity)
+        scene.add(new THREE.AmbientLight(0xffffff, 0.5)); // Reduced intensity for softer ambient
+
+        // Main directional light (like sunlight)
+        const d1 = new THREE.DirectionalLight(0xffffff, 2.0); // Increased intensity
+        d1.position.set(10, 15, 10); // Moved higher and to the right
+        scene.add(d1);
+
+        // Fill light (softer, from opposite side)
+        const d2 = new THREE.DirectionalLight(0xffffdd, 0.5); // Warmer tone, lower intensity
+        d2.position.set(-8, 3, -8);
+        scene.add(d2);
+
+        // Optional: Add rim light for edge definition
+        const d3 = new THREE.DirectionalLight(0xaaccff, 0.6); // Cool blue rim light
+        d3.position.set(0, -5, -10);
+        scene.add(d3);
+
+        let mixer = null;
+        const clock = new THREE.Clock();
+
+        // Use literal filename with space (adjust if actual file differs)
+        const MODEL_URL = 'JoinedEar4_opaque_noVertexColors.glb';
+
+        fetch(MODEL_URL, { method: 'HEAD' })
+          .then(r => console.log('[EarGLB] HEAD status:', r.status))
+          .catch(e => console.warn('[EarGLB] HEAD failed:', e));
+
+        const loader = new GLTFLoader();
+        loader.load(
+          MODEL_URL,
+          gltf => {
+            const model = gltf.scene;
+            
+            // Traverse and fix materials for proper color rendering
+            model.traverse((child) => {
+              if (child.isMesh && child.material) {
+                const mat = child.material;
+                
+                // Ensure colors are visible
+                mat.side = THREE.DoubleSide; // Render both sides
+                
+                // Fix color space for textures
+                if (mat.map) {
+                  mat.map.colorSpace = THREE.SRGBColorSpace;
+                }
+                
+                // Ensure vertex colors are used if present
+                if (child.geometry.attributes.color) {
+                  mat.vertexColors = true;
+                }
+                
+                // Force material to use flat shading if no normals
+                if (!child.geometry.attributes.normal) {
+                  mat.flatShading = true;
+                }
+                
+                mat.needsUpdate = true;
+              }
+            });
+
+            // Fix transparent materials depth write
+            scene.traverse(o => {
+              if (o.isMesh && o.material && o.material.transparent) {
+                o.material.depthWrite = false;
+                // o.material.side = THREE.DoubleSide; // optional
+              }
+            });
+
+            const box = new THREE.Box3().setFromObject(model);
+            const center = box.getCenter(new THREE.Vector3());
+            const size = box.getSize(new THREE.Vector3());
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const scale = 30 / maxDim;
+            model.scale.setScalar(scale);
+            model.position.sub(center.multiplyScalar(scale));
+            scene.add(model);
+
+            if (gltf.animations.length) {
+              mixer = new THREE.AnimationMixer(model);
+              gltf.animations.forEach(clip => mixer.clipAction(clip).setLoop(THREE.LoopRepeat, Infinity).play());
+              console.log('[EarGLB] Playing', gltf.animations.length, 'clip(s)');
+            } else {
+              console.log('[EarGLB] No animations; applying slow rotation.');
+              model.userData.autoRotate = true;
+            }
+          },
+          xhr => {
+            if (xhr.total) {
+              console.log(`[EarGLB] Load ${(xhr.loaded / xhr.total * 100).toFixed(1)}%`);
+            } else {
+              console.log('[EarGLB] Loaded bytes:', xhr.loaded);
+            }
+          },
+          err => {
+            console.error('[EarGLB] Load error:', err);
+            if (msgEl) {
+              msgEl.textContent = 'Failed to load model (check console). If you opened this file directly, run a local server and reload.';
+              msgEl.classList.remove('hidden');
+            }
+          }
+        );
+
+        function animate() {
+          requestAnimationFrame(animate);
+          const delta = clock.getDelta();
+          if (mixer) mixer.update(delta);
+          // Fallback rotation if no animation
+          scene.traverse(obj => {
+            if (obj.userData.autoRotate) obj.rotation.y += 0.003;
+          });
+          renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+          const { width, height } = updateCanvasSize();
+          camera.aspect = width / height;
+          camera.updateProjectionMatrix();
+          renderer.setSize(width, height);
+        });
+      }
+
+    </script>
 
     <script>
       const scroller = document.getElementById('galleryScroller');
@@ -372,7 +789,7 @@
             animation = null;
             return;
           }
-          scroller.scrollLeft += direction * 2.5;
+          scroller.scrollLeft += direction * 6.5;
           animation = requestAnimationFrame(step);
         };
 
@@ -395,7 +812,7 @@
         element.addEventListener('touchstart', (event) => {
           event.preventDefault();
           start();
-        });
+        }, { passive: false });
         element.addEventListener('touchcancel', stop);
         element.addEventListener('touchend', stop);
         window.addEventListener('blur', stop);
