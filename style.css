@@ -128,10 +128,11 @@ TABLE OF CONTENT
   --ui-typography-h1: 1.5375rem;
   --ui-typography-h2: 1.2rem;
   --ui-typography-h3: 1.5rem;
-  --ui-typography-h4: 28rem;
+  --ui-typography-h4: 12rem;
   --ui-typography-h5: 2rem;
   --ui-typography-p : .9125rem;
   --ui-typography-s : .6125rem;
+  --ui-typography-xs : .6rem;
   --ui-typography-b : 1.2rem;
   --ui-typography-logo: 2rem;
 
@@ -314,7 +315,6 @@ h4 {
   font-weight: 300rem;
   font-size: var(--ui-typography-h4);
   position: center;
-  color: var(--ui-color-typography-h4);
   margin-bottom: var(--ui-typography-margin-heading);
   /* padding-left: var(--ui-layout-container);
   padding-right: var(--ui-layout-container); */
@@ -592,6 +592,13 @@ img.align-right {
 }
 
 .dropdown.is-open .dropdown-content {
+
+#ear-model-canvas {
+  width: 100%;
+  max-width: 36rem;
+  height: auto;
+  aspect-ratio: 1 / 1;
+}
   display: flex;
 }
 
@@ -1083,7 +1090,7 @@ div.scroll-container img {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 1rem;
+  font-size: var(--ui-typography-xs); ;
   text-transform: uppercase;
   letter-spacing: 0.18em;
   color: rgba(42, 42, 41, 0.8);
@@ -1132,6 +1139,28 @@ div.scroll-container img {
   column-gap: clamp(2rem, 5vw, 3rem) !important;
 }
 
+@media screen and (max-width: 48rem) {
+  .ui-layout-grid-2-3 {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ui-gap-feature);
+  }
+
+  .ui-section-feature__layout > div:first-child {
+    order: -1; /* ensure media block precedes text */
+  }
+
+  .mems-image-wrapper {
+    justify-content: center;
+  }
+
+  .mems-image {
+    width: min(90vw, 28rem);
+    max-height: none;
+    min-height: 14rem;
+  }
+}
+
 /* MEMS slide image sizing/alignment */
 .mems-image-wrapper {
   align-items: center;
@@ -1139,10 +1168,12 @@ div.scroll-container img {
 }
 
 .mems-image {
-  width: min(40vw, 40rem);
-  max-height: 40vh;
+  width: min(40vw, 36rem);
+  max-height: 50vh;
   height: auto;
   margin-left: 0;
+  object-fit: contain;
+  min-height: 12rem;
 }
 
 /* Ensure gap between carousel and text on all screen sizes */
@@ -1255,9 +1286,11 @@ div.scroll-container img {
     /* FONT SIZE */
 
     --ui-typography-h1: 2.1875rem;
-    --ui-typography-h2: 1.5rem;
+    --ui-typography-h2: 1rem;
+    --ui-typography-h4: 18rem;
     --ui-typography-p : 1.3rem;
     --ui-typography-s : .675rem;
+    --ui-typography-xs : 1rem;
     --ui-typography-b : 2rem;
     --ui-typography-logo: 2.5rem;
 
@@ -1505,9 +1538,11 @@ div.scroll-container img {
 
     --ui-typography-h1: 2.75rem;
     --ui-typography-h2: 2rem;
+    --ui-typography-h4: 20rem;
     --ui-typography-p: 1.4rem;
 
     --ui-typography-s : .8rem;
+    --ui-typography-xs : 1rem;
     --ui-typography-b : 2.3rem;
     --ui-typography-logo: 4rem;
 

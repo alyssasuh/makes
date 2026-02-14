@@ -931,9 +931,9 @@
                 <h2 id="photolithography" style="text-align: left; width: 100%; display: block;font-size: 2rem;">PHOTOLITHOGRAPHY</h2>
                   <p class="text-intro" style="padding-top: 2vh;">
                     Photolithography is a microfabrication technique used to pattern features on a substrate using light-sensitive photoresist materials. 
-                    The process involves coating the substrate with photoresist, exposing it to UV light through a photomask, and developing the exposed resist to create a patterned layer. 
-                    This patterned resist can then be used as a mask for etching or depositing materials onto the substrate.
-                    For the final project, this technique was employed to create gold electrodes on both silicon and quartz substrates.
+                    The process involves coating the substrate with photoresist, exposing it to UV light through a photomask or maskless aligner, and developing the exposed resist to create a patterned layer. 
+                    This patterned resist serves as a temporary mask that defines where subsequent processes&ndash;such as metal deposition or etching&ndash; will occur. 
+                    For the final project, photolithography was employed to define the gold electrode geometry on both silicon and quartz substrates prior to metal deposition.
                     <br><br>
                   </p>
                   <div id="fig-9" class="media-block">
@@ -945,7 +945,7 @@
                       <img src="../MEMS/MEMFIG4.png" style="width:100%; display:block;">
                     </div>
                     <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; margin-bottom:3rem; display:block; width:100%;">
-                        Diagram of the photolithography process used to fabricate the MEMS transducer.
+                        Diagram of the photolithography process used to fabricate the final device.
                     </figcaption>
                   </div>  
                   <div id="fig-9-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-9-modal-title">
@@ -953,7 +953,7 @@
                       <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
                       <img src="../MEMS/MEMFIG4.png" alt="Expanded view of the outer ear morphology diagrams" style="transform: scale(0.9); transform-origin: center top;">
                       <p class="figure-modal__caption" id="fig-9-modal-title">
-                        Diagram of the photolithography process used to fabricate the MEMS transducer.
+                        Diagram of the photolithography process used to fabricate the final device.
                       </p>
                     </div>
                   </div>
@@ -979,18 +979,100 @@
                     This undercut is critical for preventing metal continuity along the resist sidewalls during deposition.
                     </p>
 
-                    <p class="text-intro" style="padding-top: 2vh;">
-                    <strong>4. Metal Deposition:</strong>
-                    Following development, metal electrodes were deposited using electron-beam evaporation (EE-5).
-                    A thin chromium adhesion layer (&sim;0.01 nm) was first deposited to promote adhesion to the substrate, followed by a gold layer (&sim;0.18 nm) to serve as the primary conductive electrode material.
-                    Deposition was performed normal to the substrate surface to preserve the resist undercut profile.
+                <h2 id="thin-film-deposition-lift-off" style="text-align: left; width: 100%; display: block;font-size: 2rem;">THIN FILM DEPOSITION & LIFT OFF</h2>
+                  <p class="text-intro" style="padding-top: 2vh;">
+                    Thin-film deposition is used to deposit conductive materials onto a patterned substrate to form electrical features. 
+                    In this project, electron&hyphen;beam (e&hyphen;beam) evaporation was used to deposit a chromium adhesion layer followed by a gold conductive layer, forming the electrode structures of the device. 
+                    The patterned photoresist defined in the previous photolithography step determines where metal remains after lift-off.
                     <br><br>
-
-                    <strong>5. Lift-off:</strong>
-                    The deposited pattern is revealed through lift-off using a combination of PG Remover and acetone.
-                    The solvent dissolves the remaining photoresist stack, removing unwanted metal and all remaining photoresist.
+                    <strong>Process Steps:</strong>
                     <br><br>
+                    <strong>1. Electron-Beam Evaporation Setup:</strong>
+                    The patterned substrate is mounted onto the substrate holder inside the EE-5 PVD Products E-beam Deposition System and secured in place. 
+                    The chamber is sealed and evacuated to achieve high-vacuum conditions necessary for controlled thin-film deposition. 
+                    Once vacuum is reached, the substrate holder is rotated 180° to face the evaporation source.
                   </p>
+
+                    <div id="fig-15" class="media-block">
+                      <div class="figure-zoom media-wide" style="max-width:80%;">
+                        <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-15-modal">
+                          <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                          <span class="sr-only">Open an enlarged view</span>
+                        </button>
+                        <img src="../MEMS/FIG15.png" style="width:100%; display:block;">
+                      </div>
+                      <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; margin-bottom:3rem; display:block; width:100%;">
+                          Interior of the electron-beam evaporation system showing the substrate mounted on the holder above the e-beam source, where metal is evaporated upward toward the substrate during thin-film deposition.
+                      </figcaption>
+                    </div>  
+                    <div id="fig-15-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-15-modal-title">
+                      <div class="figure-modal__content">
+                        <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
+                        <img src="../MEMS/FIG15.png" alt="Expanded view of the outer ear morphology diagrams" style="transform: scale(0.9); transform-origin: center top;">
+                        <p class="figure-modal__caption" id="fig-18-modal-title">
+                          Interior of the electron-beam evaporation system showing the substrate mounted on the holder above the e-beam source, where metal is evaporated upward toward the substrate during thin-film deposition.
+                        </p>
+                      </div>
+                    </div>
+
+                  <p class="text-intro">
+                    <strong>2. Metal Deposition:</strong>
+                    The chromium adhesion layer is first deposited, followed by the gold conductive layer, forming the electrode structures of the device.
+                    Deposition occurs normal to the substrate surface, preserving the resist undercut profile formed during development.
+   
+                    </p>
+                    <div id="fig-18" class="media-block">
+                      <div class="figure-zoom media-wide" style="max-width:80%;">
+                        <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-18-modal">
+                          <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                          <span class="sr-only">Open an enlarged view</span>
+                        </button>
+                        <img src="../MEMS/FIG18.png" style="width:100%; display:block;">
+                      </div>
+                      <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; margin-bottom:3rem; display:block; width:100%;">
+                          (A) Silicon wafer after metal deposition. (B) Wafer post lift-off showing patterned Au/Cr square arrays on the silicon substrate.
+                      </figcaption>
+                    </div>  
+                    <div id="fig-18-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-18-modal-title">
+                      <div class="figure-modal__content">
+                        <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
+                        <img src="../MEMS/FIG18.png" alt="Expanded view of the outer ear morphology diagrams" style="transform: scale(0.9); transform-origin: center top;">
+                        <p class="figure-modal__caption" id="fig-18-modal-title">
+                          (A) Silicon wafer after metal deposition. (B) Wafer post lift-off showing patterned Au/Cr square arrays on the silicon substrate.
+                        </p>
+                      </div>
+                    </div>
+
+                    <p class="text-intro">
+                    <strong>3. Lift-Off:</strong>
+                    Because metal is deposited uniformly across all exposed surfaces, unwanted metal on top of the photoresist must be removed. 
+                    The substrate is immersed in acetone for several minutes to dissolve the underlying resist stack. 
+                    As the resist dissolves, excess metal lifts off, leaving behind patterned gold features only in the regions originally defined by photolithography. 
+                    The process may be accelerated by gently heating the acetone bath to approximately 80 °C.
+                  </p>
+                  <div id="fig-17" class="media-block">
+                      <div class="figure-zoom media-wide" style="max-width:80%;">
+                        <button type="button" class="figure-zoom__trigger" data-zoom-target="fig-11-modal">
+                          <span class="figure-zoom__icon" aria-hidden="true">&#128269;</span>
+                          <span class="sr-only">Open an enlarged view</span>
+                        </button>
+                        <img src="../MEMS/FIG17.png" style="width:100%; display:block;">
+                      </div>
+                      <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; margin-bottom:3rem; display:block; width:100%;">
+                          Lift-off process during metal patterning. The substrate is immersed in a heated acetone bath placed on a hot plate to dissolve the underlying photoresist layer.
+                      </figcaption>
+                    </div>  
+                    <div id="fig-17-modal" class="figure-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fig-17-modal-title">
+                      <div class="figure-modal__content">
+                        <button type="button" class="figure-modal__close" data-figure-close aria-label="Close enlarged figure">&times;</button>
+                        <img src="../MEMS/FIG17.png" alt="Expanded view of the outer ear morphology diagrams" style="transform: scale(0.9); transform-origin: center top;">
+                        <p class="figure-modal__caption" id="fig-17-modal-title">
+                          Lift-off process during metal patterning. The substrate is immersed in a heated acetone bath placed on a hot plate to dissolve the underlying photoresist layer.
+                        </p>
+                      </div>
+                    </div>
+
+
                 <h2 id="etching" style="text-align: left; width: 100%; display: block;font-size: 2rem;">ETCHING</h2>
                   <p class="text-intro" style="padding-top: 2vh;">
                     Etching is a microfabrication technique used to selectively remove material from a substrate to define structural features that cannot be achieved through deposition alone. 
@@ -1192,6 +1274,7 @@
               <h2>CLEANROOM & TECHNICAL SKILLS</h2>
               <ul>
                 <li><a href="#photolithography" data-ear-section-link>PHOTOLITHOGRAPHY</a></li>
+                <li><a href="#thin-film-deposition" data-ear-section-link>THIN-FILM DEPOSITION</a></li>
                 <li><a href="#etching" data-ear-section-link>ETCHING </a></li>
                 <li><a href="#microfluidics" data-ear-section-link>MICROFLUIDICS</a></li>
               </ul>
