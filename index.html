@@ -96,24 +96,23 @@
     <title>Project Portfolio</title>
   </head>
 
-  <header role="banner" id="siteHeader" class="fixed top-0 inset-x-0 z-[50]">
-    <div class="ui-section-header">
-      <div class="ui-layout-container">
-        <div class="ui-section-header__layout ui-layout-flex">
-          <a href="../index.html" aria-label="Home" class="logo">
-            <span class="viaoda-libre-regular logo-part">EUNGYO</span>
-            <span class="roboto logo-part">STUDIOS</span>
-          </a>
-          <div class="button-container">
-            <a href="../ProjectGallery/gallery.html" role="link" aria-label="View Projects Page">
+  <header role="banner" id="siteHeader" class="fixed top-0 inset-x-0 z-[50] ui-about-header">
+    <div class="ui-layout-container">
+      <div class="ui-section-header__layout ui-layout-flex">
+        <!-- LOGO -->
+        <a href="../index.html" role="link" aria-label="Home">
+          <span class="viaoda-libre-regular">EUNGYO</span>
+          <span class="roboto">STUDIOS</span>
+        </a>
+        <!-- MENU -->
+        <div class="button-container">
+          <a href="../ProjectGallery/gallery.html" role="link" aria-label="View Projects Page">
               <span class="reenie-button logo-button">Gallery</span>
             </a>
-            <a href="../about/about.html" role="link" aria-label="Learn More About Me">
-              <span class="reenie-button logo-button">About Me</span>
-            </a>
-          </div>
+          <a href="../index.html" role="link" aria-label="Home">
+            <span class="reenie-button">Home</span>
+          </a>
         </div>
-      </div>
       </div>
     </div>
   </header>
@@ -153,7 +152,7 @@
               <div class="ui-section-feature__layout ui-layout-grid ui-layout-grid-2-3 items-center">
                 <div class="w-full h-full flex items-center justify-center">
                   <canvas id="ear-model-canvas"
-                          class="block w-full max-w-[40rem] h-auto aspect-square"
+                          class="block w-full max-w-[20rem] md:max-w-[50rem] h-auto aspect-square"
                           style="z-index:1;"></canvas>
                 </div>
                 
@@ -179,7 +178,7 @@
           <div class= "mt-4 sm:mt-10 md:mt-28 mx-auto px-4 sm:px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem] w-full">
             <div class="ui-layout-container">
               <div class="ui-section-feature__layout ui-layout-grid ui-layout-grid-2-3 items-center">
-                <div class="w-full h-full flex items-center justify-center">
+                <div class="block w-full max-w-[20rem] md:max-w-[50rem] flex items-center justify-center">
                   <img
                     src="MEMS/MEMS.png"
                     alt="MEMS cross-section"
@@ -205,7 +204,7 @@
           <div class= "mt-4 sm:mt-10 md:mt-28 mx-auto px-4 sm:px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem] w-full">
             <div class="ui-layout-container">
               <div class="ui-section-feature__layout ui-layout-grid ui-layout-grid-2-3">
-                <div class="w-full h-full flex items-center justify-center">
+                <div class="block w-full max-w-[20rem] md:max-w-[50rem] flex items-center justify-center">
                   <div id="carousel" class="carousel slide carousel-fade w-full" data-bs-ride="carousel">
                     <div class="carousel-inner">
                       <div class="carousel-item active" data-bs-interval="1000">
@@ -238,24 +237,19 @@
                 </div>
               </div>
             </div>
-            <!-- <h2>The Second slide</h2>
-            <img src="scroll_main1.png"/>
-            <p>Scroll Down for next slide</p> -->
           </div>
         </div>
         <div class="sticky snap-start top-0 h-screen z-0 flex flex-col items-center justify-center grad-5 text-black fourth-slide snap-panel">
           <div class= "mx-auto px-4 sm:px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem] w-full">
             <div class="ui-layout-container">
               <div class="ui-section-feature__layout ui-layout-grid ui-layout-grid-2-3 items-center">
-                <div class="w-full h-full flex items-center justify-center">
+                <div class="block w-full max-w-[20rem] md:max-w-[50rem] flex items-center justify-center">
                   <img
                     src="extendoarm.png"
                     alt="Scroll main"
                     class="w-full h-auto max-h-[80vh] object-contain"
                   />
                 </div>
-                
-                <!-- FEATURE -->
                 <div>
                   <h5 class="font-[var(--ui-typography-roboto)] text-[1rem] sm:text-[1.5rem] md:text-[2rem] lg:text-[3rem] leading-tight mb-4">
                   CO-CONTRACTION EXTENDO ARM, 2023</h5>
