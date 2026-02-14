@@ -1103,6 +1103,16 @@ div.scroll-container img {
   height: auto;
 }
 
+@media screen and (max-width: 37.5rem) {
+  .ui-section-hero {
+    padding-top: clamp(3.5rem, 12vw, 6rem);
+  }
+
+  .ui-section-hero .ui-layout-column-6 {
+    margin-top: clamp(0.5rem, 4vw, 2rem);
+  }
+}
+
 /*--------------------------------------------------------------
 |
 | 7.3 CUSTOMER
@@ -1730,6 +1740,14 @@ main .text-7xl {
 main .ui-text-intro {
   font-size: clamp(0.875rem, 1.5vw, 1.125rem) !important;
   line-height: 1.6 !important;
+}
+
+@media screen and (max-width: 37.5rem) {
+  main .ui-text-intro,
+  main p {
+    font-size: 0.78rem !important;
+    line-height: 1.5 !important;
+  }
 }
 
 /* Fallback for any h2 without classes */
