@@ -883,6 +883,12 @@ div.scroll-container img {
   color: var(--ui-color-typography-logo);
 }
 
+#siteHeader {
+  background-color: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
 #siteHeader.header--alt .logo-part {
   color: var(--ui-text-2) !important;
 }
