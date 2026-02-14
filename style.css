@@ -199,6 +199,18 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+.snap-body {
+  height: 100svh;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.snap-body main {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+}
+
 .viaoda-libre-regular_h2 {
   font-family: "Viaoda Libre", serif;
   font-weight: 400;
