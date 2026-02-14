@@ -100,41 +100,20 @@
     <div class="ui-section-header">
       <div class="ui-layout-container">
         <div class="ui-section-header__layout ui-layout-flex">
-          <!-- LOGO -->
-          <a href="index.html" aria-label="Home" class="logo">
+          <a href="../index.html" aria-label="Home" class="logo">
             <span class="viaoda-libre-regular logo-part">EUNGYO</span>
             <span class="roboto logo-part">STUDIOS</span>
           </a>
-          <!-- MENU -->
           <div class="button-container">
-            <!-- <div class="dropdown"> -->
-              <a href="ProjectGallery/gallery.html" role="link" aria-label="View Projects Page">
-                <span class="reenie-button logo-button">Gallery</span>
-              </a>
-              <!-- <div class="dropdown-content mega-menu"> -->
-                <!-- <div class="mega-menu__column">
-                  <h4 class="mega-menu__heading">Sound &amp; Ear</h4>
-                  <a href="#">Senior Thesis</a>
-                  <a href="#">MEMS Transducer</a>
-                  <a href="#">REMY</a>
-                </div>
-                <div class="mega-menu__column">
-                  <h4 class="mega-menu__heading">Course Projects</h4>
-                  <a href="#">Investigating Collective Cell Migration</a>
-                  <a href="#">Cytoscope</a>
-                  <a href="#">Extendoarm</a>
-                </div>
-                <div class="mega-menu__column">
-                  <h4 class="mega-menu__heading">Personal Projects</h4>
-                  <a href="#">35mm Film Camera</a>
-                  <a href="Mrs.Potatohead/PotatoBox.html">Mrs. Potatohead Box</a>
-                </div>
-              </div>
-            </div> -->
-            <a href="about/about.html" role="link" aria-label="Learn More About Me">
+            <a href="../ProjectGallery/gallery.html" role="link" aria-label="View Projects Page">
+              <span class="reenie-button logo-button">Gallery</span>
+            </a>
+            <a href="../about/about.html" role="link" aria-label="Learn More About Me">
               <span class="reenie-button logo-button">About Me</span>
             </a>
+          </div>
         </div>
+      </div>
       </div>
     </div>
   </header>
@@ -148,8 +127,8 @@
             <div class="ui-layout-container">
               <div class="ui-component-cta ui-layout-flex">
               <!-- IMAGE + SCROLL INSTRUCTIONS -->
-              <div class="hero-visual" style="margin-top:10%;">
-                <img src="logo.png" loading="lazy" alt="#" class="ui-section" width="680" height="auto">
+              <div class="hero-visual mt-8 md:mt-[10%]">
+                <img src="logo.png" loading="lazy" alt="#" class="ui-section max-w-[min(120vw,820px)] w-full h-auto" width="680" height="auto">
                 <div class="hero-scroll-inline">
                   <span>(Scroll Down !!!)</span>
                   <!-- <img src="down_arrow.png" alt="Down arrow key icon"> -->
@@ -169,7 +148,7 @@
         </div>
 
         <div class="sticky snap-start top-0 h-screen z-0 flex flex-col items-center justify-center grad-2 first-slide snap-panel">
-          <div class= "mt-32 mx-auto px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem]">
+          <div class= "mt-16 md:mt-32 mx-auto px-4 sm:px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem] w-full">
             <div class="ui-layout-container">
               <div class="ui-section-feature__layout ui-layout-grid ui-layout-grid-2-3 items-center">
                 <div class="w-full h-full flex items-center justify-center">
@@ -197,7 +176,7 @@
           </div>
         </div>
         <div class="sticky snap-start top-0 h-screen z-0 flex flex-col items-center justify-center grad-3 text-black second-slide snap-panel">
-          <div class= "mt-32 mx-auto px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem]">
+          <div class= "mt-16 md:mt-32 mx-auto px-4 sm:px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem] w-full">
             <div class="ui-layout-container">
               <div class="ui-section-feature__layout ui-layout-grid ui-layout-grid-2-3 items-center">
                 <div class="w-full h-full flex items-center justify-center">
@@ -223,7 +202,7 @@
           </div>
         </div>
         <div class="sticky snap-start top-0 h-screen z-0 flex flex-col items-center justify-center grad-4 text-black third-slide snap-panel">
-          <div class= "mt-32 mx-auto px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem]">
+          <div class= "mt-16 md:mt-32 mx-auto px-4 sm:px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem] w-full">
             <div class="ui-layout-container">
               <div class="ui-section-feature__layout ui-layout-grid ui-layout-grid-2-3">
                 <div class="w-full h-full flex items-center justify-center">
@@ -265,7 +244,7 @@
           </div>
         </div>
         <div class="sticky snap-start top-0 h-screen z-0 flex flex-col items-center justify-center grad-5 text-black fourth-slide snap-panel">
-          <div class= "mx-auto px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem]">
+          <div class= "mx-auto px-4 sm:px-[var(--ui-layout-container)] md:px-[5rem] lg:px-0 lg:max-w-[60rem] xl2:max-w-[70rem] w-full">
             <div class="ui-layout-container">
               <div class="ui-section-feature__layout ui-layout-grid ui-layout-grid-2-3 items-center">
                 <div class="w-full h-full flex items-center justify-center">
@@ -316,12 +295,12 @@
         const updateCanvasSize = () => {
           const parent = canvas.parentElement;
           const width = parent.clientWidth;
-          const height = Math.min(window.innerHeight * 0.6, width);
-          canvas.width = width;
-          canvas.height = height;
-          canvas.style.width = width + 'px';
-          canvas.style.height = height + 'px';
-          return { width, height };
+          const size = Math.min(width, window.innerHeight * 0.7);
+          canvas.width = size;
+          canvas.height = size;
+          canvas.style.width = size + 'px';
+          canvas.style.height = size + 'px';
+          return { width: size, height: size };
         };
         const { width, height } = updateCanvasSize();
 
