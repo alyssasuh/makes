@@ -527,14 +527,16 @@ img.align-right {
   font-weight: 600;
   text-decoration: none;
   border-radius: 0.35rem;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 0 0 rgba(255, 223, 88, 0);
 }
 
 .highlight-link:hover,
 .highlight-link:focus-visible {
-  background: rgba(10, 78, 165, 0.22);
-  color: #06306a;
-  text-decoration: underline;
+  background: rgba(255, 223, 88, 0.4);
+  color: #5a4300;
+  text-decoration: none;
+  box-shadow: 0 0 4px rgba(91, 78, 21, 0.431);
 }
 
 /*--------------------------------------------------------------
