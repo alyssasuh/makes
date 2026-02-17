@@ -20,6 +20,94 @@
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link rel="preload" as="style" href="../style.css">
     <link rel="stylesheet" href="../style.css">
+    <style>
+      .contact-modal {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        background: rgba(8, 8, 8, 0.55);
+        backdrop-filter: blur(6px);
+        transition: opacity 0.25s ease;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 90;
+      }
+
+      .contact-modal.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .contact-modal__panel {
+        width: min(90vw, 28rem);
+        border-radius: 1rem;
+        background: var(--ui-color-n-000, #fdfcf7);
+        color: var(--ui-color-n-025, #4d5051);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+        padding: 2.25rem 2rem 1.75rem;
+        position: relative;
+        line-height: 1.5;
+      }
+
+      .contact-modal__close {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        border: none;
+        background: transparent;
+        font-size: 1.35rem;
+        cursor: pointer;
+        color: inherit;
+      }
+
+      .contact-modal__title {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+      }
+
+      .contact-modal__subtitle {
+        margin-top: 0;
+        margin-bottom: 1.25rem;
+        color: var(--ui-color-n-300, #6b6b6b);
+      }
+
+      .contact-modal__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+      }
+
+      .contact-modal__item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+      }
+
+      .contact-modal__label {
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--ui-color-n-300, #6b6b6b);
+      }
+
+      .contact-modal__value a {
+        color: inherit;
+        font-weight: 600;
+      }
+
+      @media (max-width: 37.5rem) {
+        .contact-modal__panel {
+          padding: 1.75rem 1.5rem 1.5rem;
+        }
+      }
+    </style>
     <!-- TITLE -->
     <title>About Me</title>
   </head>
@@ -39,6 +127,9 @@
                 </a>
               <a href="../index.html" role="link" aria-label="Home">
                 <span class="reenie-button">Home</span>
+              </a>
+              <a href="#contact" role="button" aria-label="Contact" data-contact-open>
+                <span class="reenie-button">Contact</span>
               </a>
             </div>
           </div>
@@ -111,8 +202,7 @@
                     <h1 style="margin-top: 4rem;"><span class="roboto">I LIKE TO BUILD THINGS.</span></h1>
                     <br>
                     <p class="text-intro">
-                    It took until the second semester of my junior year of college to realize why I had subconsciously chosen to pursue engineering in the first place.
-                    Growing up, I was endlessly curious and drawn to learning by doing&mdash;from learning origami at age five, to joining weekly knitting circles to gossiping with my retired seniors friends at age 12. 
+                    Growing up, I was endlessly curious and drawn to learning by doing&mdash;from learning origami at age five to steaking my own seat in weekly knitting circles alongside retired seniors at age 12. 
                     Making things has always felt instinctive to me.
                     <br><br>
                     </p>
@@ -124,31 +214,15 @@
 
                     <p class="text-intro">
                     <br>
-                    The first time I was introduced to electronics and digital fabrication was during a final project for BE124, Biomechanics of Movement and Assistive Robotics, where we were tasked with building a device based on principles from the course. 
-                    My group members, coming from stronger computer science and mechanical engineering backgrounds, quickly dove into the technical components.
-                    I had promised my teamates that I would handle the biology aspects of the project, but building a wearable device meant electronics became quickly unavoidable for my role. 
-                    At some point, an Arduino and breadboard was handed to me and I was left to figure out the rest.
-                    <br><br>
-                    </p>
-          
-                      <img src="about_EMG.gif" width="50%"> 
-                      <figcaption class="small" style="text-align:center; font-style:italic; margin-top:1rem; display:block; width:100%;">
-                        Historic footage of me learning how to use an Arduino for the first time. 
-                      </figcaption>
-
-                    <p class="text-intro">
-                    <br>
-                    I was scared at the thought of letting my teamates down, but I was also excited for the challenge.
-                    I took it upon myself to catch up.
-                    After all, teaching myself new skills was nothing new. 
-                    Through countless YouTube videos and trial and error, I learned how to place the electrodes correctly, write code to process EMG signals, and calibrate for thresholds that would work across different users. 
+                    It wasn't until a final project for a biomechanic class that I was formally introduced to the joys of working in a makerspace.
+                    The prompt was simple: build a device grounded in biomechanical principles explored throughout the course. 
+                    I naturally took on the bio-facing aspects of the project, applying my understanding of signal processing to filter EMG data and tune activation thresholds to ensure a reliable device response.
                     This work culminated in the <a href="../Arm/arm.html" role="link" target="_blank" rel="noopener" class="highlight-link">Co-Contraction Activated Extendo Arm project (2023)</a>, developed in collaboration with my project partners&mdash;and now lifelong friends&mdash;Mackenzie Li and AnhPhu Nguyen.
                     <br><br>
                     During that same semester, I was introduced to photography through an elective course. 
-                    Once again, I found myself reconnecting with the joy of working with my hands&mdash;this time in a more artistic way.
-                    Naturally, I was drawn to film photography due to the analog process of the medium.
-                    But it wasn&apos;t until I decided to build my own camera and understand its mechanics that I truly let myself dive into film. 
-                    This kickstarted my <a role="link" target="_blank" rel="noopener" class="highlight-link">서Eungyo project (2023&hyphen;present)</a>, where I built a 35mm camera from scratch and have been shooting with it ever since.
+                    Once again, I found myself reconnecting with working with my hands&mdash;this time in art.
+                    I was naturally drawn to film due to the analog process of the medium, ultimately building my own 35mm camera as part of my ongoing <a role="link" target="_blank" rel="noopener" class="highlight-link">서Eungyo project (2023-present)</a>. 
+                    Designing and assembling a fully functional camera deepened my appreciation for precision mechanical systems and hands-on fabrication.
                     <br><br>
                     </p>
           
@@ -160,16 +234,13 @@
                     <p class="text-intro">
                     <br>
                     
-                    Together, this was the semester when everything clicked.
+                    That semester marked a turning point in how I approached engineering.
                     <br><br>
-                    When I returned to school, I promised myself I would intentionally seek out courses that allowed me to keep building and creating. 
-                    I enrolled in <a href="https://alyssasuh.github.io/PS70/index.html" role="link" target="_blank" rel="noopener" class="highlight-link">Introduction to Digital Fabrication (PS70)</a>, an elective that formally introduced me to the makerspace world. 
-                    There, I learned how to CAD, use machining tools, code, and digitally document projects.
-                    <br><br>
-                    I became a course assistant for PS70 the following semester, supporting students with their own projects through office hours.
+                    The following year I enrolled in <a href="https://alyssasuh.github.io/PS70/index.html" role="link" target="_blank" rel="noopener" class="highlight-link">Introduction to Digital Fabrication (PS70)</a>, where I formalized my skills in CAD, machining, electronics integration, and digital documentation. 
+                    I returned as a course assistant, mentoring students during office hours and supporting the development of their fabrication projects.
                     <br><br>
                     Since then, I have worked on a range of projects that involve building physical systems.
-                    Long story short, this website documents my journey of embracing my love for building and creating&mdash;through the projects I have worked on, and the ones I will continue to pursue.
+                    This portfolio documents that work and reflects my sustained commitment to hands-on engineering, rapid prototyping, and iterative system development.
                   </p>
 
                     <h1 style="margin-top: 4rem;"><span class="roboto">HOBBIES, ETC.</span></h1>
@@ -195,5 +266,58 @@
           </div>
         </div>
     </main>
+    <div id="contactModal" class="contact-modal" aria-hidden="true">
+      <div class="contact-modal__panel" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+        <button type="button" class="contact-modal__close" aria-label="Close contact panel" data-contact-close>&times;</button>
+        <!-- <h2 class="contact-modal__title" id="contactModalTitle">LET'S CONNECT</h2> -->
+        <!-- <p class="contact-modal__subtitle">Reach out directly any time—happy to chat about collaboration, research, or studio work.</p> -->
+        <ul class="contact-modal__list">
+          <li class="contact-modal__item">
+            <span class="contact-modal__label">Email</span>
+            <span class="contact-modal__value" data-contact-focus>
+              <a href="mailto:alyssa2.suh@gmail.com">alyssa2.suh@gmail.com</a>
+            </span>
+          </li>
+          <li class="contact-modal__item">
+            <span class="contact-modal__label">Phone</span>
+            <span class="contact-modal__value">
+              <a href="tel:+1-740-731-2524">(740) 731-2524</a>
+            </span>
+          </li>
+          <li class="contact-modal__item">
+            <span class="contact-modal__label">LinkedIn</span>
+            <span class="contact-modal__value">
+              <a href="https://www.linkedin.com/in/alyssasuh/" target="_blank" rel="noopener">linkedin.com/in/alyssasuh</a>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script>
+      (function () {
+        const modal = document.getElementById('contactModal');
+        if (!modal) return;
+        const toggle = (isOpen) => {
+          modal.classList.toggle('is-visible', isOpen);
+          modal.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+        };
+        const focusTarget = modal.querySelector('[data-contact-focus] a');
+        document.querySelectorAll('[data-contact-open]').forEach((trigger) => {
+          trigger.addEventListener('click', (event) => {
+            event.preventDefault();
+            toggle(true);
+            requestAnimationFrame(() => focusTarget?.focus());
+          });
+        });
+        const close = () => toggle(false);
+        modal.querySelector('[data-contact-close]')?.addEventListener('click', close);
+        modal.addEventListener('click', (event) => {
+          if (event.target === modal) close();
+        });
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && modal.classList.contains('is-visible')) close();
+        });
+      })();
+    </script>
   </body>
 </html>
