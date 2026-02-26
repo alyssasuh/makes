@@ -817,7 +817,7 @@ img.align-right {
 
   #group1 {
     z-index: 5; /* slide over group 2 */
-    height: 57vh;
+    height: 70vh;
   }
   #group1 .parallax__layer--base {
     background: var(--ui-color-background-primary);
@@ -1783,11 +1783,20 @@ main p {
 
 .snap-container {
   scroll-snap-type: y mandatory;
+  scroll-padding-top: 100px;
 }
 
 .snap-panel {
   scroll-snap-align: start;
   scroll-snap-stop: always;
   min-height: 100svh;
+}
+
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 48rem) {
+    .snap-container {
+      scroll-padding-top: 0 !important;
+    }
+  }
 }
 
